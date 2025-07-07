@@ -1,0 +1,77 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Page Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f6f9;
+}
+
+/* Content Box */
+.content {
+  text-align: center;
+  background: #ffffff;
+  padding: 40px 60px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Title */
+.title {
+  font-size: 36px;
+  color: #333;
+  font-family: 'Helvetica', sans-serif;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Message */
+.message {
+  font-size: 18px;
+  color: #777;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 30px;
+}
+
+/* Image Styling */
+.image-container {
+  margin-bottom: 30px;
+}
+
+.maintenance-image {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Countdown Text */
+.countdown {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 2px solid #ddd;
+}
+
+.countdown-text {
+  font-size: 20px;
+  color: #FF5733;
+  font-weight: 600;
+}
+
+/* Footer */
+footer {
+  font-size: 14px;
+  color: #888;
+  margin-top: 30px;
+}
+
+footer p {
+  font-family: 'Arial', sans-serif;
+}

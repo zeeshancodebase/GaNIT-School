@@ -27,3 +27,6 @@ yarn-error.log*
 # Added be me 
 client/.gitignore
 server/.gitignore
+
+
+client/src/pages/html

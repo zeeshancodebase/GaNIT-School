@@ -1,0 +1,207 @@
+/* .learning-section {
+  padding: 60px 0;
+  background: white;
+  font-family: Arial, sans-serif;
+}
+
+.learning-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.learning-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.learning-header h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.highlight {
+  color: #22c55e;
+}
+
+.learning-header p {
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.dashboard-wrapper {
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.dashboard-left {
+  flex: 2;
+}
+
+.student-dashboard {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.student-dashboard h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.progress-item h4 {
+  margin: 0;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.progress-bar-bg {
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.sessions h4 {
+  margin-bottom: 12px;
+}
+
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.session-item {
+  display: flex;
+  align-items: center;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 12px;
+  transition: background 0.2s;
+}
+
+.session-item:hover {
+  background: #e5e7eb;
+}
+
+.session-date {
+  width: 48px;
+  height: 48px;
+  background: #1f2937;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.session-info h5 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.session-info p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.join-button {
+  margin-left: auto;
+  background: #1f2937;
+  color: white;
+  font-size: 12px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.join-button:hover {
+  background: #111827;
+}
+
+.dashboard-right {
+  flex: 1;
+}
+
+.achievements {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.achievements h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.badge {
+  background: #f3f4f6;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge span {
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.icon.green {
+  color: #22c55e;
+}
+
+.icon.gray {
+  color: #9ca3af;
+} */

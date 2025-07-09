@@ -1,0 +1,83 @@
+/* .tracks {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.tracks .container h2 {
+  font-size: 28px;
+}
+
+.tracks p {
+  color: #555;
+  max-width: 600px;
+  margin: 10px auto 30px;
+}
+
+.track-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.track-card {
+  background: white;
+  color: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  width: 260px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: transform 0.3s;
+}
+
+.track-card:hover {
+  transform: translateY(-5px);
+}
+
+.track-icon {
+  font-size: 30px;
+  color: #39ff14;
+  margin-bottom: 10px;
+}
+
+.track-card h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.track-card p {
+  font-size: 14px;
+  margin: 10px 0 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn.small {
+  font-size: 14px;
+  background-color: #1e293b;
+  color: white;
+}
+
+.btn.small:hover {
+  background-color: #0f172a;
+}
+
+.highlight {
+  color: #39ff14;
+}
+*/
+/* Responsive 
+@media (max-width: 768px) {
+  .track-list {
+    flex-direction: column;
+    align-items: center;
+  }
+} */

@@ -9,13 +9,14 @@ const underMaintenance = () => {
         <p className="message">
           Our website is currently under maintenance. We'll be back shortly.
         </p>
-        <div className="image-container">
+        <div className="image-container"  >
           <img
             src="/assets/images/logo.png"
             alt="Logo"
             className="maintenance-image"
           />
         </div>
+        <a href="/Home">Home</a>
         <div className="countdown">
           <p className="countdown-text">Estimated time: 7 Days</p>
         </div>

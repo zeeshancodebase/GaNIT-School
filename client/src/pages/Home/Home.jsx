@@ -1,3 +1,4 @@
+import { Link, NavLink } from "react-router-dom";
 import "./Home.css";
 import {
   FaBrain,
@@ -6,15 +7,14 @@ import {
   FaGraduationCap,
   FaPlay,
   FaStar,
-    FaBriefcase,
+  FaBriefcase,
   FaClock,
-  FaRupeeSign
+  FaRupeeSign,
 } from "react-icons/fa6";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-
 
 // Dummy Logo (replace with <img> if available)
 const Logo = () => (
@@ -47,44 +47,41 @@ const tracksData = [
 const jobStats = [
   {
     icon: <FaBriefcase className="w-5 h-5 text-neonGreen mr-2" />,
-    label: '45 New Jobs'
+    label: "45 New Jobs",
   },
   {
     icon: <FaClock className="w-5 h-5 text-neonGreen mr-2" />,
-    label: 'Last Updated: Today'
+    label: "Last Updated: Today",
   },
   {
     icon: <FaRupeeSign className="w-5 h-5 text-neonGreen mr-2" />,
-    label: 'Avg. Salary: ₹6.5L'
-  }
+    label: "Avg. Salary: ₹6.5L",
+  },
 ];
-
 
 const jobList = [
   {
-    title: 'Full Stack Developer',
-    company: 'TechCorp Solutions',
-    location: 'Remote',
-    salary: '₹8-12L',
-    isNew: true
+    title: "Full Stack Developer",
+    company: "TechCorp Solutions",
+    location: "Remote",
+    salary: "₹8-12L",
+    isNew: true,
   },
   {
-    title: 'Python Developer',
-    company: 'DataViz Analytics',
-    location: 'Bangalore',
-    salary: '₹5-9L',
-    isNew: true
+    title: "Python Developer",
+    company: "DataViz Analytics",
+    location: "Bangalore",
+    salary: "₹5-9L",
+    isNew: true,
   },
   {
-    title: 'Frontend Developer',
-    company: 'UX Innovations',
-    location: 'Hybrid',
-    salary: '₹6-10L',
-    isNew: false
-  }
+    title: "Frontend Developer",
+    company: "UX Innovations",
+    location: "Hybrid",
+    salary: "₹6-10L",
+    isNew: false,
+  },
 ];
-
-
 
 const coursesData = [
   {
@@ -114,6 +111,29 @@ const testimonials = [
   },
 ];
 
+
+const facultyData = [
+  {
+    name: "Fahim Makandar",
+    role: "Aptitude & Soft Skills Trainer",
+    description: "Helping students ace competitive exams with a focus on Aptitude, Logical Reasoning, and Communication Skills.",
+    photo: "/assets/images/faculty3.jpg",  // Replace with real images
+  },
+  {
+    name: "Zeeshan Patel",
+    role: "Full Stack Development Expert",
+    description: "Over 15 years of experience in web development and software engineering. Passionate about teaching and mentoring.",
+    photo: "/assets/images/faculty1.jpg",  // You can replace this with actual photo URLs
+  },
+  {
+    name: "Neha Singh",
+    role: "Python Programming Instructor",
+    description: "Experienced Python developer and educator. Specializes in Data Science and Machine Learning.",
+    photo: "/assets/images/faculty2.jpg",  // Replace with real images
+  },
+];
+
+
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -123,25 +143,26 @@ function Home() {
       {/* Navbar */}
       <header className="navbar">
         <div className="container">
-          <a href="/" className="logo-link">
-          <div className="track-icon">
-           <FaGraduationCap /> <Logo /></div>
-          </a>
+          <div className="nav-logo">
+            <Link to="/" className="logo-link">
+              <FaGraduationCap size={35} /> <Logo />
+            </Link>
+          </div>
           <nav className={`nav-links ${isOpen ? "show" : ""}`}>
-            <a href="/">Home</a>
-            <a href="/career-tracks">Career Tracks</a>
-            <a href="/courses">Courses</a>
-            <a href="/live">Live Classes</a>
-            <a href="/job-board">Job Board</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/career-tracks">Career Tracks</NavLink>
+            <NavLink to="/courses">Courses</NavLink>
+            <NavLink to="/live">Live Classes</NavLink>
+            <NavLink to="/job-board">Job Board</NavLink>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
           </nav>
           <button className="menu-btn" onClick={toggleMenu}>
             <FiMenu size={24} />
           </button>
-          <button className="btn primary" >
+          <a href="/about" className="btn primary">
             Join Now / Login
-          </button>
+          </a>
         </div>
       </header>
 
@@ -156,13 +177,13 @@ function Home() {
 
         {/* Optional Overlay */}
         <div className="hero-overlay"></div>
-        <div className="container hero-content">
+        <div className="hero-content">
           <div className="hero-text">
-            <h1>
+            <h1 style={{textAlign:"left",textShadow: "0 2px 10px rgba(255, 255, 255, 0.6)"}}>
               From Skills to Career –{" "}
               <span className="highlight">Powered by GaNIT School</span>
             </h1>
-            <p>
+            <p style={{fontSize:"1.3rem", textAlign:"left"}}>
               Learn Python, Java, Aptitude, Full Stack & Crack Your Dream Job
             </p>
             <div className="hero-buttons">
@@ -174,19 +195,18 @@ function Home() {
               </a>
             </div>
             <div className="students-note">
-  <div className="avatar-group">
-    <FaUserCircle className="avatar-icon" />
-    <FaUserCircle className="avatar-icon" />
-    <FaUserCircle className="avatar-icon" />
-    <FaUserCircle className="avatar-icon" />
-  </div>
-  <p>
-    <strong>5,000+</strong> students already learning
-  </p>
-</div>
+              <div className="avatar-group">
+                <FaUserCircle className="avatar-icon" />
+                <FaUserCircle className="avatar-icon" />
+                <FaUserCircle className="avatar-icon" />
+                <FaUserCircle className="avatar-icon" />
+              </div>
+              <p>
+                <strong>5,000+</strong> students already learning
+              </p>
+            </div>
           </div>
           <div className="hero-img">
-            <div className="illustration" />
             <img
               src="/assets/svg/illustration.svg"
               alt="Coding Illustration"
@@ -220,70 +240,73 @@ function Home() {
         </div>
       </section>
 
-
       <section id="job-board" className="job-board">
-  <div className="container job-board-wrapper">
-    {/* Left Panel */}
-    <div className="job-board-left">
-      <h2 className="job-board-title">Live Job Board</h2>
-      <p className="job-board-subtitle">
-        100+ Companies Hiring GaNIT School Graduates
-      </p>
+        <div className="container job-board-wrapper">
+          {/* Left Panel */}
+          <div className="job-board-left">
+            <h2 className="job-board-title">Live Job Board</h2>
+            <p className="job-board-subtitle">
+              100+ Companies Hiring GaNIT School Graduates
+            </p>
 
-     <div className="job-stats">
-  {jobStats.map((stat, index) => (
-    <div key={index} className="job-stat">
-      {stat.icon}
-      <span>{stat.label}</span>
-    </div>
-  ))}
-</div>
-
-
-      <div className="job-actions">
-        <a href="/" className="btn primary">Apply Now</a>
-        <a href="/" className="btn secondary">Resume Review</a>
-        <a href="/" className="btn secondary">Book Mock Interview</a>
-      </div>
-    </div>
-
-    {/* Right Panel */}
-    <div className="job-board-right">
-      <div className="job-card-wrapper">
-        <div className="job-card-header">
-          <h3>Latest Openings</h3>
-          <a href="/" className="job-view-all">View All</a>
-        </div>
-        <div className="job-list">
-          {jobList.map((job, index) => (
-            <div key={index} className="job-card">
-              <div className="job-card-top">
-                <div>
-                  <h4>{job.title}</h4>
-                  <p className="job-company">{job.company}</p>
+            <div className="job-stats">
+              {jobStats.map((stat, index) => (
+                <div key={index} className="job-stat">
+                  {stat.icon}
+                  <span>{stat.label}</span>
                 </div>
-                {job.isNew && (
-                  <span className="job-new">New</span>
-                )}
+              ))}
+            </div>
+
+            <div className="job-actions">
+              <a href="/" className="btn primary">
+                Apply Now
+              </a>
+              <a href="/" className="btn secondary">
+                Resume Review
+              </a>
+              <a href="/" className="btn secondary">
+                Book Mock Interview
+              </a>
+            </div>
+          </div>
+
+          {/* Right Panel */}
+          <div className="job-board-right">
+            <div className="job-card-wrapper">
+              <div className="job-card-header">
+                <h3>Latest Openings</h3>
+                <a href="/" className="job-view-all">
+                  View All
+                </a>
               </div>
-              <div className="job-card-bottom">
-                <span className="job-info">
-                  <FaMapMarkerAlt className="job-icon" />
-                  {job.location}
-                </span>
-                <span className="job-info">
-                  <FaRupeeSign className="job-icon" />
-                  {job.salary}
-                </span>
+              <div className="job-list">
+                {jobList.map((job, index) => (
+                  <div key={index} className="job-card">
+                    <div className="job-card-top">
+                      <div>
+                        <h4>{job.title}</h4>
+                        <p className="job-company">{job.company}</p>
+                      </div>
+                      {job.isNew && <span className="job-new">New</span>}
+                    </div>
+                    <div className="job-card-bottom">
+                      <span className="job-info">
+                        <FaMapMarkerAlt className="job-icon" />
+                        {job.location}
+                      </span>
+                      <span className="job-info">
+                        <FaRupeeSign className="job-icon" />
+                        {job.salary}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* Courses */}
       <section id="courses" className="courses">
@@ -304,6 +327,34 @@ function Home() {
           </div>
         </div>
       </section>
+
+
+      {/* Faculties Section */}
+<section id="faculties" className="faculties">
+  <div className="container">
+   <h2 className="faculties-title">
+  Meet the <span className="highlight">Experts</span> Behind Your Success
+</h2>
+
+    <div className="faculty-list">
+      {facultyData.map((faculty, index) => (
+        <div key={index} className="faculty-card">
+          <img
+            src={faculty.photo}
+            alt={faculty.name}
+            className="faculty-photo"
+          />
+          <div className="faculty-info">
+            <h3>{faculty.name}</h3>
+            <p className="faculty-role">{faculty.role}</p>
+            <p className="faculty-description">{faculty.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Testimonials */}
       <section className="testimonials">

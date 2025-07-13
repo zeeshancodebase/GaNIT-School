@@ -35,7 +35,7 @@ const Logo = () => (
   <div className="logo" style={{display:"flex",flexDirection:"row", fontSize:"1rem"}}>
     {/* GaNIT<span className="highlight">School</span> */}
     <img
-              src="/assets/images/logo4.png"
+              src="/assets/images/logo5.png"
               alt="Coding Illustration"
               
             />
@@ -234,21 +234,21 @@ const facultyData = [
     role: "Founder | L & D Specialist",
     description:
       "Helping students ace competitive exams with a focus on Aptitude, Logical Reasoning, and Communication Skills.",
-    photo: "/assets/images/instructor-dp.jpg", // Replace with real images
+    photo: "/assets/images/fahim.jpg", // Replace with real images
   },
   {
     name: "Uday Hiremath",
     role: "Co-founder | AIML Engineer | Instructor",
     description:
       "Experienced Python developer and educator. Specializes in Data Science and Machine Learning.",
-    photo: "/assets/images/instructor-dp.jpg", // Replace with real images
+    photo: "/assets/images/uday.jpg", // Replace with real images
   },
   {
     name: "Zeeshan Patel",
     role: "CTO | Full Stack Instructor",
     description:
       "Over 15 years of experience in web development and software engineering. Passionate about teaching and mentoring.",
-    photo: "/assets/images/instructor-dp.jpg", // You can replace this with actual photo URLs
+    photo: "/assets/images/zeeshan1.jpg", // You can replace this with actual photo URLs
   },
 ];
 
@@ -595,12 +595,18 @@ function Home() {
       </section> */}
 
       {/* Faculties Section */}
-      <section id="faculties" className="faculties">
+      {/* <section id="faculties" className="faculties">
         <div className="container">
-          <h2 className="faculties-title">
+          <div className="tracks-title-container">
+            <h2 className="career-tracks-title" style={{color:"white"}}>
+         
             Meet the <span className="highlight">Experts</span> Behind Your
             Success
           </h2>
+          <p>
+              Our top Faculties
+            </p>
+          </div>
 
           <div className="faculty-list">
             {facultyData.map((faculty, index) => (
@@ -612,7 +618,7 @@ function Home() {
                 />
                 {/* <Avatar src={"/"} size={48} />
 
-                <Avatar size={48} /> */}
+                <Avatar size={48} /> 
                 <div className="faculty-info">
                   <h3>{faculty.name}</h3>
                   <p className="faculty-role">{faculty.role}</p>
@@ -622,7 +628,54 @@ function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
+
+      {/* Faculties Section */}
+<section id="faculties" className="faculties-section">
+  <div className="faculties-container">
+    <div className="tracks-title-container">
+      <h2 className="career-tracks-title" style={{ color: "white" }}>
+        Meet the <span className="highlight">Experts</span> Behind Your Success
+      </h2>
+      <p style={{ color: "var(--text-muted)", fontSize: "1.1rem" }}>
+        Learn from experienced professionals who have trained 1000s of students.
+      </p>
+    </div>
+
+    <div className="faculty-list">
+      {facultyData.map((faculty, index) => (
+        <div key={index} className="faculty-card-enhanced">
+          <img
+            src={faculty.photo}
+            alt={faculty.name}
+            className="faculty-photo-enhanced"
+          />
+          <div className="faculty-info-enhanced">
+            <h3>{faculty.name}</h3>
+            <p className="faculty-role">{faculty.role}</p>
+            <p className="faculty-description">{faculty.description}</p>
+
+            <div className="expertise-tags">
+              <span className="tag">Python</span>
+              <span className="tag">Aptitude</span>
+              <span className="tag">Communication</span>
+            </div>
+
+            <div className="faculty-socials">
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer">
+                <i className="fa-brands fa-linkedin-in"></i>
+              </a>
+              <a href="https://github.com" target="_blank" rel="noreferrer">
+                <i className="fa-brands fa-github"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Testimonials */}
       <section className="testimonials">

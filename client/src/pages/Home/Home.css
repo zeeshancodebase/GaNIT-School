@@ -365,12 +365,29 @@ section {
 
 /* ──────────── CAREER TRACKS & COURSES ──────────── */
 
-.career-tracks-title, .courses-tracks-title{
-  color: var(--dark-text);
+
+.tracks-title-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  p{
+    color: var(--text-muted);
+  }
 }
-#career-tracks, #courses{
+
+.career-tracks-title,
+.courses-tracks-title {
+  color: var(--dark-text);
+  font-size: 2.5rem;
+}
+
+#career-tracks,
+#courses {
   background: #ffff;
 }
+
 .track-list,
 .course-list {
   display: flex;
@@ -410,6 +427,7 @@ section {
 .course-card h3 {
   font-size: 1.5rem;
   margin-bottom: 12px;
+  text-align: left;
 }
 
 .track-card p,
@@ -419,9 +437,71 @@ section {
   color: var(--text-muted);
   flex-grow: 1;
   margin-bottom: 20px;
+  text-align: left;
 }
 
-/* Small buttons in cards */
+/* ──────────── Career Track Specific Enhancements ──────────── */
+
+.duration-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.duration-section svg {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.skills-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.skill-badge {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--light-text);
+  border: 1px solid var(--primary);
+  transition: background 0.3s ease;
+}
+
+.skill-badge:hover {
+  background: var(--primary);
+  color: var(--dark-bg);
+}
+
+.outcome-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.outcome-section p:first-child {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.outcome-section p:last-child {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--light-text);
+}
+
+/* Unified: Small buttons in cards + optional outcome CTA */
 .btn.small {
   padding: 8px 20px;
   font-weight: 600;
@@ -432,12 +512,119 @@ section {
   align-self: flex-start;
   transition: background-color 0.3s ease, transform 0.3s ease;
   text-decoration: none;
+  margin-top: 10px; /* from outcome-section enhancement */
 }
 
 .btn.small:hover {
   background: var(--primary-hover);
   transform: translateY(-2px);
 }
+
+/* ──────────── COURSES SPECIFIC ENHANCEMENTS ──────────── */
+
+/* Course Icon */
+.course-icon {
+  font-size: 5rem;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+/* Faculty Info Row */
+.faculty-profile{
+  display: flex;
+  flex-direction: row;
+  gap: 12px; 
+  align-items: center; 
+
+}
+.course-faculty {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  p{
+    margin: 0;
+    display: flex;
+  align-items: center;
+  gap: 4px;
+  }
+}
+
+.course-faculty p:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+
+
+
+/* Course Metadata: Duration + Students */
+.course-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.course-duration,
+.course-students {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.course-info svg {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.course-card:hover .course-icon {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Custom Swiper Nav Buttons */
+.custom-swiper-nav {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.custom-swiper-button {
+  background: var(--section-bg);
+  color: var(--primary);
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 15px rgba(57, 255, 20, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-swiper-button:hover {
+  background: var(--primary);
+  color: #0f172a;
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(57, 255, 20, 0.4);
+}
+
+@media (max-width: 768px) {
+  .custom-swiper-nav {
+    justify-content: center;
+    margin-top: 20px;
+  }
+}
+
+
 
 /* ──────────── JOB BOARD ──────────── */
 .job-board {
@@ -461,7 +648,7 @@ section {
 .job-board-title {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  color: var(--primary);
+  /* color: var(--primary); */
 }
 
 .job-board-subtitle {
@@ -626,70 +813,115 @@ section {
 
 
 
-
 /* ──────────── TESTIMONIALS ──────────── */
 .testimonials {
   background: var(--section-bg);
-  padding: 80px 0;
+  padding: 80px 20px;
   color: var(--light-text);
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .testimonials h2 {
-  margin-bottom: 40px;
+  font-size: 2.8rem;
+  margin-bottom: 50px;
+  font-weight: 700;
+  color: var(--light-text);
+  letter-spacing: 1.2px;
+  text-shadow: 0 0 8px var(--primary);
 }
 
 .testimonial-list {
   display: flex;
-  gap: 24px;
+  gap: 30px;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .testimonial-card {
   background: var(--dark-bg);
-  padding: 24px;
-  border-radius: 16px;
-  max-width: 350px;
-  box-shadow: var(--shadow-light);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 30px 28px;
+  border-radius: 20px;
+  max-width: 360px;
+  box-shadow:
+    0 0 8px var(--primary),
+    0 10px 20px rgba(57, 255, 20, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: default;
+  user-select: none;
 }
 
 .testimonial-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(57, 255, 20, 0.3);
+  transform: translateY(-15px);
+  box-shadow:
+    0 0 12px var(--primary),
+    0 20px 40px rgba(57, 255, 20, 0.45);
 }
 
 .testimonial-card p {
   font-style: italic;
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  color: #cbd5e1;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: #a8bfc9; /* slightly lighter text for reading */
+  font-weight: 400;
 }
 
 .testimonial-footer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+}
+
+.testimonial-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .testimonial-footer strong {
   font-weight: 700;
   color: var(--primary);
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
 }
 
 .stars {
   display: flex;
   gap: 4px;
+  margin-left: auto; /* pushes stars to the right */
 }
 
 .star {
   color: var(--primary);
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  text-shadow: 0 0 6px var(--primary);
 }
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .testimonial-list {
+    flex-direction: column;
+    gap: 40px;
+    max-width: 90vw;
+  }
+
+  .testimonial-card {
+    max-width: 100%;
+  }
+}
+
 
 /* ──────────── FOOTER ─────────── */
 .home-footer {
@@ -759,3 +991,4 @@ section {
     justify-content: center;
   }
 }
+

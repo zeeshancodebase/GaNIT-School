@@ -36,7 +36,7 @@ const Logo = () => (
     {/* GaNIT<span className="highlight">School</span> */}
     <img
               src="/assets/images/logo5.png"
-              alt="Coding Illustration"
+              alt="Logo"
               
             />
             <div style={{display:"flex", flexDirection:"column"}}>

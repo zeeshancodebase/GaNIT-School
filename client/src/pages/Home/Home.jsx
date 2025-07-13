@@ -5,7 +5,7 @@ import {
   FaBrain,
   // FaCheckCircle,
   FaCode,
-  FaGraduationCap,
+  // FaGraduationCap,
   FaPlay,
   FaStar,
   FaBriefcase,
@@ -32,9 +32,16 @@ import { Navigation, Pagination } from "swiper/modules";
 
 // Dummy Logo (replace with <img> if available)
 const Logo = () => (
-  <span className="logo">
-    GaNIT<span className="highlight">School</span>
-  </span>
+  <div className="logo" style={{display:"flex",flexDirection:"row", fontSize:"1rem"}}>
+    {/* GaNIT<span className="highlight">School</span> */}
+    <img
+              src="/assets/images/logo4.png"
+              alt="Coding Illustration"
+              
+            />
+            <div style={{display:"flex", flexDirection:"column"}}>
+            GANIT<span className="highlight">School</span></div>
+  </div>
 );
 
 const jobStats = [
@@ -180,14 +187,23 @@ const tracks = [
     Icon: FaCode,
   },
   {
-    title: "Crack Placements in 90 Days",
-    duration: "12 Weeks • 30 Mock Interviews",
+    title: "Become Data Science Expert",
+    duration: "24 Weeks • 5 Projects",
     description:
-      "Intensive placement preparation with aptitude training, DSA, and interview practice.",
-    skills: ["DSA", "Aptitude", "Mock Interviews", "Resume"],
-    outcome: "Job Placement",
-    Icon: FaGraduationCap,
+      "Master HTML, CSS, JavaScript, React, Node.js, MongoDB and build real-world applications.",
+    skills: ["Java Developer", "Python Developer", "MERN Stack Developer"],
+    outcome: "Full Stack Developer",
+    Icon: FaCode,
   },
+  // {
+  //   title: "Crack Placements in 90 Days",
+  //   duration: "12 Weeks • 30 Mock Interviews",
+  //   description:
+  //     "Intensive placement preparation with aptitude training, DSA, and interview practice.",
+  //   skills: ["DSA", "Aptitude", "Mock Interviews", "Resume"],
+  //   outcome: "Job Placement",
+  //   Icon: FaGraduationCap,
+  // },
   {
     title: "Master Aptitude + Soft Skills",
     duration: "8 Weeks • 20 Practice Tests",
@@ -215,24 +231,24 @@ const testimonials = [
 const facultyData = [
   {
     name: "Fahim Makandar",
-    role: "Aptitude & Soft Skills Trainer",
+    role: "Founder | L & D Specialist",
     description:
       "Helping students ace competitive exams with a focus on Aptitude, Logical Reasoning, and Communication Skills.",
     photo: "/assets/images/instructor-dp.jpg", // Replace with real images
   },
   {
-    name: "Zeeshan Patel",
-    role: "Full Stack Development Expert",
-    description:
-      "Over 15 years of experience in web development and software engineering. Passionate about teaching and mentoring.",
-    photo: "/assets/images/instructor-dp.jpg", // You can replace this with actual photo URLs
-  },
-  {
-    name: "Neha Singh",
-    role: "Python Programming Instructor",
+    name: "Uday Hiremath",
+    role: "Co-founder | AIML Engineer | Instructor",
     description:
       "Experienced Python developer and educator. Specializes in Data Science and Machine Learning.",
     photo: "/assets/images/instructor-dp.jpg", // Replace with real images
+  },
+  {
+    name: "Zeeshan Patel",
+    role: "CTO | Full Stack Instructor",
+    description:
+      "Over 15 years of experience in web development and software engineering. Passionate about teaching and mentoring.",
+    photo: "/assets/images/instructor-dp.jpg", // You can replace this with actual photo URLs
   },
 ];
 
@@ -247,7 +263,8 @@ function Home() {
         <div className="container">
           <div className="nav-logo">
             <Link to="/" className="logo-link">
-              <FaGraduationCap size={35} /> <Logo />
+              {/* <FaGraduationCap size={35} /> */}
+               <Logo />
             </Link>
           </div>
           <nav className={`nav-links ${isOpen ? "show" : ""}`}>
@@ -284,7 +301,7 @@ function Home() {
             <h1
               style={{
                 textAlign: "left",
-                textShadow: "0 2px 10px rgba(255, 255, 255, 0.6)",
+                // textShadow: "0 2px 10px rgba(255, 255, 255, 0.6)",
               }}
             >
               From Skills to Career –{" "}

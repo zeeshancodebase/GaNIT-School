@@ -11,7 +11,7 @@ const Logo = () => (
   {/* <FaGraduationCap className="logo-icon" /> */}
   <img src="/assets/images/logo7.png" alt="Logo" className="logo-image" />
   <div className="logo-text">
-    <span className="logo-ganit">GANIT</span>
+    <span className="logo-ganit">GaNIT</span>
     <span className="logo-school">School</span>
   </div>
 </div>

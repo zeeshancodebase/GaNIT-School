@@ -2,22 +2,28 @@
 
 :root {
   /* Primary theme */
-  --primary: #00ff7e; /* Softer neon green */
-  --primary-hover: #00cc66; /* Darker variation for hover states */
+  --primary: #00ff7e;
+  /* Softer neon green */
+  --primary-hover: #00cc66;
+  /* Darker variation for hover states */
 
   /* Backgrounds */
   --dark-bg: #0f172a;
   --nav-bg: #1e293b;
-  --section-bg: #14212e; /* Slightly deeper to contrast the new green */
+  --section-bg: #14212e;
+  /* Slightly deeper to contrast the new green */
 
   /* Accent & Text */
-  --accent: #00e6a0; /* Harmonized accent with the new primary */
+  --accent: #00e6a0;
+  /* Harmonized accent with the new primary */
   --dark-text: #1f2937;
   --light-text: #f3f4f6;
-  --text-muted: #94a3b8; /* A cooler-muted tone that pairs with green */
+  --text-muted: #94a3b8;
+  /* A cooler-muted tone that pairs with green */
 
   /* Shadows */
-  --shadow-light: 0 8px 20px rgba(0, 255, 126, 0.25); /* Light shadow tinted with green */
+  --shadow-light: 0 8px 20px rgba(0, 255, 126, 0.25);
+  /* Light shadow tinted with green */
   --shadow-dark: inset 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
@@ -86,17 +92,20 @@ body::-webkit-scrollbar {
 .logo-link:hover {
   color: var(--primary);
 }
+
 .logo {
   display: flex;
   align-items: center;
- /* gap: 12px;  spacing between icon, image, and text */
+  /* gap: 12px;  spacing between icon, image, and text */
   font-size: 1rem;
   color: var(--light-text);
 }
 
 .logo-icon {
-  font-size: 36px; /* big graduation cap */
-  color: var(--primary); /* optional: match brand color */
+  font-size: 36px;
+  /* big graduation cap */
+  color: var(--primary);
+  /* optional: match brand color */
 }
 
 .logo-image {
@@ -113,7 +122,8 @@ body::-webkit-scrollbar {
 .logo-ganit {
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--primary); /* or another highlight color */
+  color: var(--primary);
+  /* or another highlight color */
 }
 
 .logo-school {
@@ -174,9 +184,21 @@ body::-webkit-scrollbar {
   cursor: pointer;
 }
 
+@media (max-width: 768px) {
+
+  .container {
+    justify-content: center;
+  }
+}
+
 /* ──────────── MOBILE MENU ──────────── */
 /* ───── MOBILE NAV ───── */
 @media (max-width: 768px) {
+  .navbar .container {
+    justify-content: space-between;
+    padding: 0 15px;
+  }
+
   .nav-links {
     display: none;
     position: absolute;
@@ -202,6 +224,12 @@ body::-webkit-scrollbar {
   .navbar .btn.primary {
     display: none;
   }
+
+  .nav-links {
+    width: 90vw !important;
+    right: 5vw !important;
+  }
+
 }
 
 /* ──────────── HERO ──────────── */
@@ -391,6 +419,40 @@ body::-webkit-scrollbar {
   margin-left: 0;
 }
 
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+
+  .hero {
+    height: calc(100dvh - 80px);
+  }
+
+  .hero-text {
+    padding: 0 15px;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-img {
+    display: none;
+  }
+
+}
 
 /* ──────────── SECTIONS ──────────── */
 section {
@@ -520,6 +582,28 @@ section {
   }
 }
 
+/* ──────────── RESPONSIVE ──────────── */
+@media (max-width: 768px) {
+
+
+  .testimonial-list,
+  .track-list,
+  .course-list {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .track-card {
+    flex: 1 1 100%;
+  }
+
+  .track-card p,
+  .course-card p {
+
+    font-size: 0.9rem;
+  }
+
+}
 
 /* ──────────── Career Track Specific Enhancements ──────────── */
 
@@ -570,6 +654,10 @@ section {
   flex-wrap: wrap;
 }
 
+.outcome-section p {
+  margin: 0;
+}
+
 .outcome-section p:first-child {
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -600,6 +688,17 @@ section {
 .btn.small:hover {
   background: var(--primary-hover);
   transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .outcome-section {
+    gap: 0;
+  }
+
+  .career-tracks-title {
+    font-size: 2.3rem;
+    line-height: 1.2;
+  }
 }
 
 /* ──────────── COURSES SPECIFIC ENHANCEMENTS ──────────── */
@@ -704,18 +803,24 @@ section {
 .custom-swiper-button.next {
   right: -20px;
 }
+
 .swiper-pagination {
-  margin-top: 20px;  /* space between swiper and pagination */
-  position: relative !important; /* reset any absolute positioning */
-  bottom: auto !important; /* remove any bottom position */
+  margin-top: 20px;
+  /* space between swiper and pagination */
+  position: relative !important;
+  /* reset any absolute positioning */
+  bottom: auto !important;
+  /* remove any bottom position */
   text-align: center;
   display: flex;
   justify-content: center;
   gap: 5px;
 }
-.swiper-pagination-bullet-active{
+
+.swiper-pagination-bullet-active {
   background: var(--primary) !important;
 }
+
 @media (max-width: 768px) {
   .custom-swiper-button.prev {
     left: 0;
@@ -723,6 +828,25 @@ section {
 
   .custom-swiper-button.next {
     right: 0;
+  }
+
+  .custom-swiper-button {
+    display: none;
+    /* Hide custom nav arrows */
+  }
+
+  .course-card {
+    width: 100%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .carousel-wrapper {
+    margin: 0 10px;
+  }
+
+  .view-all-btn {
+    margin-top: 20px;
+    text-align: center;
   }
 }
 
@@ -869,6 +993,16 @@ section {
   color: var(--primary);
 }
 
+/* @media (max-width: 768px) {
+  .job-board-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .job-board-left,
+  .job-board-right {
+    flex: 1 1 100%;
+  }
+} */
 
 
 
@@ -972,98 +1106,23 @@ section {
 }
 
 
+@media (max-width: 768px) {
 
-/* 
-.faculty-card {
-  background: linear-gradient(145deg, #ffffff, #f3f3f3);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  .faculty-card-enhanced {
+    padding: 16px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .faculty-photo-enhanced {
+    width: 100px;
+    height: 100px;
+  }
+
+  .expertise-tags {
+    justify-content: center;
+  }
 }
-
-.faculty-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
-}
-
-.faculty-photo {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 0 auto 16px auto;
-  border: 4px solid #00c896; 
-}
-
-.faculty-info h3 {
-  font-size: 1.4rem;
-  color: #111;
-  margin-bottom: 4px;
-}
-
-.faculty-role {
-  font-weight: 500;
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 10px;
-}
-
-.faculty-description {
-  font-size: 0.95rem;
-  color: #777;
-  line-height: 1.5;
-}
-
-
-
-.faculty-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
-  margin-top: 20px;
-}
-
-.faculty-card {
-  background-color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
-}
-
-.faculty-card:hover {
-  transform: translateY(-10px);
-}
-
-.faculty-photo {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
-.faculty-info h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.faculty-role {
-  font-size: 1.2rem;
-  color: #777;
-  margin-bottom: 15px;
-}
-
-.faculty-description {
-  font-size: 1rem;
-  color: #555;
-} */
 
 
 
@@ -1172,6 +1231,11 @@ section {
 
   .testimonial-card {
     max-width: 100%;
+
+    p {
+      font-size: 1rem;
+      line-height: 1.2;
+    }
   }
 }
 
@@ -1194,9 +1258,11 @@ section {
   margin-bottom: 16px;
   color: var(--primary);
 }
-.footer-links ul{
+
+.footer-links ul {
   list-style: none;
 }
+
 .home-footer a {
   color: #94a3b8;
   text-decoration: none;
@@ -1220,30 +1286,14 @@ section {
   }
 }
 
-/* ──────────── RESPONSIVE ──────────── */
 @media (max-width: 768px) {
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
+  .home-footer{
+    padding: 20px 0;
   }
-
-  .hero-img {
-    margin-top: 30px;
-  }
-
-  .nav-links {
-    width: 90vw !important;
-    right: 5vw !important;
-  }
-
-  .testimonial-list,
-  .track-list,
-  .course-list {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .container {
+  .logo{
     justify-content: center;
+  }
+  .footer-links, .footer-contact {
+    display: none;
   }
 }

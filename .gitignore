@@ -30,3 +30,4 @@ server/.gitignore
 
 
 client/src/pages/html
+client/src/pages/Home/allinone

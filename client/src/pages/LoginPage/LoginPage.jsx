@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './LoginPage.css';
 import { FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -59,8 +60,8 @@ const LoginPage = () => {
         <button type="submit" className="btn primary login-btn">Login</button>
 
         <div className="login-footer">
-          <a href="#">Forgot password?</a>
-          <p>Don’t have an account? <a href="#">Sign up</a></p>
+          <Link to="/">Forgot password?</Link>
+          <p>Don’t have an account? <Link to="/">Sign up</Link></p>
         </div>
       </form>
     </div>

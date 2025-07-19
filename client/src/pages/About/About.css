@@ -1,0 +1,176 @@
+/* About Page Styles */
+
+/* Background */
+#about {
+  background-color: var(--section-bg);
+  color: var(--light-text);
+  padding: 50px 0;
+}
+
+/* Hero Section */
+.about-hero {
+  background-color: var(--nav-bg);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  color: var(--primary);
+  text-shadow: 0 4px 10px rgba(0, 255, 126, 0.6);
+}
+
+.about-hero p {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.about-hero .btn {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.about-hero .btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Mission and Vision Section */
+.mission-vision {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.mission-vision h2 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.mission-vision p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* Core Values Section */
+.core-values {
+  background-color: var(--dark-bg);
+  padding: 60px 0;
+}
+
+.core-values h2 {
+  text-align: center;
+  color: var(--primary);
+  font-size: 2.5rem;
+}
+
+.core-values .value-list {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.core-values .value-item {
+  background: var(--section-bg);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+  text-align: center;
+  flex: 1;
+  margin: 0 15px;
+}
+
+.core-values .value-item h3 {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.core-values .value-item p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Our Expertise Section */
+.expertise {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.expertise h2 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 30px;
+}
+
+.expertise .faculty-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.expertise .faculty-card {
+  background-color: var(--section-bg);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+  text-align: center;
+  flex: 1;
+}
+
+.expertise .faculty-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.expertise .faculty-card h3 {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.expertise .faculty-card p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Join Us Section */
+.join-us {
+  background-color: var(--primary);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.join-us h2 {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.join-us p {
+  font-size: 1.1rem;
+  color: var(--light-text);
+  margin-bottom: 30px;
+}
+
+.join-us .btn {
+  background-color: #fff;
+  color: var(--primary);
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.join-us .btn:hover {
+  background-color: var(--primary-hover);
+  color: #fff;
+}

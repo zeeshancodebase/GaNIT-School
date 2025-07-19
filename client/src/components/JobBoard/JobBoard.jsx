@@ -84,7 +84,7 @@ const JobBoard = () => {
                 <div className="job-card-wrapper">
                   <div className="job-card-header">
                     <h3>Latest Openings</h3>
-                    <a href="/" className="job-view-all">
+                    <a href="/job-board" className="job-view-all">
                       View All
                     </a>
                   </div>

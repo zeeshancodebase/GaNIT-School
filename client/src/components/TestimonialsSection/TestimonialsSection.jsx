@@ -1,26 +1,26 @@
-import React from "react";
-import { FaArrowRight, FaStar } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+// import React from "react";
+// import { FaArrowRight, FaStar } from "react-icons/fa6";
+// import { Link } from "react-router-dom";
 
-const testimonials = [
-  {
-    name: "Riya Sharma",
-    text: "I cracked my TCS interview in 3 months. The mock interviews and resume building helped a lot!",
-    rating: 5,
-  },
-  {
-    name: "Amit Rao",
-    text: "The Full Stack course was exactly what I needed to switch careers.",
-    rating: 4,
-  },
-];
+// const testimonials = [
+//   {
+//     name: "Riya Sharma",
+//     text: "I cracked my TCS interview in 3 months. The mock interviews and resume building helped a lot!",
+//     rating: 5,
+//   },
+//   {
+//     name: "Amit Rao",
+//     text: "The Full Stack course was exactly what I needed to switch careers.",
+//     rating: 4,
+//   },
+// ];
 
 const TestimonialsSection = ({ showViewAll = true }) => {
   return (
     <>
       {/* Testimonials */}
       <section className="testimonials">
-        <div className="container">
+        {/* <div className="container">
           <div className="tracks-title-container">
             <h2 className="courses-tracks-title">
               What Our <span className="highlight">Students Say</span>
@@ -52,7 +52,7 @@ const TestimonialsSection = ({ showViewAll = true }) => {
             View all Reviews
             <FaArrowRight />
           </Link>
-        )}
+        )} */}
       </section>
     </>
   );

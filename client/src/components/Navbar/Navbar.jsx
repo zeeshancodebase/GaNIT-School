@@ -9,7 +9,7 @@ const Logo = () => (
   // </span>
   <div className="logo">
   {/* <FaGraduationCap className="logo-icon" /> */}
-  <img src="/assets/images/logo9.png" alt="Logo" className="logo-image" />
+  <img src="/assets/images/logo10.png" alt="Logo" className="logo-image" />
   <div className="logo-text">
     <span className="logo-ganit">GaNIT</span>
     <span className="logo-school">School</span>
@@ -46,7 +46,7 @@ const Navbar = () => {
           <button className="menu-btn" onClick={toggleMenu}>
             <FiMenu size={24} />
           </button>
-          <a href="/about" className="btn primary">
+          <a href="/login" className="btn primary">
             Join Now / Login
           </a>
         </div>

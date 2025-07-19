@@ -6,7 +6,7 @@ const Logo = () => (
   // </span>
   <div className="logo">
   {/* <FaGraduationCap className="logo-icon" /> */}
-  <img src="/assets/images/logo7.png" alt="Logo" className="logo-image" />
+  <img src="/assets/images/logo10.png" alt="Logo" className="logo-image" />
   <div className="logo-text">
     <span className="logo-ganit">GANIT</span>
     <span className="logo-school">School</span>
@@ -38,7 +38,7 @@ const Footer = () => {
                 <a href="/about">About</a>
               </li>
               <li>
-                <a href="/contact">Contact</a>
+                <a href="/contact-us">Contact</a>
               </li>
             </ul>
           </div>

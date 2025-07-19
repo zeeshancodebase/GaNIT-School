@@ -34,7 +34,14 @@ app.use('/api', staffRoutes);
 // app.use('/api', customerRoutes);
 app.use('/api/auth', authRoutes);
 
+// Middleware
+app.use(cors());
+app.use(helmet());
+app.use(morgan('dev'));
+app.use(express.json());
 
+// Routes
+app.use('/api/jobs', jobRoutes);
 
 // // Routes
 // app.get("/", (req, res) => res.send("Welcome to the Rehmat Textile API"));

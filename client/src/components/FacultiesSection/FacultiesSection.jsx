@@ -5,10 +5,16 @@ import { Link } from "react-router-dom";
 const facultyData = [
   {
     name: "Fahim Makandar",
-    role: "Founder | L & D Specialist",
+    role: "Founder & CEO – GaNIT School",
     description:
       "Helping students ace competitive exams with a focus on Aptitude, Logical Reasoning, and Communication Skills.",
     photo: "/assets/images/fahim.jpg",
+    expertise: [
+      "Advance Aptitude",
+      "Quantitative Aptitude",
+      "Logical Reasoning",
+      "Communication Skills"
+    ],
   },
   {
     name: "Uday Hiremath",
@@ -20,9 +26,18 @@ const facultyData = [
   {
     name: "Zeeshan Patel",
     role: "CTO | Full Stack Instructor",
+    // description:
+    //   "Over 2 years of experience in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
     description:
-      "Over 15 years of experience in web development and software engineering. Passionate about teaching and mentoring.",
+      "Experienced in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
     photo: "/assets/images/zeeshan1.jpg",
+    expertise: [
+      "Java",
+      "MERN Stack",
+      "RESTful APIs",
+      "Full Stack Development",
+      "Agile Methodologies",
+    ],
   },
 ];
 
@@ -57,9 +72,16 @@ const FacultiesSection = ({ showViewAll = true }) => {
                   <p className="faculty-description">{faculty.description}</p>
 
                   <div className="expertise-tags">
-                    <span className="tag">Python</span>
-                    <span className="tag">Aptitude</span>
-                    <span className="tag">Communication</span>
+                    {/* Map through expertise array */}
+                    {faculty.expertise && faculty.expertise.length > 0 ? (
+                      faculty.expertise.map((item, idx) => (
+                        <span key={idx} className="tag">
+                          {item}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="tag">No Expertise Available</span>
+                    )}
                   </div>
 
                   <div className="faculty-socials">
@@ -83,7 +105,11 @@ const FacultiesSection = ({ showViewAll = true }) => {
             ))}
           </div>
           {showViewAll && (
-            <Link to="/faculties" className="view-all-btn" style={{marginTop:"25px",color:"white"}}>
+            <Link
+              to="/faculties"
+              className="view-all-btn"
+              style={{ marginTop: "25px", color: "white" }}
+            >
               View all Faculties
               <FaArrowRight />
             </Link>

@@ -1,6 +1,8 @@
 import React from "react";
 import "./Hero.css";
-import { FaPlay, FaUserCircle } from "react-icons/fa";
+import { FaPlay, 
+  // FaUserCircle 
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
@@ -28,7 +30,7 @@ const Hero = () => {
               <span className="highlight">Powered by GaNIT School</span>
             </h1>
             <p style={{ fontSize: "1.3rem", textAlign: "left" }}>
-              Learn Python, Java, Aptitude, Full Stack & Crack Your Dream Job
+              Learn Java, Python, Aptitude, Full Stack & Crack Your Dream Job
             </p>
             <div className="hero-buttons">
               <Link to="/courses" className="btn primary">
@@ -38,7 +40,7 @@ const Hero = () => {
                 <FaPlay className="play-icon" /> Watch Demo Class
               </Link>
             </div>
-            <div className="students-note">
+            {/* <div className="students-note">
               <div className="avatar-group">
                 <FaUserCircle className="avatar-icon" />
                 <FaUserCircle className="avatar-icon" />
@@ -48,7 +50,7 @@ const Hero = () => {
               <p>
                 <strong>5,000+</strong> students already learning
               </p>
-            </div>
+            </div> */}
           </div>
           <div className="hero-img">
             <img

@@ -1,0 +1,106 @@
+/* Contact Page Styles */
+
+/* Background */
+#contact {
+  background-color: var(--section-bg);
+  color: var(--light-text);
+  padding: 60px 0;
+}
+
+/* Hero Section */
+.contact-hero {
+  background-color: var(--nav-bg);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.contact-hero h1 {
+  font-size: 3rem;
+  color: var(--primary);
+  text-shadow: 0 4px 10px rgba(0, 255, 126, 0.6);
+}
+
+.contact-hero p {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+/* Contact Form */
+.contact-form {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--section-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid var(--primary-light);
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.contact-form input[type="submit"] {
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.contact-form input[type="submit"]:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Social and Location Section */
+.contact-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.contact-details .location,
+.contact-details .social {
+  flex: 1;
+}
+
+.contact-details h3 {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.contact-details .location p,
+.contact-details .social a {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.contact-details .social a {
+  display: inline-block;
+  margin-right: 15px;
+  font-size: 1.3rem;
+  color: var(--primary);
+  transition: color 0.3s ease;
+}
+
+.contact-details .social a:hover {
+  color: var(--primary-hover);
+}
+
+/* Map Section */
+#map {
+  margin-top: 50px;
+  height: 400px;
+  width: 100%;
+}

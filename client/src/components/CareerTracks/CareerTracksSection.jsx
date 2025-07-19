@@ -5,27 +5,31 @@ import {
   // FaGraduationCap,
   FaBrain,
 } from "react-icons/fa";
-import { FaArrowRight, FaClock } from "react-icons/fa6";
+import { FaArrowRight, FaChartLine, FaClock } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const tracks = [
   {
     title: "Become a Full Stack Developer",
-    duration: "24 Weeks • 5 Projects",
+    duration: "15 Weeks • 5 Projects",
     description:
       "Master HTML, CSS, JavaScript, React, Node.js, MongoDB and build real-world applications.",
-    skills: ["Java Developer", "Python Developer", "MERN Stack Developer"],
+    skills: [
+      "Java Developer",
+      // "Python Developer",
+      "MERN Stack Developer",
+    ],
     outcome: "Full Stack Developer",
     Icon: FaCode,
   },
   {
     title: "Become Data Science Expert",
-    duration: "24 Weeks • 5 Projects",
+    duration: "15 Weeks • 5 Projects",
     description:
       "Master HTML, CSS, JavaScript, React, Node.js, MongoDB and build real-world applications.",
     skills: ["Java Developer", "Python Developer", "MERN Stack Developer"],
-    outcome: "Full Stack Developer",
-    Icon: FaCode,
+    outcome: "Data Scientist",
+    Icon: FaChartLine,
   },
   {
     title: "Master Aptitude + Soft Skills",
@@ -96,7 +100,7 @@ const CareerTracksSection = () => {
                       <p>Outcome</p>
                       <p>{outcome}</p>
                     </div>
-                    <Link to="/" className="btn small">
+                    <Link to="/course-details" className="btn small">
                       View Details{" "}
                       <FaArrowRight style={{ marginLeft: "5px" }} />
                     </Link>

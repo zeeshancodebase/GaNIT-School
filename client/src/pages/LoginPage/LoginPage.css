@@ -1,0 +1,95 @@
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  background: var(--dark-bg);
+  padding: 20px;
+}
+
+.login-form {
+  background: var(--nav-bg);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-light);
+  width: 100%;
+  max-width: 400px;
+  color: var(--light-text);
+  animation: fadeInUp 0.8s ease;
+}
+
+.login-title {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.login-subtext {
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.input-group label {
+  display: flex;
+  align-items: center;
+  background: var(--section-bg);
+  border-radius: 10px;
+  padding: 12px 16px;
+  gap: 12px;
+  color: var(--light-text);
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  color: var(--light-text);
+  font-size: 1rem;
+}
+
+.toggle-password {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.toggle-password:hover {
+  color: var(--primary);
+}
+
+.login-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.login-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.login-footer a:hover {
+  color: var(--primary-hover);
+}
+
+@media (max-width: 480px) {
+  .login-form {
+    padding: 30px 20px;
+  }
+
+  .login-title {
+    font-size: 1.6rem;
+  }
+}

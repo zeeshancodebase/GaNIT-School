@@ -4,17 +4,17 @@ import { Link} from "react-router-dom";
 import {
   FaBrain,
   FaStar,
-  FaClock,
+  // FaClock,
   FaArrowRight,
   FaPython,
   FaJava,
-  FaFigma,
-  FaUserGraduate,
+  // FaFigma,
+  // FaUserGraduate,
   FaArrowLeft,
 } from "react-icons/fa6";
-import {  FaShieldAlt } from "react-icons/fa";
-import { TbBinaryTree, TbWorldCode } from "react-icons/tb";
-import { SiTensorflow, SiAmazonwebservices, SiJenkins } from "react-icons/si";
+// import {  FaShieldAlt } from "react-icons/fa";
+// import { TbBinaryTree, TbWorldCode } from "react-icons/tb";
+// import { SiTensorflow, SiAmazonwebservices, SiJenkins } from "react-icons/si";
 import Avatar from "../../components/Avatar/Avatar";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

@@ -1,0 +1,10 @@
+runtime: nodejs20 # Use Node.js 20 as the runtime (use the latest version you need)
+
+env: standard  # Use the standard environment
+
+instance_class: F2  # Adjust based on your resource needs
+
+handlers:
+  # Handle API routes (e.g., /api)
+  - url: /api/.*
+    script: auto

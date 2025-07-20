@@ -24,8 +24,8 @@ import { Navigation, Pagination } from "swiper/modules";
 
 const coursesData = [
   {
-    title: "Java with Full Stack Development",
-    info: "12 Weeks • You will learn Java With Full stack Development",
+    title: "JavaNova – Full Stack Java Developer with AI Edge",
+    info: "16 Weeks • Wanna be the best developer?",
     faculty: "Zeeshan Patel",
     reviews: "4.7 (310 reviews)",
     duration: "16 weeks",
@@ -33,19 +33,19 @@ const coursesData = [
     icon: <FaJava />,
   },{
     title: "PyVerse – The AI Stack Mastery Program",
-    info: "You will learn Python",
+    info: "16 Weeks •Wanna be a data scientist?",
     faculty: "Uday Hiremath",
     reviews: "4.8 (420 reviews)",
-    duration: "8 weeks",
+    duration: "16 weeks",
     students: "1,245",
     icon: <FaPython />,
   },
   {
     title: "QuantXpert ( Mastering Quantitative Aptitude )",
-    info: "12 Weeks • From Basics to Advanced",
+    info: "16 Weeks • From Basics to Advanced",
     faculty: "Fahim Makandar",
     reviews: "4.9 (530 reviews)",
-    duration: "12 weeks",
+    duration: "16 weeks",
     students: "1,560",
     icon: <FaBrain />,
   },

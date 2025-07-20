@@ -1080,8 +1080,8 @@ section {
 }
 
 .tag {
-  background-color: var(--primary);
-  color: white;
+  background-color: #00ff8089;
+  color: var(--dark-text);
   padding: 4px 10px;
   font-size: 0.75rem;
   border-radius: 999px;

@@ -34,3 +34,6 @@ client/src/pages/html
 client/src/pages/Home/allinone
 server/.env
 client/.env
+
+
+client/src/pages/AddHR

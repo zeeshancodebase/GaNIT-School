@@ -32,9 +32,9 @@ const coursesData = [
     students: "980",
     icon: <FaJava />,
   },{
-    title: "Python Programming Masterclass",
+    title: "PyVerse – The AI Stack Mastery Program",
     info: "You will learn Python",
-    faculty: "Neha Singh",
+    faculty: "Uday Hiremath",
     reviews: "4.8 (420 reviews)",
     duration: "8 weeks",
     students: "1,245",
@@ -191,7 +191,7 @@ const CoursesSection = ({ showViewAll = true }) => {
                             <FaUserGraduate /> {course.students} Students
                           </span>
                         </p> */}
-                        <a href="/" className="btn small">
+                        <a href="https://ganitschool.akamai.net.in/new-courses" className="btn small">
                           Enroll Now
                         </a>
                       </div>

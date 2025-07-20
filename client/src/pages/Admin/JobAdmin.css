@@ -1,0 +1,169 @@
+/* Wrapper for the form */
+
+.admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.admin-view-all-btn {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    gap: 10px;
+    margin: 10px auto 0;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dark-text);
+    cursor: pointer;
+    background: var(--light-text);
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 18px rgba(0, 255, 126, 0.9);
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+.admin-panel-title {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    h2 {
+        text-align: left;
+    }
+}
+.admin-title-divider {
+  border: none;
+  height: 2px;
+  background-color: #ccc; /* or any color */
+  margin-top: 16px;
+
+}
+
+
+/* Form title */
+.form-title {
+    grid-column: span 2;
+    /* Make the title span both columns */
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.add-job-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2rem;
+    background-color: var(--nav-bg);
+    color: var(--light-text);
+    box-shadow: var(--shadow-light);
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Checkbox */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: var(--light-tex);
+    width: 100%;
+}
+
+.checkbox-group input[type="checkbox"] {
+    outline: none;
+    width: 5%;
+}
+
+
+
+/* Job Card */
+.job-list-title {
+    margin-top: 2.2rem;
+    color: var(--light-text);
+    text-align: center;
+}
+
+.job-list-wrapper {
+    background: var(--nav-bg);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-dark);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    width: 1200px;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+}
+
+.job-card-admin:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+.job-card-admin {
+    border: 1px solid #ddd;
+}
+
+.job-card-admin button {
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.job-card-admin button:first-child {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.job-card-admin button:first-child:hover {
+    background-color: #e0a800;
+}
+
+.job-card-admin button:last-child {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.job-card-admin button:last-child:hover {
+    background-color: #c82333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .add-job-form,
+    .job-list-admin {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .job-list-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .job-card-admin {
+        padding: 1rem;
+    }
+
+    .job-card-admin button {
+        font-size: 0.9rem;
+    }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   FaBriefcase,
@@ -6,6 +6,7 @@ import {
   FaMoneyBillWave,
 } from "react-icons/fa6";
 import { FaMapMarkerAlt} from "react-icons/fa";
+import { fetchJobs } from '../../services/jobService';
 const jobStats = [
   {
     icon: <FaBriefcase className="w-5 h-5 text-neonGreen mr-2" />,
@@ -21,31 +22,20 @@ const jobStats = [
   },
 ];
 
-const jobList = [
-  {
-    title: "Full Stack Developer",
-    company: "TechCorp Solutions",
-    location: "Remote",
-    salary: "₹8-12L",
-    isNew: true,
-  },
-  {
-    title: "Python Developer",
-    company: "DataViz Analytics",
-    location: "Bangalore",
-    salary: "₹5-9L",
-    isNew: true,
-  },
-  {
-    title: "Frontend Developer",
-    company: "UX Innovations",
-    location: "Hybrid",
-    salary: "₹6-10L",
-    isNew: false,
-  },
-];
 
 const JobBoard = () => {
+const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    const loadJobs = async () => {
+      const data = await fetchJobs();
+      setJobs(data);
+    };
+    loadJobs();
+  }, []);
+
+  // Show limited jobs if limit is passed
+  const visibleJobs =  jobs.slice(0, 3) ;
   return (<>
      {/*Job Board*/}
           <section id="job-board" className="job-board">
@@ -84,12 +74,12 @@ const JobBoard = () => {
                 <div className="job-card-wrapper">
                   <div className="job-card-header">
                     <h3>Latest Openings</h3>
-                    <a href="/job-board" className="job-view-all">
+                    <a href="/jobs" className="job-view-all">
                       View All
                     </a>
                   </div>
                   <div className="job-list">
-                    {jobList.map((job, index) => (
+                    {visibleJobs.map((job, index) => (
                       <div key={index} className="job-card">
                         <div className="job-card-top">
                           <div>

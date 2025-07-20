@@ -1,6 +1,6 @@
 // authMiddleware.js
 const jwt = require("jsonwebtoken");
-const Student = require("../models/studentsModel");
+const User = require("../models/userModel");
 
 
 
@@ -22,28 +22,23 @@ const authMiddleware = async (req, res, next) => {
 
     try {
         const isVerified = jwt.verify(jwtToken, process.env.JWT_SECRET_KEY);
-       
 
-        const studentData = await Student.findOne({ usn: isVerified.userID })
-        .populate('semester')
-        .populate('department')
-        .populate('scheme')
-        .populate('batch')
-        .populate('college')
-        .select({
-            password:0,
+        // console.log("user data from database:", isVerified);
+        
+        const userData = await User.findOne({ email: isVerified.email }).select({
+            password: 0,
         });
-        // console.log("Student data from database:", studentData);
+        // console.log("user data from database:", userData);
 
-        if (!studentData) {
+        if (!userData) {
             return res
                 .status(401)
                 .json({ message: "Unauthorized. User not found." });
         }
 
-        req.student = studentData;
+        req.user = userData;
         req.token = token;
-        req.userId = studentData.usn;
+        req.userId = userData.email;
 
         next();
     } catch (error) {

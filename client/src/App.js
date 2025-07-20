@@ -13,6 +13,12 @@ import ContactUs from './pages/ContactUs/ContactUs';
 import LiveClasses from './pages/LiveClasses/LiveClasses';
 import CourseDetails from './pages/CourseDetails/CourseDetails';
 import LoginPage from './pages/LoginPage/LoginPage';
+import Admin from './pages/Admin/Admin';
+import HRhome from './pages/HRpages/HRhome';
+import JobPage from './pages/Admin/JobPage';
+import HRManagement from './pages/Admin/HRManagement/HRManagement';
+import Logout from './pages/LoginPage/logout';
+import ResetPassword from './pages/LoginPage/resetPassword';
 // import UnderMaintenance from './pages/UnderMaintenance/UnderMaintenance'
 
 function App() {
@@ -33,6 +39,13 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/live" element={<LiveClasses />} />
         <Route path="/login" element={<LoginPage />} />
+         <Route path="/logout" element={<Logout />} />
+         <Route path="/resetPassword" element={<ResetPassword />} />
+        <Route path="/super-admin" element={<Admin />} />
+         <Route path="/super-admin/jobs" element={<JobPage />} />
+         <Route path="/jobs" element={<JobPage />} />
+        <Route path="/super-admin/HRManagement" element={<HRManagement />} />
+        <Route path="/hr/home" element={<HRhome />} />
         {/* <Route path="/demo" element={<Demo />} /> */}
 
         {/* Optional: fallback route 

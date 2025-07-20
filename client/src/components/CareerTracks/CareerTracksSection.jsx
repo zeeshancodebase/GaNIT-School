@@ -26,7 +26,7 @@ const tracks = [
     title: "Become Data Science Expert",
     duration: "15 Weeks • 5 Projects",
     description:
-      "Master HTML, CSS, JavaScript, React, Node.js, MongoDB and build real-world applications.",
+      "Core Python, DSA, ML, DL, NLP,with AI tools and Real time industry Grade live projects",
     skills: ["Java Developer", "Python Developer", "MERN Stack Developer"],
     outcome: "Data Scientist",
     Icon: FaChartLine,
@@ -100,10 +100,14 @@ const CareerTracksSection = () => {
                       <p>Outcome</p>
                       <p>{outcome}</p>
                     </div>
-                    <Link to="/course-details" className="btn small">
+                    <Link to="https://ganitschool.akamai.net.in/new-courses" className="btn small">
                       View Details{" "}
                       <FaArrowRight style={{ marginLeft: "5px" }} />
                     </Link>
+                    {/* <Link to="/course-details" className="btn small">
+                      View Details{" "}
+                      <FaArrowRight style={{ marginLeft: "5px" }} />
+                    </Link> */}
                   </div>
                 </div>
               )

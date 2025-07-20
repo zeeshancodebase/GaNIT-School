@@ -7,6 +7,7 @@ const Avatar = ({ src, alt = "User Avatar", size = 48 }) => {
     height: size,
     width: size,
     borderRadius: "50%",
+  border: "2px solid var(--primary)",
     objectFit: "cover",
     backgroundColor: "#ddd", // fallback background color
     display: "inline-block",

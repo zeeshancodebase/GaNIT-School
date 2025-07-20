@@ -22,6 +22,9 @@ const facultyData = [
     description:
       "Experienced Python developer and educator. Specializes in Data Science and Machine Learning.",
     photo: "/assets/images/uday.jpg",
+     expertise: [
+      "Python" , "Pandas", "Scikit-learn", "Tensorflow","NLP","LLMs"
+    ],
   },
   {
     name: "Zeeshan Patel",
@@ -30,7 +33,7 @@ const facultyData = [
     //   "Over 2 years of experience in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
     description:
       "Experienced in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
-    photo: "/assets/images/zeeshan1.jpg",
+    photo: "/assets/images/zeeshan.jpg",
     expertise: [
       "Java",
       "MERN Stack",

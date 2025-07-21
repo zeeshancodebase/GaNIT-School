@@ -5,7 +5,7 @@ import axios from "../api/axios";
 export const fetchJobs = async () => {
  try {
     const response = await axios.get("/api/jobs");
-    console.log("Fetched jobs from API:", response.data);
+    // console.log("Fetched jobs from API:", response.data);
     return response.data;
   } catch (err) {
     console.error("Failed to fetch jobs:", err);

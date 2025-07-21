@@ -18,7 +18,7 @@ const facultyData = [
   },
   {
     name: "Uday Hiremath",
-    role: "Co-founder | AIML Engineer | Instructor",
+    role: "COO & Co-founder | AIML Engineer | Instructor",
     description:
       "Experienced Python developer and educator. Specializes in Data Science and Machine Learning.",
     photo: "/assets/images/uday.jpg",
@@ -28,7 +28,7 @@ const facultyData = [
   },
   {
     name: "Zeeshan Patel",
-    role: "CTO | Full Stack Instructor",
+    role: "Head of Technology & Java Program Lead",
     // description:
     //   "Over 2 years of experience in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
     description:

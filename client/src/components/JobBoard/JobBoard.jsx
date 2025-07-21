@@ -26,13 +26,32 @@ const jobStats = [
 const JobBoard = () => {
 const [jobs, setJobs] = useState([]);
 
+  // useEffect(() => {
+  //   const loadJobs = async () => {
+  //     const data = await fetchJobs();
+  //     setJobs(data);
+  //   };
+  //   loadJobs();
+  // }, []);
+
   useEffect(() => {
-    const loadJobs = async () => {
+  const loadJobs = async () => {
+    try {
       const data = await fetchJobs();
-      setJobs(data);
-    };
-    loadJobs();
-  }, []);
+      if (Array.isArray(data)) {
+        setJobs(data);
+      } else {
+        console.error("Expected an array but got:", data);
+        setJobs([]); // fallback
+      }
+    } catch (err) {
+      console.error("Error fetching jobs:", err);
+      setJobs([]); // fallback
+    }
+  };
+  loadJobs();
+}, []);
+
 
   // Show limited jobs if limit is passed
   const visibleJobs =  jobs.slice(0, 3) ;

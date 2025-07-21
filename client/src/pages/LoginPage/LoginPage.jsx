@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./LoginPage.css";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
+import axiosInstance from "../../api/axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/auth";
 import { ClipLoader } from "react-spinners";
@@ -32,7 +32,7 @@ const LoginPage = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("api/user/login", { email, password });
+      const response = await axiosInstance.post("api/user/login", { email, password });
       const data = response.data;
 
       if (data?.token) {

@@ -43,7 +43,7 @@ const Logout = () => {
         <div style={styles.footer}>
           <p>
             Need help?{' '}
-            <a href="mailto:support@znotes.in" style={styles.link}>
+            <a href="mailto:gravitasacademy.india@gmail.com" style={styles.link}>
               Contact support
             </a>
           </p>

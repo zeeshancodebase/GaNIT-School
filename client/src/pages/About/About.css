@@ -6,6 +6,16 @@
   color: var(--light-text);
   padding: 50px 0;
 }
+.about-hero .container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.hero-section{
+  width: 50%;
+}
 
 /* Hero Section */
 .about-hero {
@@ -59,7 +69,7 @@
 
 /* Core Values Section */
 .core-values {
-  background-color: var(--dark-bg);
+  background-color: var(--light-text);
   padding: 60px 0;
 }
 
@@ -115,7 +125,7 @@
 }
 
 .expertise .faculty-card {
-  background-color: var(--section-bg);
+  background-color: var(--light-text);
   padding: 25px;
   border-radius: 12px;
   box-shadow: var(--shadow-light);

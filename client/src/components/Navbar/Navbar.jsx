@@ -75,7 +75,7 @@ const Navbar = () => {
 
           {isLoggedIn ? (
             <div style={{ position: "relative" }} ref={dropdownRef}>
-              <div onClick={toggleDropdown}>
+              <div onClick={toggleDropdown} style={{cursor:"pointer"}}>
                 <Avatar src={user?.photo} alt={user?.fullName} />
               </div>
               {showDropdown && (

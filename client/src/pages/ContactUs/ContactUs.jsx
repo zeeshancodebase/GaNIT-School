@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { FaLinkedin, FaTwitter, FaFacebook } from "react-icons/fa";
+import { FaLinkedin} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import './ContactUs.css';
 import Navbar from '../../components/Navbar/Navbar';
+import { FaInstagram } from "react-icons/fa6";
 
 const ContactUs = () => {
    const [formData, setFormData] = useState({
@@ -83,40 +84,26 @@ const ContactUs = () => {
 
       {/* Contact Details Section */}
       <section className="contact-details">
-        <div className="location">
+        {/* <div className="location">
           <h3>Our Location</h3>
           <p>
             123 Tech Avenue, Silicon Valley, California, USA
           </p>
-        </div>
+        </div> */}
         <div className="social">
           <h3>Follow Us</h3>
-          <Link to="#" aria-label="LinkedIn">
+          <Link to="https://www.linkedin.com/company/ganit-school/" aria-label="LinkedIn">
             <FaLinkedin />
           </Link>
-          <Link to="#" aria-label="Twitter">
-            <FaTwitter />
+          <Link to="https://www.instagram.com/ganitschool/" aria-label="Instagram">
+            <FaInstagram />
           </Link>
-          <Link to="#" aria-label="Facebook">
+          {/* <Link to="/" aria-label="Facebook">
             <FaFacebook />
-          </Link>
+          </Link> */}
         </div>
       </section>
 
-      {/* Google Map */}
-      <section id="map">
-        <iframe
-          title="GaNIT School Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.647574508298!2d-122.3994587846909!3d37.77492927975816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085815dce5e3c99%3A0x3a59d8db8a655f8b!2sSan%20Francisco%2C%20CA%2C%20USA!5e0!3m2!1sen!2sin!4v1625282255611!5m2!1sen!2sin"
-          width="100%"
-          height="400"
-          frameBorder="0"
-          style={{ border: 0 }}
-          allowFullScreen=""
-          aria-hidden="false"
-          tabIndex="0"
-        ></iframe>
-      </section>
     </>
   )
 }

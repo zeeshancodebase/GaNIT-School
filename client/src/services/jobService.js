@@ -3,8 +3,14 @@ import axios from "../api/axios";
 
 // Fetch all jobs
 export const fetchJobs = async () => {
-  const response = await axios.get("/api/jobs");
-  return response.data;
+ try {
+    const response = await axios.get("/api/jobs");
+    console.log("Fetched jobs from API:", response.data);
+    return response.data;
+  } catch (err) {
+    console.error("Failed to fetch jobs:", err);
+    return [];
+  }
 };
 
 // Create a new job

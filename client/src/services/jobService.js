@@ -1,10 +1,10 @@
 // services/jobService.js
-import axios from "../api/axios";
+import axiosInstance from "../api/axios";
 
 // Fetch all jobs
 export const fetchJobs = async () => {
  try {
-    const response = await axios.get("/api/jobs");
+    const response = await axiosInstance.get("/api/jobs");
     // console.log("Fetched jobs from API:", response.data);
     return response.data;
   } catch (err) {
@@ -15,18 +15,18 @@ export const fetchJobs = async () => {
 
 // Create a new job
 export const createJob = async (job) => {
-  const response = await axios.post("/api/jobs/createJob", job); 
+  const response = await axiosInstance.post("/api/jobs/createJob", job); 
   return response.data;
 };
 
 // Update an existing job
 export const updateJob = async (job) => {
-  const response = await axios.put(`/api/jobs/${job.id}`, job);
+  const response = await axiosInstance.put(`/api/jobs/${job.id}`, job);
   return response.data;
 };
 
 // Delete a job
 export const deleteJob = async (id) => {
-  const response = await axios.delete(`/api/jobs/${id}`);
+  const response = await axiosInstance.delete(`/api/jobs/${id}`);
   return response.data;
 };

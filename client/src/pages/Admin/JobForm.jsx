@@ -3,8 +3,6 @@ import { createJob, updateJob } from "../../services/jobService";
 import "./JobAdmin.css";
 import { ClipLoader } from "react-spinners";
 
-
-
 const defaultJob = {
   title: "",
   company: "",
@@ -15,7 +13,7 @@ const defaultJob = {
 
 const JobForm = ({ editingJob, setEditingJob }) => {
   const [job, setJob] = useState(defaultJob);
-const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (editingJob) {
@@ -47,84 +45,85 @@ const [isLoading, setIsLoading] = useState(false);
     } catch (err) {
       console.error("Failed to save job:", err);
     } finally {
-      setIsLoading(false);  
+      setIsLoading(false);
     }
   };
 
   return (
-    
-      <form className="add-job-form" onSubmit={handleSubmit}>
-        <h2 className="form-title">{editingJob ? "Edit Job" : "Add New Job"}</h2>
+    <form className="add-job-form" onSubmit={handleSubmit}>
+      <h2 className="form-title">{editingJob ? "Edit Job" : "Add New Job"}</h2>
 
-        <div className="input-group">
-          <label>Job Title</label>
+      <div className="input-group">
+        <label>Job Title</label>
+        <input
+          type="text"
+          name="title"
+          placeholder="Enter job title"
+          value={job.title}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="input-group">
+        <label>Company</label>
+        <input
+          type="text"
+          name="company"
+          placeholder="Enter company name"
+          value={job.company}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="input-group">
+        <label>Location</label>
+        <input
+          type="text"
+          name="location"
+          placeholder="Enter job location"
+          value={job.location}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="input-group">
+        <label>Salary</label>
+        <input
+          type="text"
+          name="salary"
+          placeholder="Enter salary (e.g. ₹6-10L)"
+          value={job.salary}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="input-group checkbox-group">
+        <label>
           <input
-            type="text"
-            name="title"
-            placeholder="Enter job title"
-            value={job.title}
+            type="checkbox"
+            name="isNew"
+            checked={job.isNew}
             onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Company</label>
-          <input
-            type="text"
-            name="company"
-            placeholder="Enter company name"
-            value={job.company}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Location</label>
-          <input
-            type="text"
-            name="location"
-            placeholder="Enter job location"
-            value={job.location}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Salary</label>
-          <input
-            type="text"
-            name="salary"
-            placeholder="Enter salary (e.g. ₹6-10L)"
-            value={job.salary}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group checkbox-group">
-          <label>
-            <input
-              type="checkbox"
-              name="isNew"
-              checked={job.isNew}
-              onChange={handleChange}
-            />{" "}
-            Mark as New
-          </label>
-        </div>
-<div>
+          />{" "}
+          Mark as New
+        </label>
+      </div>
+      <div>
         <button type="submit" className="btn primary">
           {isLoading ? (
             <ClipLoader size={20} color="#fff" />
+          ) : editingJob ? (
+            "Update Job"
           ) : (
-            editingJob ? "Update Job" : "Add Job"
+            "Add Job"
           )}
-        </button></div>
-      </form>
-    
+        </button>
+      </div>
+    </form>
   );
 };
 

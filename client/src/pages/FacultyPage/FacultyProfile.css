@@ -1,0 +1,204 @@
+/* General Layout */
+.faculty-profile-container {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  padding: 20px;
+}
+
+.faculty-profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  background-color: #d0ffe8;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.hero-image-section {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.hero-image-section img {
+  width: 100%;
+  height: auto;
+}
+
+.faculty-info-section {
+  max-width: 600px;
+}
+
+.faculty-name {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: 'Great Vibes', cursive;
+}
+
+.faculty-role {
+  font-size: 18px;
+  font-weight: 600;
+  color: #5d5d5d;
+  margin-bottom: 15px;
+}
+
+.faculty-description {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.faculty-expertise h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.faculty-expertise ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.faculty-expertise .expertise-item {
+  font-size: 16px;
+  color: #0056b3;
+  margin-bottom: 10px;
+}
+
+/* Social Media Section */
+.faculty-socials {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.social-icon {
+  background-color: #0056b3;
+  color: #fff;
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+  background-color: #003f7d;
+}
+
+/* Contact Info */
+.contact-info {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.contact-info h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.contact-box ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.contact-box li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.contact-box strong {
+  color: #0056b3;
+}
+
+/* Academic Contributions */
+.contributions {
+  margin-top: 50px;
+}
+
+.contributions h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.contributions-list {
+  display: flex;
+  gap: 20px;
+}
+
+.contribution-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 30%;
+}
+
+.contribution-card h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.contribution-card p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Research Interests */
+.research-interests {
+  margin-top: 50px;
+}
+
+.research-interests h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.interest-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.interest-list li {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contributions-list {
+    flex-direction: column;
+  }
+
+  .contribution-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

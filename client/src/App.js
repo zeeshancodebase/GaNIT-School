@@ -19,6 +19,7 @@ import JobPage from './pages/Admin/JobPage';
 import HRManagement from './pages/Admin/HRManagement/HRManagement';
 import Logout from './pages/LoginPage/logout';
 import ResetPassword from './pages/LoginPage/resetPassword';
+import FacultyProfile from './pages/FacultyPage/FacultyProfile';
 // import UnderMaintenance from './pages/UnderMaintenance/UnderMaintenance'
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
          <Route path="/logout" element={<Logout />} />
          <Route path="/resetPassword" element={<ResetPassword />} />
+         <Route path="/faculty/profile" element={<FacultyProfile />} />
         <Route path="/super-admin" element={<Admin />} />
          <Route path="/super-admin/jobs" element={<JobPage />} />
          <Route path="/jobs" element={<JobPage />} />

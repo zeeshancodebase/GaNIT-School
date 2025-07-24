@@ -100,7 +100,7 @@ const Navbar = () => {
               )}
             </div>
           ) : (
-            <Link to="/login" className="btn primary">
+            <Link to="https://ganitschool.akamai.net.in/" className="btn primary">
               Join Now / Login
             </Link>
           )}

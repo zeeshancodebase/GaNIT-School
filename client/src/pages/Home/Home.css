@@ -96,6 +96,7 @@ body::-webkit-scrollbar {
 .logo {
   display: flex;
   align-items: center;
+  justify-content: center;
   /* gap: 12px;  spacing between icon, image, and text */
   font-size: 1rem;
   color: var(--light-text);
@@ -1293,8 +1294,10 @@ section {
   .logo{
     justify-content: center;
   }
-  .footer-links, .footer-contact {
-    display: none;
+ 
+  .footer-grid{
+    display: flex;
+    flex-direction: column;
   }
 }
 

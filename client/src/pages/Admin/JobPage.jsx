@@ -30,7 +30,7 @@ const JobPage = () => {
         <JobForm editingJob={editingJob} setEditingJob={setEditingJob} />
       ) : (
         <div className="container job-board-wrapper">
-          <div className="job-board-left">
+          <div className="job-board-left" style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
             <h2 className="job-board-title">Live Job Board</h2>
             <p className="job-board-subtitle">
               100+ Companies Hiring GaNIT School Graduates
@@ -45,7 +45,7 @@ const JobPage = () => {
               ))}
             </div>
 
-            <div className="job-actions">
+            {/* <div className="job-actions">
               <a href="/" className="btn primary">
                 Apply Now
               </a>
@@ -55,7 +55,7 @@ const JobPage = () => {
               <a href="/" className="btn secondary">
                 Book Mock Interview
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       )}

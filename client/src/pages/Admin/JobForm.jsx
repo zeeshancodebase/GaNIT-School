@@ -100,6 +100,17 @@ const JobForm = ({ editingJob, setEditingJob }) => {
           required
         />
       </div>
+      <div className="input-group">
+        <label>Application link</label>
+        <input
+          type="text"
+          name="appLink"
+          placeholder="Enter application link (e.g. https://forms.gle/..., company website)"
+          value={job.appLink}
+          onChange={handleChange}
+          required
+        />
+      </div>
 
       <div className="input-group checkbox-group">
         <label>

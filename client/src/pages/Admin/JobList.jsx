@@ -6,6 +6,7 @@ import {
   FaEdit,
   FaMapMarkerAlt,
   FaMoneyBillWave,
+  FaPaperPlane,
   FaTrash,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -18,7 +19,7 @@ const JobList = ({
   showActionBtn = true,
 }) => {
   const [jobs, setJobs] = useState([]);
-  const {  isLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const loadJobs = async () => {
@@ -53,30 +54,36 @@ const JobList = ({
                 {job.isNew && <span className="job-new">New</span>}
               </div>
               <div className="job-card-bottom">
-                <span className="job-info">
-                  <FaMapMarkerAlt className="job-icon" />
-                  {job.location}
-                </span>
-                <span className="job-info">
-                  <FaMoneyBillWave className="job-icon" />
-                  {job.salary}
-                </span>
-                {showActionBtn && isLoggedIn && (
-                  <div className="job-admin-actions">
-                    <button
-                      className="btn-edit"
-                      onClick={() => setEditingJob(job)}
-                    >
-                      <FaEdit /> Edit{" "}
-                    </button>
-                    <button
-                      className="btn-delete"
-                      onClick={() => handleDelete(job.id)}
-                    >
-                      <FaTrash /> Delete
-                    </button>
-                  </div>
-                )}
+                <div style={{display:"flex", gap:"20px"}}>
+                  <span className="job-info">
+                    <FaMapMarkerAlt className="job-icon" />
+                    {job.location}
+                  </span>
+                  <span className="job-info">
+                    <FaMoneyBillWave className="job-icon" />
+                    {job.salary}
+                  </span>
+                </div>
+                <div>
+                  {showActionBtn && isLoggedIn ? (
+                    <div className="job-admin-actions">
+                      <button
+                        className="btn-edit"
+                        onClick={() => setEditingJob(job)}
+                      >
+                        <FaEdit /> Edit{" "}
+                      </button>
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDelete(job.id)}
+                      >
+                        <FaTrash /> Delete
+                      </button>
+                    </div>
+                  ) : (
+                    <Link to={job.appLink} class="btn primary">Apply Now <FaPaperPlane style={{marginLeft:"10px"}}/> </Link>
+                  )}
+                </div>
               </div>
             </div>
           ))}

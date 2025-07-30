@@ -15,7 +15,7 @@ router.get('/getAllHRs', userController.getAllHRs);
 
 
 router.get('/getUserById/:id', userController.getUserById);
-router.put('/updateUser/:id', userController.updateUser);
+router.patch('/updateUser/:id', userController.updateUser);
 router.delete('/deleteUser/:id', userController.deleteUser);
 
 

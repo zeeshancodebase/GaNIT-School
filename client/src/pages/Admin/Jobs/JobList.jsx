@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchJobsAsync, deleteJobAsync } from "../../../app/slices/jobSlice";
+import {
+  fetchJobsAsync,
+  deleteJobAsync,
+  closeJobAsync,
+  reopenJobAsync,
+} from "../../../app/slices/jobSlice";
 import "../JobAdmin.css";
 import {
   FaArrowRight,
@@ -66,6 +71,50 @@ const JobList = ({
     });
   };
 
+  const handleCloseJob = (jobId) => {
+    Swal.fire({
+      title: "Close this job?",
+      text: "This job will be marked as closed and no longer visible to applicants.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#aaa",
+      confirmButtonText: "Yes, close it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await dispatch(closeJobAsync(jobId)).unwrap();
+          await dispatch(fetchJobsAsync());
+          toast.success("Job closed successfully!");
+        } catch (err) {
+          toast.error("Failed to close job");
+        }
+      }
+    });
+  };
+
+  const handleReopenJob = (jobId) => {
+    Swal.fire({
+      title: "Reopen this job?",
+      text: "This job will be marked as open and visible to applicants again.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#28a745",
+      cancelButtonColor: "#aaa",
+      confirmButtonText: "Yes, reopen it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await dispatch(reopenJobAsync(jobId)).unwrap();
+          await dispatch(fetchJobsAsync());
+          toast.success("Job reopened successfully!");
+        } catch (err) {
+          toast.error("Failed to reopen job");
+        }
+      }
+    });
+  };
+
   // Show limited jobs if limit is passed
   const visibleJobs = limit ? jobs.slice(0, limit) : jobs;
 
@@ -74,7 +123,12 @@ const JobList = ({
       <div className="job-board-right admin-view">
         <div className="job-card-header">
           {isLoggedIn ? (
-            <h3 className="job-list-title">Manage Job Listings <Link to="/jobs" class="job-view-all">View All <FaArrowRight /></Link></h3>
+            <h3 className="job-list-title">
+              Manage Job Listings{" "}
+              <Link to="/super-admin/jobs" class="job-view-all">
+                View All <FaArrowRight />
+              </Link>
+            </h3>
           ) : (
             <h3 className="job-list-title">Available Vacancies</h3>
           )}
@@ -84,7 +138,7 @@ const JobList = ({
             <p>Loading jobs...</p>
           ) : (
             visibleJobs.map((job) => (
-              <div key={job.id} className="job-card job-card-admin">
+              <div key={job._id} className="job-card job-card-admin">
                 <div className="job-card-top">
                   <div>
                     <h4 className="job-title">{job.title}</h4>
@@ -93,11 +147,19 @@ const JobList = ({
                       {job.company}
                     </p>
                   </div>
-                  {job.isNew && <span className="job-new">New</span>}
+                  {/* {job.isNew && <span className="job-new">New</span>}
+                  {job.status === "closed" && (
+                    <span className="badge closed">Closed</span>
+                  )} */}
+                  {job.status === "closed" ? (
+                    <span className="badge closed">Closed</span>
+                  ) : job.isNew ? (
+                    <span className="job-new">New</span>
+                  ) : null}
                 </div>
                 <div>
                   <p className="job-summary">
-                    {job.jobDesc||
+                    {job.jobDesc ||
                       "Join our team and help us build cutting-edge solutions."}
                   </p>
                   {job.skills && job.skills.length > 0 && (
@@ -129,18 +191,27 @@ const JobList = ({
                       >
                         <FaEdit /> Edit{" "}
                       </button>{" "}
-                      {/* <button
-                        className="btn-edit"
-                        onClick={() => setEditingJob(job)}
-                      >
-                        Close
-                      </button> */}
+                      {job.status === "closed" ? (
+                        <button
+                          className="btn-edit"
+                          onClick={() => handleReopenJob(job._id)}
+                        >
+                          Reopen
+                        </button>
+                      ) : (
+                        <button
+                          className="btn-edit"
+                          onClick={() => handleCloseJob(job._id)}
+                        >
+                          Close
+                        </button>
+                      )}
                       <button
                         className="btn-delete"
                         onClick={() => handleDelete(job._id)}
-                        disabled={deletingId === job.id}
+                        disabled={deletingId === job._id}
                       >
-                        {deletingId === job.id ? (
+                        {deletingId === job._id ? (
                           <ClipLoader size={14} color="#fff" />
                         ) : (
                           <>
@@ -150,7 +221,7 @@ const JobList = ({
                       </button>
                     </div>
                   ) : (
-                    <Link to={job.appLink} class="btn apply-btn">
+                    <Link to={job.appLink} className="btn apply-btn">
                       Apply Now <FaPaperPlane style={{ marginLeft: "5px" }} />{" "}
                     </Link>
                   )}

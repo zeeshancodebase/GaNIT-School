@@ -9,6 +9,11 @@ const jobSchema = new mongoose.Schema(
     appLink: { type: String, required: true },
     jobDesc: { type: String, required: true, maxlength: 250 },
     skills: { type: [String], default: [] },
+    status: {
+      type: String,
+      enum: ['open', 'closed'],
+      default: 'open',
+    },
   },
   { timestamps: true }
 );

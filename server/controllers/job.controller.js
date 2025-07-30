@@ -53,3 +53,41 @@ exports.deleteJob = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// Close a job
+exports.closeJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const job = await Job.findByIdAndUpdate(
+      id,
+      { status: 'closed' },
+      { new: true }
+    );
+
+    if (!job) return res.status(404).json({ message: 'Job not found' });
+
+    res.json({ message: 'Job closed successfully', job });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to close job' });
+  }
+};
+
+// Re-Open a job
+exports.reopenJob = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const job = await Job.findByIdAndUpdate(
+      jobId,
+      { status: 'open' },
+      { new: true }
+    );
+    if (!job) {
+      return res.status(404).json({ message: 'Job not found' });
+    }
+    res.json({ message: 'Job Re-Opened successfully', job });
+  } catch (err) {
+    console.error('Error reopening job:', err);
+    res.status(500).json({ message: 'Failed to reopen job' });
+  }
+};

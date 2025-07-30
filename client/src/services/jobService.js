@@ -30,3 +30,16 @@ export const deleteJob = async (id) => {
   const response = await axiosInstance.delete(`/api/jobs/${id}`);
   return response.data;
 };
+
+// Close a job
+export const closeJob = async (id) => {
+  const response = await axiosInstance.patch(`/api/jobs/close/${id}`);
+  return response.data;
+};
+
+
+
+export const reopenJob = async (jobId) => {
+  const response = await axiosInstance.patch(`/api/jobs/reopen/${jobId}`);
+  return response.data;
+};

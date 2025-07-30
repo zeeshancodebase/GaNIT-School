@@ -21,7 +21,7 @@ export const createUser = async (formData) => {
 
 // Update user details
 export const updateUser = async (user) => {
-  const response = await axiosInstance.put(`/api/user/${user.id}`, user);
+  const response = await axiosInstance.patch(`/api/user/${user.id}`, user);
   return response.data;
 };
 

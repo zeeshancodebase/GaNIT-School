@@ -71,7 +71,7 @@ const HRList = ({
       <div className="job-card-header">
         <h3 className="job-list-title">
           Manage HR Users
-          <Link to="/jobs" class="job-view-all">
+          <Link to="/super-admin/HRManagement" class="job-view-all">
             View All <FaArrowRight />
           </Link>
         </h3>

@@ -1,6 +1,6 @@
 // store/slices/jobSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchJobs, createJob, updateJob, deleteJob } from '../../services/jobService';
+import { fetchJobs, createJob, updateJob, deleteJob, closeJob, reopenJob } from '../../services/jobService';
 
 // Async thunks
 // export const fetchJobsAsync = createAsyncThunk('jobs/fetchJobs', async () => {
@@ -41,6 +41,22 @@ export const deleteJobAsync = createAsyncThunk('jobs/deleteJob', async (jobId) =
   return jobId;
 });
 
+export const closeJobAsync = createAsyncThunk(
+  'jobs/closeJob',
+  async (jobId) => {
+    const closedJob = await closeJob(jobId);
+    return closedJob;
+  }
+);
+
+export const reopenJobAsync = createAsyncThunk(
+  'jobs/reopenJob',
+  async (jobId) => {
+    const reopenedJob = await reopenJob(jobId);
+    return reopenedJob;
+  }
+);
+
 // Create the jobSlice
 const jobSlice = createSlice({
   name: 'jobs',
@@ -64,24 +80,42 @@ const jobSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       })
-      
+
       // Create Job
       .addCase(createJobAsync.fulfilled, (state, action) => {
         state.jobs.push(action.payload);
       })
-      
+
       // Update Job
       .addCase(updateJobAsync.fulfilled, (state, action) => {
-        const index = state.jobs.findIndex(job => job.id === action.payload.id);
+        const index = state.jobs.findIndex(job => job._id === action.payload._id);
         if (index !== -1) {
           state.jobs[index] = action.payload;
         }
       })
-      
+
       // Delete Job
       .addCase(deleteJobAsync.fulfilled, (state, action) => {
-        state.jobs = state.jobs.filter(job => job.id !== action.payload);
-      });
+        state.jobs = state.jobs.filter(job => job._id !== action.payload);
+      })
+
+      // Close Job
+      .addCase(closeJobAsync.fulfilled, (state, action) => {
+        const index = state.jobs.findIndex(job => job._id === action.payload._id);
+        if (index !== -1) {
+          state.jobs[index] = action.payload;
+        }
+      })
+
+// Re-Open Job
+      .addCase(reopenJobAsync.fulfilled, (state, action) => {
+  const index = state.jobs.findIndex(job => job._id === action.payload._id);
+  if (index !== -1) {
+    state.jobs[index] = action.payload;
+  }
+})
+
+
   },
 });
 

@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken');
 
 // Register a new user
 exports.registerUser = async (req, res) => {
-  const { email, password, name, role,phoneNumber, company, companyWebsite, companyLogoUrl } = req.body;
+  const { email, password, name, role, phoneNumber, company, companyWebsite, companyLogoUrl } = req.body;
 
   try {
     // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
-    const newUser = new User({ email, password, name, role,phoneNumber, company, companyWebsite, companyLogoUrl });
+    const newUser = new User({ email, password, name, role, phoneNumber, company, companyWebsite, companyLogoUrl });
     await newUser.save();
 
     const token = newUser.generateAuthToken();
@@ -98,11 +98,12 @@ exports.getUserById = async (req, res) => {
 
 // Update user
 exports.updateUser = async (req, res) => {
-  const {  email, password, name, role,phoneNumber, company, companyWebsite, companyLogoUrl  } = req.body;
+  const { email, password, name, role, phoneNumber, company, companyWebsite, companyLogoUrl } = req.body;
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
-      {  email, password, name, role,phoneNumber, company, companyWebsite, companyLogoUrl  }
+      { email, password, name, role, phoneNumber, company, companyWebsite, companyLogoUrl },
+      { new: true }
     ).select('-password');
     if (!updatedUser) return res.status(404).json({ message: 'User not found' });
     res.json(updatedUser);

@@ -15,7 +15,7 @@ export const createHR = async (formData) => {
 
 // Update HR
 export const updateHR = async (hr) => {
-  const response = await axiosInstance.put(`/api/user/updateUser/${hr._id}`, hr);
+  const response = await axiosInstance.patch(`/api/user/updateUser/${hr._id}`, hr);
   return response.data;
 };
 

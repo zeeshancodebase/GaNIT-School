@@ -36,6 +36,27 @@
   outline: 1px solid var(--primary-hover);
 }
 
+.input-group textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 8px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--section-bg);
+  color: var(--light-text);
+  outline: 1px solid var(--primary-hover);
+}
+
+.input-group small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+
 .password-wrapper {
   display: flex;
   align-items: center;

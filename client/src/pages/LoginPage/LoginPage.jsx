@@ -6,6 +6,7 @@ import axiosInstance from "../../api/axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/auth";
 import { ClipLoader } from "react-spinners";
+import useHomeNavigator from "../../hooks/useHomeNavigator";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ const LoginPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const getHomePath = useHomeNavigator();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
@@ -32,25 +35,32 @@ const LoginPage = () => {
 
     try {
       setLoading(true);
-      const response = await axiosInstance.post("api/user/login", { email, password });
+      const response = await axiosInstance.post("api/user/login", {
+        email,
+        password,
+      });
       const data = response.data;
 
       if (data?.token) {
         storeTokenInLS(data.token);
         toast.success(data.message);
 
-        // ✅ Role-based navigation
-        switch (data.user?.role) {
-          case "admin":
-            navigate("/super-admin");
-            break;
-          case "hr":
-            navigate("/hr/home");
-            break;
-          default:
-            navigate("/job-board");
-            break;
-        }
+        // ✅ Role-based navigation.
+        const homePath = getHomePath(data.user?.role);
+
+        navigate(homePath);
+
+        // switch (data.user?.role) {
+        //   case "admin":
+        //     navigate("/super-admin");
+        //     break;
+        //   case "hr":
+        //     navigate("/hr/home");
+        //     break;
+        //   default:
+        //     navigate("/job-board");
+        //     break;
+        // }
       } else {
         toast.error(data.message || "Invalid credentials");
       }

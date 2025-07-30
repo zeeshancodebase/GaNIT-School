@@ -1,5 +1,5 @@
 
-import JobList from "./JobList";
+import JobList from "./Jobs/JobList";
 
 import HRList from "./HRManagement/HRList";
 import Navbar from "../../components/Navbar/Navbar";

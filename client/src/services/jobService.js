@@ -21,7 +21,7 @@ export const createJob = async (job) => {
 
 // Update an existing job
 export const updateJob = async (job) => {
-  const response = await axiosInstance.put(`/api/jobs/${job.id}`, job);
+  const response = await axiosInstance.put(`/api/jobs/${job._id}`, job);
   return response.data;
 };
 

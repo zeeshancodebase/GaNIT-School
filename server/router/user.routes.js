@@ -10,9 +10,13 @@ router.post('/login', userController.loginUser);
 // Admin/protected routes (you can add auth middleware later)
 router.get('/getCurrentUser', authMiddleware,  userController.getCurrentUser);
 router.get('/getAllUsers', userController.getAllUsers);
-router.get('/:id', userController.getUserById);
-router.put('/:id', userController.updateUser);
-router.delete('/:id', userController.deleteUser);
+
+router.get('/getAllHRs', userController.getAllHRs);
+
+
+router.get('/getUserById/:id', userController.getUserById);
+router.put('/updateUser/:id', userController.updateUser);
+router.delete('/deleteUser/:id', userController.deleteUser);
 
 
 

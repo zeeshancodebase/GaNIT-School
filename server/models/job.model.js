@@ -6,8 +6,9 @@ const jobSchema = new mongoose.Schema(
     company: { type: String, required: true },
     location: { type: String, required: true },
     salary: { type: String, required: true },
-      appLink: { type: String, required: true },
-    isNew: { type: Boolean, default: false },
+    appLink: { type: String, required: true },
+    jobDesc: { type: String, required: true, maxlength: 250 },
+    skills: { type: [String], default: [] },
   },
   { timestamps: true }
 );

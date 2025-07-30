@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken');
 
 // Register a new user
 exports.registerUser = async (req, res) => {
-  const { email, password, name, role} = req.body;
+  const { email, password, name, role,phoneNumber, company, companyWebsite, companyLogoUrl } = req.body;
 
   try {
     // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
-    const newUser = new User({ email, password, name, role});
+    const newUser = new User({ email, password, name, role,phoneNumber, company, companyWebsite, companyLogoUrl });
     await newUser.save();
 
     const token = newUser.generateAuthToken();
@@ -23,7 +23,7 @@ exports.registerUser = async (req, res) => {
 
 // Login user
 exports.loginUser = async (req, res, next) => {
-  
+
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -73,6 +73,18 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+// Get all HRs (admin)
+exports.getAllHRs = async (req, res) => {
+  try {
+    const hrUsers = await User.find({ role: 'hr' }).select('-password');
+    res.json(hrUsers);
+  } catch (err) {
+    console.error('Error fetching HR users:', err);
+    res.status(500).json({ message: 'Error fetching HR users', error: err.message });
+  }
+};
+
+
 // Get user by ID
 exports.getUserById = async (req, res) => {
   try {
@@ -86,12 +98,11 @@ exports.getUserById = async (req, res) => {
 
 // Update user
 exports.updateUser = async (req, res) => {
-  const { name, email, role} = req.body;
+  const {  email, password, name, role,phoneNumber, company, companyWebsite, companyLogoUrl  } = req.body;
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
-      { name, email, role },
-      { new: true }
+      {  email, password, name, role,phoneNumber, company, companyWebsite, companyLogoUrl  }
     ).select('-password');
     if (!updatedUser) return res.status(404).json({ message: 'User not found' });
     res.json(updatedUser);

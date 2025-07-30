@@ -15,17 +15,19 @@ import CourseDetails from './pages/CourseDetails/CourseDetails';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Admin from './pages/Admin/Admin';
 import HRhome from './pages/HRpages/HRhome';
-import JobPage from './pages/Admin/JobPage';
+import JobPage from './pages/Admin/Jobs/JobPage';
 import HRManagement from './pages/Admin/HRManagement/HRManagement';
 import Logout from './pages/LoginPage/logout';
 import ResetPassword from './pages/LoginPage/resetPassword';
+import { store } from './app/store';
+import { Provider } from "react-redux";
 // import FacultyProfile from './pages/FacultyPage/FacultyProfile';
 // import UnderMaintenance from './pages/UnderMaintenance/UnderMaintenance'
 
 function App() {
   return (
     <div className="App">
-      {/* <Provider store={store}> */}
+      <Provider store={store}>
 
       <Routes>
         {/* Admin Routes */}
@@ -43,7 +45,7 @@ function App() {
          <Route path="/logout" element={<Logout />} />
          <Route path="/resetPassword" element={<ResetPassword />} />
          {/* <Route path="/faculty/profile" element={<FacultyProfile />} /> */}
-        <Route path="/super-admin" element={<Admin />} />
+        <Route path="/super-admin-panel" element={<Admin />} />
          <Route path="/super-admin/jobs" element={<JobPage />} />
          <Route path="/jobs" element={<JobPage />} />
         <Route path="/super-admin/HRManagement" element={<HRManagement />} />
@@ -53,7 +55,7 @@ function App() {
         {/* Optional: fallback route 
         <Route path="*" element={<NotFound />} />*/}
       </Routes>
-      {/* <Provider /> */}
+      </Provider >
 
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import JobForm from "../Admin/JobForm";
-import JobList from "../Admin/JobList";
+import JobForm from "../Admin/Jobs/JobForm";
+import JobList from "../Admin/Jobs/JobList";
 import Navbar from "../../components/Navbar/Navbar";
 
 const HRhome = () => {

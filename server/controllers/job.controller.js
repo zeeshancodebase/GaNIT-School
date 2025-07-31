@@ -1,9 +1,17 @@
 const Job = require('../models/job.model');
+const { generateJobID } = require('../utils/jobIdGenerator');
 
 // Create a new job
 exports.createJob = async (req, res) => {
   try {
-    const job = new Job(req.body);
+
+     // Generate unique jobId
+    const jobId = await generateJobID();
+
+    // Add jobId to job data
+    const jobData = { ...req.body, jobId };
+
+    const job = new Job(jobData);
     const savedJob = await job.save();
     res.status(201).json(savedJob);
   } catch (err) {

@@ -138,7 +138,12 @@ const JobList = ({
             <p>Loading jobs...</p>
           ) : (
             visibleJobs.map((job) => (
-              <div key={job._id} className="job-card job-card-admin">
+              <div
+                key={job._id}
+                className="job-card job-card-admin"
+                style={{ paddingTop: "5px" }}
+              >
+                <span className="job-id">Job ID: {job.jobId} </span>
                 <div className="job-card-top">
                   <div>
                     <h4 className="job-title">{job.title}</h4>

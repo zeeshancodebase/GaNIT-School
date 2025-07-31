@@ -8,6 +8,24 @@ import { fetchJobs, createJob, updateJob, deleteJob, closeJob, reopenJob } from 
 //   return jobs;
 // });
 
+// export const fetchJobsAsync = createAsyncThunk(
+//   'jobs/fetchJobs',
+//   async () => {
+//     const data = await fetchJobs();
+//     const now = new Date();
+//     const NEW_DAYS = 7;
+
+//     return data.map((job) => {
+//       const createdAt = new Date(job.createdAt);
+//       const ageInDays = (now - createdAt) / (1000 * 60 * 60 * 24);
+//       return {
+//         ...job,
+//         isNew: ageInDays < NEW_DAYS,
+//       };
+//     });
+//   }
+// );
+
 export const fetchJobsAsync = createAsyncThunk(
   'jobs/fetchJobs',
   async () => {
@@ -15,16 +33,19 @@ export const fetchJobsAsync = createAsyncThunk(
     const now = new Date();
     const NEW_DAYS = 7;
 
-    return data.map((job) => {
-      const createdAt = new Date(job.createdAt);
-      const ageInDays = (now - createdAt) / (1000 * 60 * 60 * 24);
-      return {
-        ...job,
-        isNew: ageInDays < NEW_DAYS,
-      };
-    });
+    return data
+      .map((job) => {
+        const createdAt = new Date(job.createdAt);
+        const ageInDays = (now - createdAt) / (1000 * 60 * 60 * 24);
+        return {
+          ...job,
+          isNew: ageInDays < NEW_DAYS,
+        };
+      })
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // NEWEST FIRST
   }
 );
+
 
 export const createJobAsync = createAsyncThunk('jobs/createJob', async (jobData) => {
   const job = await createJob(jobData);
@@ -84,6 +105,7 @@ const jobSlice = createSlice({
       // Create Job
       .addCase(createJobAsync.fulfilled, (state, action) => {
         state.jobs.push(action.payload);
+        state.isLoading = false;
       })
 
       // Update Job
@@ -107,13 +129,13 @@ const jobSlice = createSlice({
         }
       })
 
-// Re-Open Job
+      // Re-Open Job
       .addCase(reopenJobAsync.fulfilled, (state, action) => {
-  const index = state.jobs.findIndex(job => job._id === action.payload._id);
-  if (index !== -1) {
-    state.jobs[index] = action.payload;
-  }
-})
+        const index = state.jobs.findIndex(job => job._id === action.payload._id);
+        if (index !== -1) {
+          state.jobs[index] = action.payload;
+        }
+      })
 
 
   },

@@ -17,6 +17,7 @@ const defaultJob = {
   salary: "",
   appLink: "",
   jobDesc: "",
+  isInternal: "",
   skills: [],
 };
 
@@ -36,10 +37,21 @@ const JobForm = ({ editingJob, setEditingJob }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setJob((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    // Check if the company field is being updated
+    if (name === "company") {
+      const isGanit = value.trim().toLowerCase().includes("ganit");
+
+      setJob((prev) => ({
+        ...prev,
+        [name]: value,
+        isInternal: isGanit, // true if it matches
+      }));
+    } else {
+      setJob((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const addSkill = () => {
@@ -99,6 +111,15 @@ const JobForm = ({ editingJob, setEditingJob }) => {
           required
         />
       </div>
+      {/* <div className="input-group">
+        <label>Is Internal?</label>
+        <input
+          type="checkbox"
+          checked={job.isInternal}
+          readOnly
+          title="This is determined automatically based on the company name"
+        />
+      </div> */}
 
       <div className="input-group">
         <label>Location</label>
@@ -145,7 +166,7 @@ const JobForm = ({ editingJob, setEditingJob }) => {
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === ",") {
               e.preventDefault();
-              addSkill(); 
+              addSkill();
             }
           }}
           onBlur={addSkill}
@@ -198,7 +219,7 @@ const JobForm = ({ editingJob, setEditingJob }) => {
             }
           }}
         >
-          <FaTimes style={{marginRight:"5px"}}/>
+          <FaTimes style={{ marginRight: "5px" }} />
           {editingJob ? "Cancel" : "Reset"}
         </button>
         <button type="submit" className="btn primary">

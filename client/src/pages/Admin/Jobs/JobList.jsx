@@ -226,7 +226,10 @@ const JobList = ({
                       </button>
                     </div>
                   ) : (
-                    <Link to={job.appLink} className="btn apply-btn">
+                    // <Link to={job.appLink} className="btn apply-btn">
+                    //   Apply Now <FaPaperPlane style={{ marginLeft: "5px" }} />{" "}
+                    // </Link>
+                    <Link to={`/jobs/apply-now/${job.jobId}`} className="btn apply-btn">
                       Apply Now <FaPaperPlane style={{ marginLeft: "5px" }} />{" "}
                     </Link>
                   )}

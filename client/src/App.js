@@ -21,6 +21,9 @@ import Logout from './pages/LoginPage/logout';
 import ResetPassword from './pages/LoginPage/resetPassword';
 import { store } from './app/store';
 import { Provider } from "react-redux";
+import CandidateForm from './pages/JobLeads/CandidateForm';
+import {Error} from './pages/Error/Error';
+import CandidateList from './pages/JobLeads/CandidateList';
 // import FacultyProfile from './pages/FacultyPage/FacultyProfile';
 // import UnderMaintenance from './pages/UnderMaintenance/UnderMaintenance'
 
@@ -29,32 +32,34 @@ function App() {
     <div className="App">
       <Provider store={store}>
 
-      <Routes>
-        {/* Admin Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/career-tracks" element={<CareerTracks />} />
-        <Route path="/courses" element={<CoursesPage />} />
-        <Route path="/course-details" element={<CourseDetails />} />
-        <Route path="/job-board" element={<JobBoardPage />} />
-        <Route path="/faculties" element={<FacultiesPage />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/live" element={<LiveClasses />} />
-        <Route path="/login" element={<LoginPage />} />
-         <Route path="/logout" element={<Logout />} />
-         <Route path="/resetPassword" element={<ResetPassword />} />
-         {/* <Route path="/faculty/profile" element={<FacultyProfile />} /> */}
-        <Route path="/super-admin-panel" element={<Admin />} />
-         <Route path="/super-admin/jobs" element={<JobPage />} />
-         <Route path="/jobs" element={<JobPage />} />
-        <Route path="/super-admin/HRManagement" element={<HRManagement />} />
-        <Route path="/hr/home" element={<HRhome />} />
-        {/* <Route path="/demo" element={<Demo />} /> */}
+        <Routes>
+          {/* Admin Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/career-tracks" element={<CareerTracks />} />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/course-details" element={<CourseDetails />} />
+          <Route path="/job-board" element={<JobBoardPage />} />
+          <Route path="/faculties" element={<FacultiesPage />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/live" element={<LiveClasses />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
+          {/* <Route path="/faculty/profile" element={<FacultyProfile />} /> */}
+          <Route path="/super-admin-panel" element={<Admin />} />
+          <Route path="/super-admin/jobs" element={<JobPage />} />
+          <Route path="/jobs" element={<JobPage />} />
+          <Route path="/jobs/apply-now/:jobId" element={<CandidateForm />} />
+          <Route path="/super-admin/HRManagement" element={<HRManagement />} />
+          <Route path="/super-admin/Leads" element={<CandidateList />} />
+          <Route path="/hr/home" element={<HRhome />} />
+          {/* <Route path="/demo" element={<Demo />} /> */}
 
-        {/* Optional: fallback route 
-        <Route path="*" element={<NotFound />} />*/}
-      </Routes>
+          {/* Optional: fallback route */}
+        <Route path="*" element={<Error />} />
+        </Routes>
       </Provider >
 
     </div>

@@ -34,6 +34,13 @@
   background-color: var(--section-bg);
   color: var(--light-text);
   outline: 1px solid var(--primary-hover);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* On focus */
+.input-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px var(--primary);
+  background-color: var(--section-bg);
 }
 
 .input-group textarea {

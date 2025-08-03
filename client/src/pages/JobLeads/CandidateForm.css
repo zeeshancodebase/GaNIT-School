@@ -1,0 +1,69 @@
+.candidate-form {
+  background-color: var(--nav-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-light);
+  max-width: 1200px;
+  margin: auto;
+}
+
+.candidate-form .form-grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 40px; 
+}
+
+
+.candidate-form button {
+  background-color: var(--primary);
+  color: var(--section-bg);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  align-items: center;
+}
+
+.candidate-form button:hover {
+  background-color: var(--primary-hover);
+}
+
+.candidate-form select {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  background-color: var(--section-bg);
+  color: var(--light-text);
+  outline: 1px solid var(--primary-hover);
+  border-radius: 6px;
+  border: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* On focus */
+.candidate-form select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px var(--primary);
+  background-color: var(--section-bg);
+}
+
+/* Optional: Style dropdown arrow (some browsers may ignore this) */
+.candidate-form select::-ms-expand {
+  display: none;
+}
+
+
+.candidate-form .input-group {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .candidate-form .form-grid-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+

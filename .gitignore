@@ -37,3 +37,6 @@ client/.env
 
 
 client/src/pages/AddHR
+
+
+client/src/pages/JobLeads/oldcandlist.jsx

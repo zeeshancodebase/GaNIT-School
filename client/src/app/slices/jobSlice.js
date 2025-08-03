@@ -1,6 +1,6 @@
 // store/slices/jobSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchJobs, createJob, updateJob, deleteJob, closeJob, reopenJob } from '../../services/jobService';
+import { fetchJobs, createJob, updateJob, deleteJob, closeJob, reopenJob, fetchJobByJobId } from '../../services/jobService';
 
 // Async thunks
 // export const fetchJobsAsync = createAsyncThunk('jobs/fetchJobs', async () => {
@@ -46,6 +46,14 @@ export const fetchJobsAsync = createAsyncThunk(
   }
 );
 
+export const fetchJobByJobIdAsync = createAsyncThunk(
+  'jobs/fetchJobByJobId',
+  async (jobId) => {
+    const job = await fetchJobByJobId(jobId);
+    return job;
+  }
+);
+
 
 export const createJobAsync = createAsyncThunk('jobs/createJob', async (jobData) => {
   const job = await createJob(jobData);
@@ -58,7 +66,7 @@ export const updateJobAsync = createAsyncThunk('jobs/updateJob', async (jobData)
 });
 
 export const deleteJobAsync = createAsyncThunk('jobs/deleteJob', async (jobId) => {
-  await deleteJob(jobId); // assuming the backend returns the deleted job id
+  await deleteJob(jobId);
   return jobId;
 });
 
@@ -101,6 +109,23 @@ const jobSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       })
+
+
+      // Fetch single job by jobId
+      .addCase(fetchJobByJobIdAsync.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchJobByJobIdAsync.fulfilled, (state, action) => {
+        state.selectedJob = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchJobByJobIdAsync.rejected, (state, action) => {
+        state.selectedJob = null;
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+
 
       // Create Job
       .addCase(createJobAsync.fulfilled, (state, action) => {

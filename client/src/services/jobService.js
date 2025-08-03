@@ -43,3 +43,16 @@ export const reopenJob = async (jobId) => {
   const response = await axiosInstance.patch(`/api/jobs/reopen/${jobId}`);
   return response.data;
 };
+
+
+
+// Fetch a single job by jobId
+export const fetchJobByJobId = async (jobId) => {
+  try {
+    const response = await axiosInstance.get(`/api/jobs/getJobById/${jobId}`);
+    return response.data;
+  } catch (err) {
+    console.error(`Failed to fetch job with jobId ${jobId}:`, err);
+    return null; // or throw error if you want to handle it outside
+  }
+};

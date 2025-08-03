@@ -20,6 +20,7 @@ const jobSchema = new mongoose.Schema(
       enum: ['open', 'closed'],
       default: 'open',
     },
+    isInternal:{type:Boolean}
   },
   { timestamps: true }
 );

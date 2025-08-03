@@ -7,6 +7,7 @@ const errorMiddleware = require("./middlewares/errorMiddleware");
 const jobRoutes = require('./router/job.routes');
 const userRoutes = require('./router/user.routes');
 const authRoutes = require('./router/auth.routes');
+const candidateRoutes = require('./router/candidate.routes');
 
 const PORT = process.env.PORT || 5000;
 
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use('/api/jobs', jobRoutes);    
 app.use('/api/user', userRoutes);   
 app.use('/api/auth', authRoutes);
+app.use('/api/candidates', candidateRoutes);
 
 
 // // Routes

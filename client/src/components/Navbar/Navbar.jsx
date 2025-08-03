@@ -9,6 +9,7 @@ import {
   FaSignOutAlt,
   FaUsers,
   FaUserShield,
+  FaUserTie,
 } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import Avatar from "../Avatar/Avatar";
@@ -82,8 +83,12 @@ const Navbar = () => {
                   <FaBriefcase /> Job Portal
                 </NavLink>
                 <NavLink to="/super-admin/HRManagement">
-                  <FaUsers size={20} style={{paddingRight:"5px"}} />
+                  <FaUserTie size={20} style={{paddingRight:"5px"}} />
                   HRs
+                </NavLink>
+                <NavLink to="/super-admin/Leads">
+                  <FaUsers size={20} style={{paddingRight:"5px"}} />
+                  Leads
                 </NavLink>
                 {/* <NavLink to="/live">Live Classes</NavLink>
                 <NavLink to="/job-board">Job Board</NavLink>

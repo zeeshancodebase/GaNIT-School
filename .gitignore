@@ -40,3 +40,5 @@ client/src/pages/AddHR
 
 
 client/src/pages/JobLeads/oldcandlist.jsx
+client/src/pages/JobLeads/temp.jsx
+client/src/pages/JobLeads/AddNoteButton.jsx

@@ -6,7 +6,8 @@ const {
   getAllCandidates,
   getCandidateById,
   updateCandidate,
-  deleteCandidate
+  deleteCandidate,
+  updateCandidateStatusOrNote
 } = require('../controllers/candidate.controller');
 
 // Route for creating a new candidate
@@ -23,5 +24,8 @@ router.patch('/candidates/:id', updateCandidate);
 
 // Route for deleting a candidate
 router.delete('/candidates/:id', deleteCandidate);
+
+// Partial update of status or note
+router.patch("/:id/updateStatusOrNote", updateCandidateStatusOrNote);
 
 module.exports = router;

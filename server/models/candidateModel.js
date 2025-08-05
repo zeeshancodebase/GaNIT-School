@@ -27,11 +27,10 @@ const candidateSchema = new mongoose.Schema({
   dob: {
     type: Date,
   },
-  gender: {
-    type: String,
-    enum: ["Male", "Female", "Other"],
-    required: true
-  },
+  // gender: {
+  //   type: String,
+  //   enum: ["Male", "Female", "Other"],
+  // },
   degree: {
     type: String,
     required: true
@@ -72,7 +71,7 @@ const candidateSchema = new mongoose.Schema({
     required: false,
     trim: true
   },
-  appliedFor:{type:String},
+  appliedFor: { type: String },
   status: {
     type: String,
     enum: ["New", "Contacted", "Interested", "Enrolled", "Not Interested", "Rejected"],

@@ -184,7 +184,7 @@ const JobList = ({
                   </span>
                   <span className="job-info">
                     <FaMoneyBillWave className="job-icon" />
-                    {job.salary}
+                    {job.salary||"-"}
                   </span>
                 </div>{" "}
                 <div className="job-admin-actions">

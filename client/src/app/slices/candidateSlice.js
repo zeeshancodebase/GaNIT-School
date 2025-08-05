@@ -3,8 +3,10 @@ import {
   fetchCandidates,
   deleteCandidate,
   createCandidate,
-  updateCandidate
+  updateCandidate,
+  updateCandidateStatusOrNote
 } from '../../services/candidateService';
+
 
 // Fetch all candidates
 export const fetchAllCandidates = createAsyncThunk(
@@ -58,18 +60,20 @@ export const editCandidate = createAsyncThunk(
   }
 );
 
-// Edit a candidate
+
+// Update candidate status or note
 export const updateCandidateStatus = createAsyncThunk(
-  'candidate/update',
-  async (candidate, { rejectWithValue }) => {
+  'candidate/updateStatusOrNote',
+  async ({ id, updateData }, { rejectWithValue }) => {
     try {
-      const data = await updateCandidate(candidate);
+      const data = await updateCandidateStatusOrNote(id, updateData);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
+
 
 // Initial state
 const initialState = {
@@ -146,7 +150,27 @@ const candidateSlice = createSlice({
       .addCase(editCandidate.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
+      })
+
+
+      // Update status/note
+      .addCase(updateCandidateStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateCandidateStatus.fulfilled, (state, action) => {
+        const index = state.list.findIndex(candidate => candidate._id === action.payload._id);
+        if (index !== -1) {
+          state.list[index] = action.payload;
+        }
+        state.isLoading = false;
+      })
+      .addCase(updateCandidateStatus.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
       });
+
+
   }
 });
 

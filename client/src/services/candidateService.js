@@ -24,6 +24,15 @@ export const updateCandidate = async (candidate) => {
   return response.data;
 };
 
+
+// Update candidate status or note
+export const updateCandidateStatusOrNote = async (candidateId, updateData) => {
+  // updateData should be an object like { status: "Contacted" } or { note: "Some note" }
+  const response = await axiosInstance.patch(`/api/candidates/${candidateId}/updateStatusOrNote`, updateData);
+  return response.data;
+};
+
+
 // Delete a candidate
 export const deleteCandidate = async (id) => {
   const response = await axiosInstance.delete(`/api/candidates/${id}`);

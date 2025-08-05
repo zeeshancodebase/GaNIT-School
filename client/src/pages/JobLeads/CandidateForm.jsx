@@ -4,7 +4,12 @@ import { addNewCandidate } from "../../app/slices/candidateSlice";
 import "./CandidateForm.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchJobByJobIdAsync } from "../../app/slices/jobSlice";
-import { FaArrowRight, FaTimes } from "react-icons/fa";
+import {
+  FaArrowRight,
+  // FaMapMarkerAlt,
+  // FaMoneyBillWave,
+  FaTimes,
+} from "react-icons/fa";
 import { toast } from "react-toastify";
 import FullPageSpinner from "../../components/FullPageSpinner/FullPageSpinner";
 
@@ -116,6 +121,13 @@ const CandidateForm = () => {
   return (
     <form onSubmit={handleSubmit} className="candidate-form">
       <h2>Apply for {job.title}</h2>
+      {/* <p>{job.jobDesc}</p>
+      <div>
+        <FaMapMarkerAlt />
+        {job.company}
+        <FaMoneyBillWave />
+        {job.location}
+      </div> */}
       <div className="form-grid-wrapper">
         {/* ───── Personal Information ───── */}
         <div className="input-group">
@@ -158,7 +170,7 @@ const CandidateForm = () => {
           />
         </div>
 
-        <div className="input-group">
+        {/* <div className="input-group">
           <label>Date of Birth (Enter/Select)</label>
           <input
             type="date"
@@ -167,22 +179,17 @@ const CandidateForm = () => {
             onChange={handleChange}
             required
           />
-        </div>
+        </div> */}
 
-        <div className="input-group">
+        {/* <div className="input-group">
           <label>Gender</label>
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            required
-          >
+          <select name="gender" value={formData.gender} onChange={handleChange}>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
-        </div>
+        </div> */}
 
         <div className="input-group">
           <label>City</label>
@@ -275,19 +282,20 @@ const CandidateForm = () => {
             <option value="Working">Working</option>
           </select>
         </div>
+        {formData.occupation === "Working" && (
+          <div className="input-group">
+            <label>Current Salary (in LPA)</label>
+            <input
+              type="number"
+              name="currentSalary"
+              placeholder="e.g. 6.5"
+              value={formData.currentSalary}
+              onChange={handleChange}
+            />
+          </div>
+        )}
 
-        <div className="input-group">
-          <label>Current Salary (in LPA)</label>
-          <input
-            type="number"
-            name="currentSalary"
-            placeholder="e.g. 6.5"
-            value={formData.currentSalary}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="input-group">
+        {/* <div className="input-group">
           <label>Preferred Course</label>
           <input
             type="text"
@@ -296,7 +304,7 @@ const CandidateForm = () => {
             value={formData.preferredCourse}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
 
         <div className="input-group">
           <label>Skills</label>
@@ -333,16 +341,18 @@ const CandidateForm = () => {
         </div>
 
         {/* ───── External Profile Link ───── */}
-        <div className="input-group">
-          <label>LinkedIn / Portfolio</label>
-          <input
-            type="url"
-            name="linkedIn"
-            placeholder="LinkedIn / Portfolio URL"
-            value={formData.linkedIn}
-            onChange={handleChange}
-          />
-        </div>
+        {formData.occupation === "Working" && (
+          <div className="input-group">
+            <label>LinkedIn / Portfolio (if any) </label>
+            <input
+              type="url"
+              name="linkedIn"
+              placeholder="LinkedIn / Portfolio URL"
+              value={formData.linkedIn}
+              onChange={handleChange}
+            />
+          </div>
+        )}
 
         <div className="input-group">
           <label htmlFor="source">How did you hear about us?</label>

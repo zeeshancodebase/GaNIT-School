@@ -24,6 +24,20 @@
     font-size: 1rem;
 }
 
+.list-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-controls{
+    margin-bottom: 1rem;
+}
+
+.statusFilter{
+    padding: 0.3rem;
+    margin-left: 0.5rem;
+}
+
 .candidate-table {
     width: 100%;
     border-collapse: separate;
@@ -31,7 +45,7 @@
     /* spacing between rows */
     background: var(--dark-bg);
     border-radius: 12px;
-     overflow-x: auto;
+    overflow-x: auto;
     box-shadow: var(--shadow-dark);
 }
 
@@ -79,6 +93,9 @@
     border-right: none;
 }
 
+.candidate-table tbody tr.candidate-row {
+    cursor: pointer;
+}
 
 
 
@@ -157,3 +174,73 @@
         text-align: left;
     }
 }
+
+
+
+.expanded-row :hover {
+    background-color: var(--section-bg);
+    /* no color change */
+    color: var(--light-text);
+    cursor: default;
+}
+
+.expanded-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    padding: 1rem 0;
+
+    p {
+        color: var(--light-text);
+    }
+}
+
+.expand-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: transform 0.2s ease;
+}
+
+.expand-btn:hover {
+    text-decoration: underline;
+    transform: scale(1.05);
+}
+
+
+/* Button styles */
+
+.lead-btn {
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    font-size: 0.9rem;
+}
+
+.lead-btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.lead-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.lead-btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.lead-btn-secondary:hover {
+    background-color: #565e64;
+}
+

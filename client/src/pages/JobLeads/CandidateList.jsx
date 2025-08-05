@@ -4,19 +4,22 @@ import {
   fetchAllCandidates,
   updateCandidateStatus,
 } from "../../app/slices/candidateSlice";
-import "./CandidateList.css";
+import { fetchJobsAsync } from "../../app/slices/jobSlice";
+import { toast } from "react-toastify";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import Layout from "../../Layout/Layout";
+import CandidateDetails from "./CandidateDetails"; // Extracted details view
+import StatusUpdateForm from "./StatusUpdateForm"; // Extracted status update form
+import "./CandidateList.css";
 
-const formatDate = (isoDate) => {
-  if (!isoDate) return "—";
-  const date = new Date(isoDate);
-  return date.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
+// Utility to format date
+// const formatDate = (isoDate) => {
+//   if (!isoDate) return "—";
+//   const date = new Date(isoDate);
+//   return date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+// };
 
+// Candidate Statuses
 const statuses = [
   "All",
   "New",
@@ -34,33 +37,67 @@ const CandidateList = () => {
     isLoading,
     error,
   } = useSelector((state) => state.candidate);
+  const jobs = useSelector((state) => state.jobs.jobs); // Fetching job titles
 
   const [filterStatus, setFilterStatus] = useState("New");
-  const [updatingCandidateId, setUpdatingCandidateId] = useState(null);
+  const [expandedRowId, setExpandedRowId] = useState(null);
+  const [editingCandidateId, setEditingCandidateId] = useState(null);
   const [newStatus, setNewStatus] = useState("");
+  const [newNote, setNewNote] = useState("");
 
+  // Dispatch fetch actions
   useEffect(() => {
     dispatch(fetchAllCandidates());
+    dispatch(fetchJobsAsync());
   }, [dispatch]);
 
+  // Filter candidates by status
   const filteredCandidates =
     filterStatus === "All"
       ? candidates
-      : candidates.filter((c) => (c.status || "New") === filterStatus);
+      : candidates.filter(
+          (candidate) => (candidate.status || "New") === filterStatus
+        );
 
+  // Get job title by ID
+  const getJobTitle = (jobId) => {
+    const job = jobs.find((job) => job.jobId === jobId);
+    return job ? job.title : jobId; // Fallback to ID if job not found
+  };
+
+  // Handle updating candidate status
   const handleStatusUpdate = async (candidateId) => {
-    if (!newStatus) return alert("Select a status to update");
+    if (!candidateId) {
+      toast.error("Invalid candidate ID.");
+      return;
+    }
+
+    if (!newStatus) {
+      toast.error("Please select a status before updating.");
+      return;
+    }
     try {
       await dispatch(
-        updateCandidateStatus({ id: candidateId, status: newStatus })
+        updateCandidateStatus({
+          id: candidateId,
+          updateData: { status: newStatus, note: newNote },
+        })
       ).unwrap();
-      setUpdatingCandidateId(null);
-      setNewStatus("");
+      toast.success("Candidate status and note updated successfully!");
+      resetForm();
     } catch (error) {
-      alert("Failed to update status");
+      toast.error(`Failed to update status: ${error}`);
     }
   };
 
+  // Reset form fields
+  const resetForm = () => {
+    setNewStatus("");
+    setNewNote("");
+    setEditingCandidateId(null);
+  };
+
+  // Conditional rendering based on loading or errors
   if (isLoading) return <p>Loading candidates...</p>;
   if (error) return <p>Error fetching candidates: {error}</p>;
   if (!candidates.length) return <p>No candidates registered yet.</p>;
@@ -69,19 +106,14 @@ const CandidateList = () => {
     <Layout>
       <div className="candidate-list-container">
         <h2>Registered Candidates</h2>
-        <div
-          className="list-header"
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
+        <div className="list-header">
           <p>Total Candidates: {candidates.length}</p>
-
-          <div className="filter-controls" style={{ marginBottom: "1rem" }}>
+          <div className="filter-controls">
             <label htmlFor="statusFilter">Filter by Status: </label>
             <select
               id="statusFilter"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              style={{ padding: "0.3rem", marginLeft: "0.5rem" }}
             >
               {statuses.map((status) => (
                 <option key={status} value={status}>
@@ -92,133 +124,99 @@ const CandidateList = () => {
           </div>
         </div>
 
-        <div
-          className="candidate-table-container"
-          style={{ overflowX: "auto" }}
-        >
-          <table className="candidate-table" style={{ minWidth: "1000px" }}>
+        <div className="candidate-table-container">
+          <table className="candidate-table">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
-                <th>City</th>
-                <th>DOB</th>
-                <th>Gender</th>
-                <th>Degree</th>
-                <th>Branch</th>
-                <th>College</th>
-                <th>University</th>
-                <th>YOP</th>
-                <th>Skills</th>
-                <th>Occupation</th>
-                <th>Package (LPA)</th>
-                <th>Preffered Course</th>
-                <th>Applied For</th>
-                <th>LinkedIn</th>
                 <th>Status</th>
-                <th>Source</th>
-                <th>Referral Code</th>
-                <th>Note</th>
-                <th>Registered At</th>
-                <th>Actions</th>
-                {/* {filterStatus === "New" && <th>Actions</th>} */}
+                <th>Applied For</th>
+                <th>Actions</th> {/* Expand/Collapse button */}
               </tr>
             </thead>
             <tbody>
               {filteredCandidates.length ? (
                 filteredCandidates.map((candidate) => (
-                  <tr key={candidate._id}>
-                    <td>{candidate.name || "—"}</td>
-                    <td>{candidate.email || "—"}</td>
-                    <td>{candidate.mobile || "—"}</td>
-                    <td>{candidate.city || "—"}</td>
-                    <td>{formatDate(candidate.dob)}</td>
-                    <td>{candidate.gender || "—"}</td>
-                    <td>{candidate.degree || "—"}</td>
-                    <td>{candidate.branch || "—"}</td>
-                    <td>{candidate.college || "—"}</td>
-                    <td>{candidate.university || "—"}</td>
-                    <td>{candidate.yearOfPassout || "—"}</td>
-                    <td>
-                      {candidate.skills?.length
-                        ? candidate.skills.join(", ")
-                        : "—"}
-                    </td>
-                    <td>{candidate.occupation || "—"}</td>
-                    <td>{candidate.currentSalary || "—"}</td>
-                    <td>{candidate.preferredCourse || "—"}</td>
-                    <td>{candidate.appliedFor || "—"}</td>
-                    <td>
-                      {candidate.linkedIn ? (
-                        <a
-                          href={candidate.linkedIn}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            color: "var(--accent)",
-                            textDecoration: "underline",
-                          }}
-                        >
-                          Profile
-                        </a>
-                      ) : (
-                        "—"
-                      )}
-                    </td>
-                    <td>{candidate.status || "-"}</td>
-                    <td>{candidate.source || "-"}</td>
-                    <td>{candidate.referralCode || "-"}</td>
-                    <td>{candidate.note || "-"}</td>
-                    <td>
-                      {candidate.createdAt
-                        ? new Date(candidate.createdAt).toLocaleString()
-                        : "-"}
-                    </td>
-                    {filterStatus === "New" && (
+                  <React.Fragment key={candidate._id}>
+                    <tr
+                      onClick={() => {
+                        if (expandedRowId === candidate._id) {
+                          setExpandedRowId(null);
+                          resetForm(); // reset editing states on collapse
+                        } else {
+                          setExpandedRowId(candidate._id);
+                        }
+                      }}
+                      className={`candidate-row ${
+                        expandedRowId === candidate._id ? "expanded" : ""
+                      }`}
+                    >
+                      <td>{candidate.name}</td>
+                      <td>{candidate.email}</td>
+                      <td>{candidate.mobile}</td>
+                      <td>{candidate.status || "New"}</td>
+                      <td>{getJobTitle(candidate.appliedFor)}</td>
                       <td>
-                        {updatingCandidateId === candidate._id ? (
-                          <>
-                            <select
-                              value={newStatus}
-                              onChange={(e) => setNewStatus(e.target.value)}
-                              style={{ marginRight: "0.5rem" }}
-                            >
-                              <option value="">Select status</option>
-                              <option value="Contacted">Contacted</option>
-                              <option value="Interested">Interested</option>
-                              <option value="Rejected">Rejected</option>
-                            </select>
-                            <button
-                              onClick={() => handleStatusUpdate(candidate._id)}
-                            >
-                              Update
-                            </button>
-                            <button
-                              onClick={() => setUpdatingCandidateId(null)}
-                            >
-                              Cancel
-                            </button>
-                          </>
-                        ) : (
-                          <button
-                            onClick={() =>
-                              setUpdatingCandidateId(candidate._id)
-                            }
-                          >
-                            Update Status
-                          </button>
-                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedRowId(
+                              expandedRowId === candidate._id
+                                ? null
+                                : candidate._id
+                            );
+                          }}
+                          className="expand-btn"
+                        >
+                          {expandedRowId === candidate._id ? (
+                            <FaChevronUp />
+                          ) : (
+                            <FaChevronDown />
+                          )}
+                        </button>
                       </td>
+                    </tr>
+
+                    {expandedRowId === candidate._id && (
+                      <tr className="expanded-row">
+                        <td colSpan={6}>
+                          <CandidateDetails candidate={candidate} />
+                          {filterStatus === "New" && (
+                            <>
+                              {editingCandidateId === candidate._id ? (
+                                <StatusUpdateForm
+                                  candidate={candidate}
+                                  newStatus={newStatus}
+                                  newNote={newNote}
+                                  setNewStatus={setNewStatus}
+                                  setNewNote={setNewNote}
+                                  handleStatusUpdate={handleStatusUpdate}
+                                  resetForm={resetForm}
+                                />
+                              ) : (
+                                <button
+                                  className="lead-btn lead-btn-primary"
+                                  onClick={() => {
+                                    setEditingCandidateId(candidate._id);
+                                    setNewStatus("");
+                                    setNewNote("");
+                                  }}
+                                >
+                                  Update Status
+                                </button>
+                              )}
+                            </>
+                          )}
+                        </td>
+                      </tr>
                     )}
-                  </tr>
+                  </React.Fragment>
                 ))
               ) : (
                 <tr>
-                  <td
-                    colSpan={filterStatus === "New" ? 16 : 15}
-                    style={{ textAlign: "center" }}
-                  >
+                  <td colSpan={6} style={{ textAlign: "center" }}>
                     No candidates found for this status.
                   </td>
                 </tr>

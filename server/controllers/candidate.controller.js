@@ -21,11 +21,12 @@ exports.createCandidate = async (req, res, next) => {
     linkedIn,
     source,
     referralCode,
-    appliedFor
+    appliedFor,
+    note
   } = req.body;
 
   // Validate required fields
-  if (!name || !email || !mobile || !gender || !degree || !branch || !college || !university || !yearOfPassout) {
+  if (!name || !email || !mobile || !degree || !branch || !college || !university || !yearOfPassout) {
     return res.status(400).json({
       success: false,
       message: 'Missing required fields. Please fill all required inputs.',
@@ -52,7 +53,8 @@ exports.createCandidate = async (req, res, next) => {
       linkedIn,
       source,
       referralCode,
-      appliedFor
+      appliedFor,
+      note
     });
 
     const savedCandidate = await newCandidate.save();
@@ -173,6 +175,57 @@ exports.deleteCandidate = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Server error while deleting candidate',
+      error: error.message,
+    });
+  }
+};
+
+
+
+// Update candidate status or note only
+exports.updateCandidateStatusOrNote = async (req, res) => {
+  const { status, note } = req.body;
+
+  // Validate input: at least one of status or note should be present
+  if (status === undefined && note === undefined) {
+    return res.status(400).json({
+      success: false,
+      message: "Please provide status or note to update",
+    });
+  }
+
+  // Build an update object dynamically
+  const updateData = {};
+  if (status !== undefined) updateData.status = status;
+  if (note !== undefined) updateData.note = note;
+
+  try {
+    const updatedCandidate = await Candidate.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!updatedCandidate) {
+      return res.status(404).json({
+        success: false,
+        message: "Candidate not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: updatedCandidate,
+    });
+  } catch (error) {
+    console.log(error);
+    
+    res.status(500).json({
+      success: false,
+      message: "Server error while updating candidate status or note",
       error: error.message,
     });
   }

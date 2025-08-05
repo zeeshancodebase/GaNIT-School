@@ -16,7 +16,7 @@ export const Error = () => {
             we'll look into it
           </p>
         </div>
-        <Link to="/" className="combined-btn">
+        {/* <Link to="/" className="combined-btn">
           Back to Login
           <div className="btn-icon">
             <FaSignInAlt />
@@ -26,7 +26,7 @@ export const Error = () => {
         
          <div className="lgt-footer" style={{marginTop:'0'}}> 
         <p> Report  <a href="https://wa.me/7829589843">Contact support</a> on Whats App
-          </p></div>
+          </p></div> */}
       </section>
     </>
   );

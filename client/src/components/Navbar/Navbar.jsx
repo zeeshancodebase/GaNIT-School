@@ -126,7 +126,8 @@ const Navbar = () => {
                 <NavLink to="/career-tracks">Career Tracks</NavLink>
                 <NavLink to="/courses">Courses</NavLink>
                 <NavLink to="/live">Live Classes</NavLink>
-                <NavLink to="/job-board">Job Board</NavLink>
+                {/* <NavLink to="/job-board">Job Board</NavLink> */}
+                <NavLink to="/jobs">Job Board</NavLink>
                 <NavLink to="/about">About</NavLink>
                 <NavLink to="/contact-us">Contact</NavLink>
               </nav>

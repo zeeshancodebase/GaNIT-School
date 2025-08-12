@@ -120,7 +120,8 @@ const CandidateForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="candidate-form">
-      <h2>Apply for {job.title}</h2>
+      {/* <h2>Apply for {job.title}</h2> */}
+      <h2>GANIT School Registration</h2>
       {/* <p>{job.jobDesc}</p>
       <div>
         <FaMapMarkerAlt />

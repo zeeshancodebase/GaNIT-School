@@ -24,6 +24,7 @@ import { Provider } from "react-redux";
 import CandidateForm from './pages/JobLeads/CandidateForm';
 import {Error} from './pages/Error/Error';
 import CandidateList from './pages/JobLeads/CandidateList';
+import ThankYouPage from './pages/ThankYouPage';
 // import FacultyProfile from './pages/FacultyPage/FacultyProfile';
 // import UnderMaintenance from './pages/UnderMaintenance/UnderMaintenance'
 
@@ -59,6 +60,7 @@ function App() {
 
           {/* Optional: fallback route */}
         <Route path="*" element={<Error />} />
+        <Route path="/thank-you" element={<ThankYouPage/>} />
         </Routes>
       </Provider >
 

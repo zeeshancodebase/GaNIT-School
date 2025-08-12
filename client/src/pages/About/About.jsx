@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { Link } from "react-router-dom";
 import { FaUsers, FaStar, FaBrain } from "react-icons/fa";
 // import { TbWorld } from "react-icons/tb";
-import { fetchUsers } from "../../services/userService";
+import { getAllUsers } from "../../services/userService";
 import Footer from "../../components/Footer/Footer";
 
 const facultyData = [
@@ -65,7 +65,7 @@ const About = () => {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const users = await fetchUsers();
+        const users = await getAllUsers();
         console.log(users);
 
         // Filter out faculty members (Assume that faculty role is identified as 'faculty' in the user object)

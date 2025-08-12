@@ -25,6 +25,7 @@ import CandidateForm from './pages/JobLeads/CandidateForm';
 import {Error} from './pages/Error/Error';
 import CandidateList from './pages/JobLeads/CandidateList';
 import ThankYouPage from './pages/ThankYouPage';
+import CollegeOutreachDashboard from './pages/CollegeOutreachDashboard/CollegeOutreachDashboard';
 // import FacultyProfile from './pages/FacultyPage/FacultyProfile';
 // import UnderMaintenance from './pages/UnderMaintenance/UnderMaintenance'
 
@@ -55,6 +56,7 @@ function App() {
           <Route path="/jobs/apply-now/:jobId" element={<CandidateForm />} />
           <Route path="/super-admin/HRManagement" element={<HRManagement />} />
           <Route path="/super-admin/Leads" element={<CandidateList />} />
+          <Route path="/college-outreach" element={<CollegeOutreachDashboard />} />
           <Route path="/hr/home" element={<HRhome />} />
           {/* <Route path="/demo" element={<Demo />} /> */}
 

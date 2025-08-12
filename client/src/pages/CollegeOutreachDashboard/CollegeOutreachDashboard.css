@@ -1,0 +1,280 @@
+/* clg-Container */
+.clg-container {
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  background: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.05);
+}
+
+/* Title */
+.title {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #003366;
+  text-align: center;
+}
+
+/* Form styles */
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.input,
+.select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  min-width: 180px;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #0077cc;
+  box-shadow: 0 0 5px #0077ccaa;
+}
+
+.btn-primary {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  min-width: 140px;
+}
+
+.btn-primary:hover {
+  background-color: #005fa3;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.07);
+}
+
+.table th,
+.table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+.table th {
+  background-color: #0077cc;
+  color: white;
+  font-weight: 600;
+  user-select: none;
+}
+
+.table tbody tr:hover {
+  background-color: #f0f7ff;
+  cursor: default;
+}
+
+.no-data {
+  text-align: center;
+  padding: 1rem;
+  color: #777;
+}
+
+/* Buttons inside table */
+.btn-secondary {
+  background-color: #ddd;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #bbb;
+}
+
+.btn-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Editable Text */
+.editable-text {
+  min-height: 3rem;
+  padding: 6px 10px;
+  background-color: #fafafa;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: pre-wrap;
+}
+
+.editable-text:hover {
+  border-color: #0077cc;
+  background-color: #f0f8ff;
+}
+
+.editable-text:focus {
+  outline: none;
+  border-color: #005fa3;
+  background-color: #e6f0ff;
+}
+
+.editable-textarea {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  border-radius: 6px;
+  border: 1.5px solid #0077cc;
+  resize: vertical;
+}
+
+/* Editable Date input */
+.editable-input-date {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1.5px solid #0077cc;
+  font-size: 1rem;
+  width: 130px;
+}
+
+/* Placeholder text */
+.placeholder-text {
+  color: #999;
+  font-style: italic;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+}
+
+.pagination span {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Modal styles */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
+}
+
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #0077cc;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Close button */
+.btn-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.btn-close:hover {
+  color: #0077cc;
+}
+
+/* Logs list */
+.logs-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.logs-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.logs-list li strong {
+  color: #0077cc;
+}
+
+.logs-list li small {
+  color: #666;
+}
+
+.loading-text {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+.error-text {
+  text-align: center;
+  color: #cc0000;
+  font-weight: 600;
+  font-size: 1.1rem;
+}

@@ -2,13 +2,13 @@
 import axiosInstance from "../api/axios";
 
 // Get all users
-export const fetchUsers = async () => {
+export const getAllUsers = async () => {
   const response = await axiosInstance.get("/api/user/getAllUsers");
   return response.data;
 };
 
 // Get a single user by ID
-export const fetchUserById = async (id) => {
+export const getUserById = async (id) => {
   const response = await axiosInstance.get(`/api/user/${id}`);
   return response.data;
 };

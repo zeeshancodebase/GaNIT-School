@@ -6,6 +6,7 @@ import { useAuth } from "../../context/auth";
 import { RiLockPasswordLine } from "react-icons/ri";
 import {
   FaBriefcase,
+  FaBuilding,
   FaSignOutAlt,
   FaUsers,
   FaUserShield,
@@ -89,6 +90,10 @@ const Navbar = () => {
                 <NavLink to="/super-admin/Leads">
                   <FaUsers size={20} style={{paddingRight:"5px"}} />
                   Leads
+                </NavLink>
+                <NavLink to="/college-outreach">
+                  <FaBuilding size={20} style={{paddingRight:"5px"}} />
+                  Colleges
                 </NavLink>
                 {/* <NavLink to="/live">Live Classes</NavLink>
                 <NavLink to="/job-board">Job Board</NavLink>

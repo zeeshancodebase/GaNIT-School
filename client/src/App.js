@@ -22,10 +22,11 @@ import ResetPassword from './pages/LoginPage/resetPassword';
 import { store } from './app/store';
 import { Provider } from "react-redux";
 import CandidateForm from './pages/JobLeads/CandidateForm';
-import {Error} from './pages/Error/Error';
+import { Error } from './pages/Error/Error';
 import CandidateList from './pages/JobLeads/CandidateList';
 import ThankYouPage from './pages/ThankYouPage';
 import CollegeOutreachDashboard from './pages/CollegeOutreachDashboard/CollegeOutreachDashboard';
+// import Clglist from './pages/CollegeOutreachDashboard/Clglist';
 // import FacultyProfile from './pages/FacultyPage/FacultyProfile';
 // import UnderMaintenance from './pages/UnderMaintenance/UnderMaintenance'
 
@@ -57,12 +58,13 @@ function App() {
           <Route path="/super-admin/HRManagement" element={<HRManagement />} />
           <Route path="/super-admin/Leads" element={<CandidateList />} />
           <Route path="/college-outreach" element={<CollegeOutreachDashboard />} />
+          {/*<Route path="/college-outreach" element={<Clglist />} />*/}
           <Route path="/hr/home" element={<HRhome />} />
           {/* <Route path="/demo" element={<Demo />} /> */}
 
           {/* Optional: fallback route */}
-        <Route path="*" element={<Error />} />
-        <Route path="/thank-you" element={<ThankYouPage/>} />
+          <Route path="*" element={<Error />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
         </Routes>
       </Provider >
 

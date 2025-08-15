@@ -42,3 +42,16 @@ client/src/pages/AddHR
 client/src/pages/JobLeads/oldcandlist.jsx
 client/src/pages/JobLeads/temp.jsx
 client/src/pages/JobLeads/AddNoteButton.jsx
+
+
+
+
+client/src/pages/CollegeOutreachDashboard/oldCollegeOutreachDashboard.jsx
+client/src/pages/CollegeOutreachDashboard/2oldCollegeOutreachDashboard.jsx
+client/src/pages/CollegeOutreachDashboard/clglist.jsx
+
+client/src/pages/CollegeOutreachDashboard/old
+
+
+server/models/oldcollegeModel.js
+server/controllers/oldcollegeController.js

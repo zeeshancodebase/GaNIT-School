@@ -36,7 +36,7 @@ const Hero = () => {
               <Link to="/courses" className="btn primary">
                 Explore Courses
               </Link>
-              <Link to="/demo" className="btn secondary">
+              <Link to="https://youtu.be/FXJgTw-tjOU?si=_lFxRB7ELj9i0aL6" className="btn secondary">
                 <FaPlay className="play-icon" /> Watch Demo Class
               </Link>
             </div>

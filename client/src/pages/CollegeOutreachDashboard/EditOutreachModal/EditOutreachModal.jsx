@@ -20,7 +20,8 @@ const EditOutreachModal = ({
     "Meeting Scheduled": {
       notes: true,
       followUpDate: true,
-      followUpRequired: false,
+      followUpRequired: true,
+      followUpLabel: "Meeting Date",
     },
     "Not Interested": {
       notes: true,
@@ -69,7 +70,7 @@ const EditOutreachModal = ({
 
         {currentConfig.followUpDate && (
           <label>
-            Follow-Up Date:
+           {currentConfig.followUpLabel || "Follow-Up Date"}:
             <input
               type="date"
               name="followUpDate"

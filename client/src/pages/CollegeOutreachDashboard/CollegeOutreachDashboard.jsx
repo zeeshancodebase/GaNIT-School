@@ -20,10 +20,12 @@ import EditOutreachModal from "./EditOutreachModal/EditOutreachModal.jsx";
 import ActivityLogsModal from "./ActivityLogsModal.jsx";
 import TransferModal from "./TransferModal.jsx";
 import Modal from "../../components/Modal/Modal.jsx";
-import { FaPlus } from "react-icons/fa";
+import { FaEraser, FaPlus, FaTimes } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 import Swal from "sweetalert2";
-import { formatDisplayDate } from "../../utils/dateUtils.js";
+import { formatDisplayDate, normalizeDate } from "../../utils/dateUtils.js";
+import FollowUpDateFilter from "../../components/FollowUpDateFilter.jsx";
+import useModals from "../../hooks/useModals.js";
 
 const statuses = [
   "Not Contacted",
@@ -37,12 +39,13 @@ const statuses = [
 const CollegeOutreachDashboard = () => {
   const { token, user } = useAuth();
   const dispatch = useDispatch();
+  const { modals, openModal, closeModal } = useModals();
 
   const { colleges, filters, page, totalPages, loading, error } = useSelector(
     (state) => state.colleges
   );
 
-  console.log("Colleges data:", colleges);
+  // console.log("Colleges data:", colleges);
 
   const { users } = useSelector((state) => state.users);
 
@@ -55,17 +58,15 @@ const CollegeOutreachDashboard = () => {
   const [, setOpenActionsId] = useState(null);
 
   // Modal states
-  const [showOutreachModal, setShowOutreachModal] = useState(false);
   const [showAddCollegeForm, setShowAddCollegeForm] = useState(false);
   const [modalCollegeId, setModalCollegeId] = useState(null);
-  const [showTransferModal, setShowTransferModal] = useState(false);
   const [transferCollegeId, setTransferCollegeId] = useState(null);
   const [showEditCollegeForm, setShowEditCollegeForm] = useState(false);
   const [editCollegeData, setEditCollegeData] = useState(null);
 
   const openTransferModal = (college) => {
     setTransferCollegeId(college._id);
-    setShowTransferModal(true);
+    openModal("transfer");
   };
   const handleTransfer = async (newUserId) => {
     if (!transferCollegeId) return;
@@ -81,7 +82,7 @@ const CollegeOutreachDashboard = () => {
       ).unwrap();
 
       toast.success("College transferred successfully");
-      setShowTransferModal(false);
+      closeModal("transfer");
     } catch (error) {
       toast.error("Failed to transfer college");
     }
@@ -117,6 +118,16 @@ const CollegeOutreachDashboard = () => {
     return () => clearTimeout(delay);
   }, [token, filters, page, dispatch]);
 
+  const hasSetDefaultAssignedTo = useRef(false);
+
+  useEffect(() => {
+    if (user && filters.assignedTo === "" && !hasSetDefaultAssignedTo.current) {
+      dispatch(setFilters({ ...filters, assignedTo: user._id }));
+      setShowAssignedFilter(true);
+      hasSetDefaultAssignedTo.current = true;
+    }
+  }, [user, dispatch, filters]);
+
   // Fetch logs handler
   const fetchLogsHandler = async (collegeId) => {
     setLogsLoading(true);
@@ -135,18 +146,16 @@ const CollegeOutreachDashboard = () => {
   const openEditOutreachModal = (college) => {
     const details = college.outreachDetails || {};
     setModalCollegeId(college._id);
-    const formattedFollowUpDate = details.followUpDate
-      ? new Date(details.followUpDate).toISOString().split("T")[0] // Extract YYYY-MM-DD
-      : "";
+    const formattedFollowUpDate = normalizeDate(details.followUpDate);
     setOutreachFormData({
       status: details.status || "",
       notes: details.notes || "",
       previousFollowUpDate: formattedFollowUpDate,
       assignedTo: details.assignedTo?._id || "",
     });
-    console.log(outreachFormData);
+    // console.log(outreachFormData);
 
-    setShowOutreachModal(true);
+    openModal("outreach");
   };
 
   // Handle input changes for outreach modal form
@@ -178,14 +187,14 @@ const CollegeOutreachDashboard = () => {
         updateCollegeOutreachThunk({ token, id: modalCollegeId, updateData })
       ).unwrap();
       toast.success("Outreach details updated");
-      setShowOutreachModal(false);
+      closeModal("outreach");
     } catch {
-      setShowOutreachModal(false);
+      closeModal("outreach");
       toast.error("Failed to update outreach details");
     }
   };
 
-  const closeOutreachModal = () => setShowOutreachModal(false);
+  const closeOutreachModal = () => closeModal("outreach");
 
   // Dropdown close on outside click
   const dropdownRef = useRef();
@@ -220,33 +229,77 @@ const CollegeOutreachDashboard = () => {
 
   const userRole = user?.role || "viewer"; // fallback to viewer if not found
 
+  const handleFilterChange = (key, value) => {
+    dispatch(setFilters({ ...filters, [key]: value }));
+  };
+
+  const [showDateFilter, setShowDateFilter] = useState(false);
+
+  const hasSetDefaultFollowUp = useRef(false);
+
+  useEffect(() => {
+    if (
+      !filters.followUpStartDate &&
+      !filters.followUpEndDate &&
+      !hasSetDefaultFollowUp.current
+    ) {
+      const today = new Date().toLocaleDateString("en-CA");
+      dispatch(
+        setFilters({
+          ...filters,
+          followUpStartDate: today,
+          followUpEndDate: today,
+        })
+      );
+      hasSetDefaultFollowUp.current = true;
+    }
+  }, [filters, dispatch]);
+
+  const [showAssignedFilter, setShowAssignedFilter] = useState(true);
+
+  const [showNoteModal, setShowNoteModal] = useState(false);
+  const [noteModalData, setNoteModalData] = useState({ note: "", name: "" });
+
+  const openNoteModal = (note, name) => {
+    setNoteModalData({ note, name });
+    setShowNoteModal(true);
+  };
+
   return (
     <Layout>
       <div className="clg-container">
         <div className="clg-top-row">
           <h2 className="clg-page-title">College Outreach Tracker</h2>
-          <button className="btn-secondary">
-            Export as Excel <FaDownload style={{ marginLeft: 6 }} />
+          <button
+            className="btn-secondary btn-with-icon"
+            onClick={() => toast.info("Export functionality coming soon!")}
+          >
+            Export as Excel <FaDownload />
           </button>
         </div>
 
         {/* Filters */}
         <div className="clg-filters-row">
-          <button
-            className="btn-with-icon btn-primary"
-            onClick={() => setShowAddCollegeForm(true)}
-          >
-            <FaPlus /> Add College
-          </button>
+          <div></div>
+          <div>
+            <button
+              className="btn-with-icon btn-primary"
+              onClick={() => setShowAddCollegeForm(true)}
+            >
+              <FaPlus /> Add College
+            </button>
+          </div>
           <input
             placeholder="Search colleges..."
+            type="search"
             value={filters.search}
             onChange={(e) =>
               dispatch(setFilters({ ...filters, search: e.target.value }))
             }
             className="clg-input clg-search-input"
             aria-label="Search colleges"
-          />
+          />{" "}
+          <div></div>
           <select
             value={filters.status}
             onChange={(e) =>
@@ -262,12 +315,120 @@ const CollegeOutreachDashboard = () => {
               </option>
             ))}
           </select>
-          {/* <button
-            className="btn-secondary"
-            onClick={() => dispatch(setFilters({ search: "", status: "" }))}
+          {/* Assigned To filter */}
+          {showAssignedFilter && filters.assignedTo === user._id ? (
+            <div className="enabled-filter-wrapper">
+              <span className="enabled-filter-highlight">Assigned to: Me</span>
+              <button
+                onClick={() => {
+                  dispatch(setFilters({ ...filters, assignedTo: "" }));
+                  setShowAssignedFilter(false);
+                }}
+                className="btn-clear-x btn-with-icon"
+                aria-label="Clear assigned to filter"
+              >
+                <FaTimes />
+              </button>
+            </div>
+          ) : (
+            <select
+              value={filters.assignedTo}
+              onChange={(e) => {
+                dispatch(
+                  setFilters({ ...filters, assignedTo: e.target.value })
+                );
+                setShowAssignedFilter(true); // re-show the label if user picks themselves
+              }}
+              className="clg-select"
+              aria-label="Filter by Assigned To"
+            >
+              <option value="">Assigned To</option>
+              {users.map((user) => (
+                <option key={user._id} value={user._id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+          )}
+          {/* Date Range - From */}
+          {!showDateFilter ? (
+            <div className="enabled-filter-wrapper">
+              <span className="followup-highlight">Today's Follow-Up</span>
+              <button
+                onClick={() => {
+                  dispatch(
+                    setFilters({
+                      ...filters,
+                      followUpStartDate: "",
+                      followUpEndDate: "",
+                    })
+                  );
+                  setShowDateFilter(true);
+                }}
+                className="btn-clear-x btn-with-icon"
+                aria-label="Clear follow-up filter"
+              >
+                <FaTimes />
+              </button>
+            </div>
+          ) : (
+            <FollowUpDateFilter
+              filters={filters}
+              dispatch={dispatch}
+              setFilters={setFilters}
+            />
+          )}
+          {/* Location */}
+          <select
+            value={filters.location}
+            onChange={(e) => handleFilterChange("location", e.target.value)}
+            className="clg-select"
+            aria-label="Filter by Location"
           >
-            Clear Filters
-          </button> */}
+            <option value="">All Locations</option>
+            <option value="North">North</option>
+            <option value="South">South</option>
+            <option value="East">East</option>
+            <option value="West">West</option>
+            <option value="Central">Central</option>
+          </select>
+          {/* Created By */}
+          <select
+            value={filters.createdBy}
+            onChange={(e) => handleFilterChange("createdBy", e.target.value)}
+            className="clg-select"
+            aria-label="Filter by Created By"
+          >
+            <option value="">Created By</option>
+            {users.map((user) => (
+              <option key={user._id} value={user._id}>
+                {user.name}
+              </option>
+            ))}
+          </select>
+          {/* Optional Clear Filters Button */}
+          <div>
+            <button
+              className="btn-secondary btn-clear-filters btn-with-icon"
+              onClick={() => {
+                dispatch(
+                  setFilters({
+                    search: "",
+                    status: "",
+                    assignedTo: "",
+                    location: "",
+                    createdBy: "",
+                    followUpStartDate: "",
+                    followUpEndDate: "",
+                  })
+                );
+                setShowDateFilter(true);
+                setShowAssignedFilter(false);
+              }}
+            >
+              <FaEraser /> Clear Filters
+            </button>
+          </div>
         </div>
 
         {loading.fetch ? (
@@ -290,16 +451,16 @@ const CollegeOutreachDashboard = () => {
             <table className="clg-table" aria-label="College outreach table">
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th style={{ borderTopLeftRadius: "10px" }}>Name</th>
                   <th>Location</th>
                   <th>Contact Person</th>
                   <th>Contact Email</th>
                   <th>Contact Phone</th>
                   <th>Status</th>
                   <th>Notes</th>
-                  <th>Follow-Up Date</th>
+                  <th>Follow-Up</th>
                   <th>Assigned To</th>
-                  <th></th>
+                  <th style={{ borderTopRightRadius: "10px" }}></th>
                 </tr>
               </thead>
               <tbody>
@@ -344,13 +505,27 @@ const CollegeOutreachDashboard = () => {
                       </td>
                       <td>
                         {college.outreachDetails?.notes ? (
-                          <pre className="clg-notes-pre">
-                            {college.outreachDetails.notes}
-                          </pre>
+                          <div className="clg-notes-preview-wrapper">
+                            <div className="clg-notes-preview-text">
+                              {college.outreachDetails.notes}
+                            </div>
+                            <button
+                              className="btn-view-note"
+                              onClick={() =>
+                                openNoteModal(
+                                  college.outreachDetails.notes,
+                                  college.name
+                                )
+                              }
+                            >
+                              View
+                            </button>
+                          </div>
                         ) : (
                           <i className="clg-placeholder-text">No notes</i>
                         )}
                       </td>
+
                       <td>
                         {college.outreachDetails?.followUpDate ? (
                           formatDisplayDate(
@@ -387,6 +562,7 @@ const CollegeOutreachDashboard = () => {
                           openEditCollegeModal={openEditCollegeModal}
                           handleDeleteCollege={handleDeleteCollege}
                           userRole={userRole}
+                          user={user}
                         />
                       </td>
                     </tr>
@@ -436,8 +612,8 @@ const CollegeOutreachDashboard = () => {
         </Modal>
 
         <Modal
-          show={showOutreachModal}
-          onClose={closeOutreachModal}
+          show={modals.outreach}
+          onClose={() => closeModal("outreach")}
           title="Edit Outreach Details"
         >
           <EditOutreachModal
@@ -471,8 +647,8 @@ const CollegeOutreachDashboard = () => {
       </Modal>
 
       <Modal
-        show={showTransferModal}
-        onClose={() => setShowTransferModal(false)}
+        show={modals.transfer}
+        onClose={() => closeModal("transfer")}
         title="Transfer College Lead to "
       >
         <TransferModal
@@ -481,10 +657,27 @@ const CollegeOutreachDashboard = () => {
             colleges.find((c) => c._id === transferCollegeId)?.outreachDetails
               ?.assignedTo?._id || ""
           }
-          onClose={() => setShowTransferModal(false)}
+          onClose={() => closeModal("transfer")}
           onTransfer={handleTransfer}
           loading={loading.updateOutreach}
         />
+      </Modal>
+      <Modal
+        show={showNoteModal}
+        onClose={() => setShowNoteModal(false)}
+        title={`Note for ${noteModalData.name || "College"}`}
+        width="600px"
+      >
+        <div
+          style={{
+            whiteSpace: "pre-wrap",
+            lineHeight: "1.6",
+            maxHeight: "500px",
+            overflowY: "auto",
+          }}
+        >
+          {noteModalData.note}
+        </div>
       </Modal>
     </Layout>
   );

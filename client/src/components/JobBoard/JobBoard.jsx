@@ -59,15 +59,15 @@ const JobBoard = () => {
             </div>
 
             <div className="job-actions">
-              <a href="/" className="btn primary">
+              <Link to="/jobs" className="btn primary">
                 Apply Now
-              </a>
-              <a href="/" className="btn secondary">
+              </Link>
+              <Link to="/jobs" className="btn secondary">
                 Resume Review
-              </a>
-              <a href="/" className="btn secondary">
+              </Link>
+              <Link to="/jobs" className="btn secondary">
                 Book Mock Interview
-              </a>
+              </Link>
             </div>
           </div>
 

@@ -107,23 +107,29 @@ const CollegeForm = ({
         onChange={handleInputChange}
         className="clg-input"
       />
-
-      <select
-        name="assignedTo"
-        value={formData.assignedTo}
-        onChange={handleInputChange}
-        className="clg-select"
-      >
-        <option value="">Assign to (optional)</option>
-        {users.map((u) => (
-          <option key={u._id} value={u._id}>
-            {u.name} ({u.email})
-          </option>
-        ))}
-      </select>
+      {!editMode && (
+        <select
+          name="assignedTo"
+          value={formData.assignedTo}
+          onChange={handleInputChange}
+          className="clg-select"
+          required
+        >
+          <option value="">Assign to</option>
+          {users.map((u) => (
+            <option key={u._id} value={u._id}>
+              {u.name}
+            </option>
+          ))}
+        </select>
+      )}
 
       <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem" }}>
-        <button type="button" className="btn-with-icon btn-secondary" onClick={onClose}>
+        <button
+          type="button"
+          className="btn-with-icon btn-secondary"
+          onClick={onClose}
+        >
           <FaTimes /> Cancel
         </button>
         <button type="submit" className="btn-primary" disabled={isLoading}>

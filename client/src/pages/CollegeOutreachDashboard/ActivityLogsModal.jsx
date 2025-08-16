@@ -18,7 +18,8 @@ const formatValue = (val) => {
       day: "numeric",
     });
   }
-  if (typeof val === "object") return JSON.stringify(val);
+  if (val && typeof val === "object" && val.label) return val.label;
+
   return val.toString();
 };
 
@@ -46,24 +47,7 @@ const ActivityLogsModal = ({ logs, loading }) => {
               borderBottom: "1px solid #ddd",
             }}
           >
-            <div
-              style={{
-                fontSize: 14,
-                color: "#555",
-                marginBottom: 6,
-              }}
-            >
-              {new Date(log.createdAt).toLocaleString(undefined, {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-              {" by "}
-              <strong>{log.changedBy?.name || "Unknown User"}</strong>
-            </div>
-
+            <strong>{log.changedBy?.name || "Unknown User"}</strong> {" made "}
             <div style={{ fontSize: 16 }}>
               <strong>{changeLabel}</strong>
               <div style={{ marginTop: 4, color: "#333" }}>
@@ -81,6 +65,22 @@ const ActivityLogsModal = ({ logs, loading }) => {
                     </div>
                   </>
                 )}
+              </div>
+              <div
+                style={{
+                  fontSize: 14,
+                  color: "#555",
+                  fontWeight: "bold",
+                }}
+              >
+                {"on "}
+                {new Date(log.createdAt).toLocaleString(undefined, {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </div>
             </div>
           </li>

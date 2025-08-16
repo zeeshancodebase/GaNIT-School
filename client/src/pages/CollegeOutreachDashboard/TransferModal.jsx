@@ -25,7 +25,7 @@ const TransferModal = ({ users, currentAssignedToId, onTransfer, loading }) => {
         <option value="">-- Select User --</option>
         {users.map((user) => (
           <option key={user._id} value={user._id}>
-            {user.name} ({user.email})
+            {user.name} 
           </option>
         ))}
       </select>

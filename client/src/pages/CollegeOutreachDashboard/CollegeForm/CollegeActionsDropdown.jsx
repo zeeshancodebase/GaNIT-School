@@ -19,6 +19,7 @@ const CollegeActionsDropdown = ({
   openEditCollegeModal,
   handleDeleteCollege,
   userRole,
+  user,
 }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -59,8 +60,16 @@ const CollegeActionsDropdown = ({
 
   // Role-based access
   // const canEdit = userRole === "admin";
-  const canEdit = false;
+  const canEdit = true;
   const canDelete = false; // Or: userRole === "superadmin";
+
+  // ✅ Only allow transfer if the logged-in user is the one assigned to the college
+  const canTransfer = college.outreachDetails?.assignedTo?._id === user?._id;
+
+  // ✅ Allow transfer if the user is either the one assigned OR has admin role
+  // const canTransfer =
+  //   college.outreachDetails?.assignedTo?._id === user?._id ||
+  //   user?.role === "admin";
 
   return (
     <div className="dropdown-container" ref={dropdownRef}>
@@ -112,21 +121,31 @@ const CollegeActionsDropdown = ({
           <li
             className="dropdown-item"
             role="menuitem"
-            tabIndex={0}
+            tabIndex={canTransfer ? 0 : -1}
             onClick={() => {
-              openTransferModal(college);
-              setOpen(false);
+              if (canTransfer) {
+                openTransferModal(college);
+                setOpen(false);
+              }
             }}
             onKeyDown={(e) =>
               onKeyDownMenuItem(e, () => {
-                openTransferModal(college);
-                setOpen(false);
+                if (canTransfer) {
+                  openTransferModal(college);
+                  setOpen(false);
+                }
               })
             }
+            style={{
+              cursor: canTransfer ? "pointer" : "not-allowed",
+              opacity: canTransfer ? 1 : 0.5,
+            }}
+            aria-disabled={!canTransfer}
           >
             <FaExchangeAlt className="dropdown-icon" />
             Transfer To
           </li>
+
           <li
             className="dropdown-item"
             role="menuitem"
@@ -170,7 +189,10 @@ const CollegeActionsDropdown = ({
                 !canDelete
               )
             }
-            style={{ cursor: "not-allowed", opacity: 0.5 }}
+            style={{
+              cursor: canDelete ? "pointer" : "not-allowed",
+              opacity: canDelete ? 1 : 0.5,
+            }}
             aria-disabled={!canDelete}
           >
             <FaTrash className="dropdown-icon" style={{ color: "red" }} />

@@ -74,7 +74,13 @@ export const deleteCollegeThunk = createAsyncThunk(
 const initialState = {
   colleges: [],
   users: [],
-  filters: { search: "", status: "Not Contacted" },
+  filters: {
+    search: "", status: "", assignedTo: "",
+    location: "",
+    createdBy: "",
+    followUpStartDate: "",
+    followUpEndDate: "",
+  },
   page: 1,
   totalPages: 1,
   loading: {
@@ -181,7 +187,7 @@ const collegeSlice = createSlice({
       })
 
 
-       // Delete college
+      // Delete college
       .addCase(deleteCollegeThunk.pending, (state) => {
         state.loading.delete = true;
         state.error = null;

@@ -71,6 +71,9 @@ const CollegeActionsDropdown = ({
   //   college.outreachDetails?.assignedTo?._id === user?._id ||
   //   user?.role === "admin";
 
+  const canUpdateStatus =
+    college.outreachDetails?.assignedTo?._id === user?._id;
+
   return (
     <div className="dropdown-container" ref={dropdownRef}>
       <button
@@ -90,19 +93,34 @@ const CollegeActionsDropdown = ({
           <li
             className="dropdown-item"
             role="menuitem"
-            tabIndex={0}
+            tabIndex={canUpdateStatus ? 0 : -1}
             onClick={() => {
-              openEditOutreachModal(college);
-              setOpen(false);
+              if (canUpdateStatus) {
+                openEditOutreachModal(college);
+                setOpen(false);
+              }
             }}
             onKeyDown={(e) =>
-              onKeyDownMenuItem(e, () => openEditOutreachModal(college))
+              onKeyDownMenuItem(e, () => {
+                if (canUpdateStatus) {
+                  openEditOutreachModal(college);
+                  setOpen(false);
+                }
+              })
             }
+            style={{
+              cursor: canUpdateStatus ? "pointer" : "not-allowed",
+              opacity: canUpdateStatus ? 1 : 0.5,
+            }}
+            aria-disabled={!canUpdateStatus}
+            title={!canUpdateStatus ? "Only the assigned user can update status" : ""}
+
           >
             <FaSyncAlt className="dropdown-icon" />
             {/* Update Outreach Details */}
             Update Status
           </li>
+
           <li
             className="dropdown-item"
             role="menuitem"

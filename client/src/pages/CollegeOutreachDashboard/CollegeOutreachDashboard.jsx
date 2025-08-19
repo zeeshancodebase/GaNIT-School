@@ -11,21 +11,24 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import "./CollegeOutreachDashboard.css";
 import Layout from "../../Layout/Layout";
-import { fetchLogs } from "../../services/collegeService";
 import { fetchAllUsersThunk } from "../../app/slices/userSlice";
 import { FaDownload } from "react-icons/fa6";
-import CollegeActionsDropdown from "./CollegeForm/CollegeActionsDropdown.jsx";
+import CollegeActionsDropdown from "./CollegeActionsDropdown/CollegeActionsDropdown.jsx";
 import CollegeForm from "./CollegeForm";
 import EditOutreachModal from "./EditOutreachModal/EditOutreachModal.jsx";
 import ActivityLogsModal from "./ActivityLogsModal.jsx";
 import TransferModal from "./TransferModal.jsx";
 import Modal from "../../components/Modal/Modal.jsx";
-import { FaEraser, FaPlus, FaTimes } from "react-icons/fa";
+import { FaCheckCircle, FaEraser, FaPlus, FaTimes } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import { formatDisplayDate, normalizeDate } from "../../utils/dateUtils.js";
 import FollowUpDateFilter from "../../components/FollowUpDateFilter.jsx";
 import useModals from "../../hooks/useModals.js";
+import {
+  clearLogs,
+  fetchActivityLogsThunk,
+} from "../../app/slices/activityLogSlice.js";
 
 const statuses = [
   "Not Contacted",
@@ -51,8 +54,10 @@ const CollegeOutreachDashboard = () => {
 
   // Logs modal state
   const [showLogsFor, setShowLogsFor] = useState(null);
-  const [activityLogs, setActivityLogs] = useState([]);
-  const [logsLoading, setLogsLoading] = useState(false);
+
+  const { logs: activityLogs, loading: logsLoading } = useSelector(
+    (state) => state.activityLogs
+  );
 
   // Dropdown menu open state per college id
   const [, setOpenActionsId] = useState(null);
@@ -104,7 +109,7 @@ const CollegeOutreachDashboard = () => {
   // Form state for Outreach modal (Edit only)
   const [outreachFormData, setOutreachFormData] = useState({
     status: "",
-    notes: "",
+    note: "",
     followUpDate: "",
   });
 
@@ -130,27 +135,33 @@ const CollegeOutreachDashboard = () => {
 
   // Fetch logs handler
   const fetchLogsHandler = async (collegeId) => {
-    setLogsLoading(true);
+    if (!token || !collegeId) return;
+
     try {
-      const data = await fetchLogs(token, collegeId);
-      setActivityLogs(data);
-      setShowLogsFor(collegeId);
-    } catch {
-      toast.error("Failed to fetch activity logs");
-    } finally {
-      setLogsLoading(false);
+      await dispatch(
+        fetchActivityLogsThunk({
+          token,
+          modelType: "College",
+          modelId: collegeId,
+        })
+      ).unwrap();
+
+      setShowLogsFor(collegeId); // only show modal if successful
+    } catch (err) {
+      toast.error(err || "Failed to fetch activity logs");
     }
   };
 
   // Open Edit Outreach modal with college data
-  const openEditOutreachModal = (college) => {
+  const openEditOutreachModal = (college, markContacted = false) => {
     const details = college.outreachDetails || {};
     setModalCollegeId(college._id);
     const formattedFollowUpDate = normalizeDate(details.followUpDate);
     setOutreachFormData({
-      status: details.status || "",
-      notes: details.notes || "",
+      status: markContacted ? "Contacted" : details.status || "",
+      note: details.note || "",
       previousFollowUpDate: formattedFollowUpDate,
+      followUpDate: formattedFollowUpDate || "",
       assignedTo: details.assignedTo?._id || "",
     });
     // console.log(outreachFormData);
@@ -350,7 +361,7 @@ const CollegeOutreachDashboard = () => {
               ))}
             </select>
           )}
-          {/* Date Range - From */}
+          {/* Date Range */}
           {!showDateFilter ? (
             <div className="enabled-filter-wrapper">
               <span className="followup-highlight">Today's Follow-Up</span>
@@ -457,7 +468,7 @@ const CollegeOutreachDashboard = () => {
                   <th>Contact Email</th>
                   <th>Contact Phone</th>
                   <th>Status</th>
-                  <th>Notes</th>
+                  <th>Note</th>
                   <th>Follow-Up</th>
                   <th>Assigned To</th>
                   <th style={{ borderTopRightRadius: "10px" }}></th>
@@ -499,21 +510,41 @@ const CollegeOutreachDashboard = () => {
                         )}
                       </td>
                       <td>
-                        {college.outreachDetails?.status || (
+                        {college.outreachDetails?.status === "Not Contacted" ? (
+                          filters.status === "Not Contacted" ? (
+                            "Not Contacted"
+                          ) : (
+                            <button
+                              className="btn-primary btn-with-icon"
+                              onClick={() =>
+                                openEditOutreachModal(college, true)
+                              }
+                              aria-label="Mark as Contacted"
+                              title="Mark as Contacted"
+                            > Mark as Contacted
+                              <FaCheckCircle size={20} />
+
+                              
+                            </button>
+                          )
+                        ) : college.outreachDetails?.status ? (
+                          college.outreachDetails.status
+                        ) : (
                           <i className="clg-placeholder-text">N/A</i>
                         )}
                       </td>
+
                       <td>
-                        {college.outreachDetails?.notes ? (
+                        {college.outreachDetails?.note ? (
                           <div className="clg-notes-preview-wrapper">
                             <div className="clg-notes-preview-text">
-                              {college.outreachDetails.notes}
+                              {college.outreachDetails.note}
                             </div>
                             <button
                               className="btn-view-note"
                               onClick={() =>
                                 openNoteModal(
-                                  college.outreachDetails.notes,
+                                  college.outreachDetails.note,
                                   college.name
                                 )
                               }
@@ -522,7 +553,7 @@ const CollegeOutreachDashboard = () => {
                             </button>
                           </div>
                         ) : (
-                          <i className="clg-placeholder-text">No notes</i>
+                          <i className="clg-placeholder-text">No Note</i>
                         )}
                       </td>
 
@@ -599,7 +630,10 @@ const CollegeOutreachDashboard = () => {
         {/* Logs Modal */}
         <Modal
           show={!!showLogsFor}
-          onClose={() => setShowLogsFor(null)}
+          onClose={() => {
+            dispatch(clearLogs()); // <- Clear Redux state
+            setShowLogsFor(null);
+          }}
           title="Activity Logs"
         >
           <div style={{ maxHeight: "500px", overflowY: "auto" }}>

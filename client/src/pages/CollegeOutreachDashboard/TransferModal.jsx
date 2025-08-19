@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 
-const TransferModal = ({ users, currentAssignedToId, onTransfer, loading }) => {
+const TransferModal = ({ users, currentAssignedToId, onTransfer, loading, entityType }) => {
   const [selectedUserId, setSelectedUserId] = useState(
     currentAssignedToId || ""
   );

@@ -184,7 +184,7 @@ const JobList = ({
                   </span>
                   <span className="job-info">
                     <FaMoneyBillWave className="job-icon" />
-                    {job.salary||"-"}
+                    {job.salary || "-"}
                   </span>
                 </div>{" "}
                 <div className="job-admin-actions">
@@ -214,7 +214,9 @@ const JobList = ({
                       <button
                         className="btn-delete"
                         onClick={() => handleDelete(job._id)}
-                        disabled={deletingId === job._id}
+                        // disabled={deletingId === job._id}
+                        disabled
+                        style={{ cursor: "not-allowed", opacity: 0.5 }}
                       >
                         {deletingId === job._id ? (
                           <ClipLoader size={14} color="#fff" />
@@ -229,7 +231,10 @@ const JobList = ({
                     // <Link to={job.appLink} className="btn apply-btn">
                     //   Apply Now <FaPaperPlane style={{ marginLeft: "5px" }} />{" "}
                     // </Link>
-                    <Link to={`/jobs/apply-now/${job.jobId}`} className="btn apply-btn">
+                    <Link
+                      to={`/jobs/apply-now/${job.jobId}`}
+                      className="btn apply-btn"
+                    >
                       Apply Now <FaPaperPlane style={{ marginLeft: "5px" }} />{" "}
                     </Link>
                   )}

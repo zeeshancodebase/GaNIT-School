@@ -9,6 +9,7 @@ const userRoutes = require('./router/user.routes');
 const authRoutes = require('./router/auth.routes');
 const candidateRoutes = require('./router/candidate.routes');
 const collegeRoutes = require('./router/college.routes');
+const logRoutes = require('./router/log.routes');
 
 const PORT = process.env.PORT || 5000;
 
@@ -31,6 +32,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/candidates', candidateRoutes);
 app.use("/api/colleges", collegeRoutes);
+app.use("/api", logRoutes);
 
 
 // // Routes

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewCandidate } from "../../app/slices/candidateSlice";
+import { addCandidateThunk} from "../../app/slices/candidateSlice";
 import "./CandidateForm.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchJobByJobIdAsync } from "../../app/slices/jobSlice";
@@ -12,8 +12,10 @@ import {
 } from "react-icons/fa";
 import { toast } from "react-toastify";
 import FullPageSpinner from "../../components/FullPageSpinner/FullPageSpinner";
+import { useAuth } from "../../context/auth";
 
 const CandidateForm = () => {
+   const { token } = useAuth();
   const { jobId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ const CandidateForm = () => {
 
   const selectedJobId = useSelector((state) => state.jobs.selectedJob?.jobId);
 
-  const { isLoading: isSubmitting } = useSelector((state) => state.candidate);
+  const { loading: isSubmitting } = useSelector((state) => state.candidates.loading.add);
 
   useEffect(() => {
     if (!selectedJobId || String(selectedJobId) !== String(jobId)) {
@@ -98,7 +100,7 @@ const CandidateForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(addNewCandidate(formData)).unwrap();
+      await dispatch(addCandidateThunk({ token, candidateData: formData })).unwrap();
       toast.success("Redirecting please wait...");
       if (job?.appLink) {
         window.location.href = job.appLink;
@@ -106,7 +108,7 @@ const CandidateForm = () => {
         navigate("/jobs");
       }
     } catch (err) {
-      toast.error(err.message || "Submission failed. Try again.");
+      toast.error(err|| "Submission failed. Try again.");
     }
   };
   if (isJobLoading) return <FullPageSpinner />;
@@ -120,8 +122,8 @@ const CandidateForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="candidate-form">
-      {/* <h2>Apply for {job.title}</h2> */}
-      <h2>GANIT School Registration</h2>
+      <h2>Apply for {job.title}</h2> 
+     {/*  <h2>GANIT School Registration</h2>*/}
       {/* <p>{job.jobDesc}</p>
       <div>
         <FaMapMarkerAlt />

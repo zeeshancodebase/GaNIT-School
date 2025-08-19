@@ -9,7 +9,7 @@ const collegeSchema = new mongoose.Schema(
     contactEmail: String,
     contactPhone: String,
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    
+
     outreachDetails: {
       assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       status: {
@@ -24,7 +24,7 @@ const collegeSchema = new mongoose.Schema(
         ],
         default: "Not Contacted",
       },
-      notes: String,
+      note: String,
       followUpDate: Date,
     },
   },
@@ -33,9 +33,9 @@ const collegeSchema = new mongoose.Schema(
 
 // In your college model file
 
-collegeSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+collegeSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
   try {
-    await activityLogModel.deleteMany({ college: this._id });
+    await activityLogModel.deleteMany({ modelId: this._id, modelType: "College" });
     next();
   } catch (err) {
     next(err);

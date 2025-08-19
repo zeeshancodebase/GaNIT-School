@@ -75,7 +75,9 @@ const initialState = {
   colleges: [],
   users: [],
   filters: {
-    search: "", status: "", assignedTo: "",
+    search: "", 
+    status: "", 
+    assignedTo: "",
     location: "",
     createdBy: "",
     followUpStartDate: "",

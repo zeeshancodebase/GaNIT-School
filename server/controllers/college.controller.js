@@ -1,6 +1,7 @@
 const College = require("../models/collegeModel");
 const ActivityLog = require("../models/activityLogModel");
 const mongoose = require("mongoose");
+const { generateLogs, generateNestedLogs } = require("../utils/logHelper");
 
 // @desc Get all colleges with filtering & pagination
 exports.getColleges = async (req, res, next) => {
@@ -29,7 +30,7 @@ exports.getColleges = async (req, res, next) => {
 
     if (assignedTo) {
       if (mongoose.Types.ObjectId.isValid(assignedTo)) {
-        query["outreachDetails.assignedTo"] =new mongoose.Types.ObjectId(assignedTo);
+        query["outreachDetails.assignedTo"] = new mongoose.Types.ObjectId(assignedTo);
       } else {
         return res.json({ colleges: [], total: 0, page: Number(page), pages: 0 });
       }
@@ -37,7 +38,7 @@ exports.getColleges = async (req, res, next) => {
 
     if (createdBy) {
       if (mongoose.Types.ObjectId.isValid(createdBy)) {
-        query.createdBy =new mongoose.Types.ObjectId(createdBy);
+        query.createdBy = new mongoose.Types.ObjectId(createdBy);
       } else {
         return res.json({ colleges: [], total: 0, page: Number(page), pages: 0 });
       }
@@ -145,23 +146,22 @@ exports.updateCollegeDetails = async (req, res) => {
       "contactPhone",
     ];
 
-    const logs = [];
+    // Generate logs
+    const logs = generateLogs({
+      modelId: college._id,
+      modelType: "College",
+      changedBy: req.user._id,
+      fields,
+      originalDoc: college,
+      updatedFields: req.body,
+    });
 
-    fields.forEach((field) => {
+    // Apply the actual field updates
+    fields.forEach(field => {
       if (req.body[field] !== undefined && req.body[field] !== college[field]) {
-        // Save a log for each changed field
-        logs.push({
-          college: college._id,
-          changedBy: req.user._id,
-          changeType: `${field}_update`,
-          oldValue: college[field],
-          newValue: req.body[field],
-        });
-
         college[field] = req.body[field];
       }
     });
-
     await college.save();
 
     // Save logs in bulk
@@ -177,77 +177,34 @@ exports.updateCollegeDetails = async (req, res) => {
 };
 
 // @desc Update outreach details by ID
-exports.updateOutreachDetails = async (req, res) => {
+exports.updateOutreachDetails = async (req, res, next) => {
   try {
     const college = await College.findById(req.params.id);
     if (!college) return res.status(404).json({ message: "College not found" });
 
-    const { status, notes, followUpDate, assignedTo } = req.body;
-    const logs = [];
+    // Use your util to generate logs for these nested fields:
+    const logs = generateNestedLogs({
+      modelId: college._id,
+      modelType: "College",
+      changedBy: req.user._id,
+      fields: ["status", "note", "followUpDate"], // fields inside outreachDetails
+      originalDoc: college.outreachDetails,
+      updatedFields: req.body,
+    });
 
-    // Handle status update
-    if (status !== undefined && status !== college.outreachDetails.status) {
-      logs.push({
-        college: college._id,
-        changedBy: req.user._id,
-        changeType: "status_update",
-        oldValue: college.outreachDetails.status,
-        newValue: status,
-      });
-      college.outreachDetails.status = status;
-    }
-
-    // Handle notes update
-    if (notes !== undefined && notes !== college.outreachDetails.notes) {
-      logs.push({
-        college: college._id,
-        changedBy: req.user._id,
-        changeType: "notes_update",
-        oldValue: college.outreachDetails.notes,
-        newValue: notes,
-      });
-      college.outreachDetails.notes = notes;
-    }
-
-    // Handle followUpDate update
-    if (followUpDate !== undefined && followUpDate !== college.outreachDetails.followUpDate?.toISOString()) {
-      logs.push({
-        college: college._id,
-        changedBy: req.user._id,
-        changeType: "followUpDate_update",
-        oldValue: college.outreachDetails.followUpDate,
-        newValue: followUpDate,
-      });
-      college.outreachDetails.followUpDate = followUpDate;
-    }
-
-    // Handle assignedTo update
-    // this code was giving _id for changed assigned to user
-    // if (
-    //   assignedTo !== undefined &&
-    //   String(assignedTo) !== String(college.outreachDetails.assignedTo || "")
-    // ) {
-    //   logs.push({
-    //     college: college._id,
-    //     changedBy: req.user._id,
-    //     changeType: "assignedTo_update",
-    //     oldValue: college.outreachDetails.assignedTo,
-    //     newValue: assignedTo,
-    //   });
-    //   college.outreachDetails.assignedTo = assignedTo;
-    // }
-    // Handle assignedTo update
+    // Handle assignedTo separately because you want old/new user names, not just IDs
     if (
-      assignedTo !== undefined &&
-      String(assignedTo) !== String(college.outreachDetails.assignedTo || "")
+      req.body.assignedTo !== undefined &&
+      String(req.body.assignedTo) !== String(college.outreachDetails.assignedTo || "")
     ) {
       const User = require("../models/userModel");
 
       const oldUser = await User.findById(college.outreachDetails.assignedTo).select("name");
-      const newUser = await User.findById(assignedTo).select("name");
+      const newUser = await User.findById(req.body.assignedTo).select("name");
 
       logs.push({
-        college: college._id,
+        modelId: college._id,
+        modelType: "College",
         changedBy: req.user._id,
         changeType: "assignedTo_update",
         oldValue: oldUser
@@ -258,31 +215,41 @@ exports.updateOutreachDetails = async (req, res) => {
           : "Unassigned",
       });
 
-      college.outreachDetails.assignedTo = assignedTo;
+      college.outreachDetails.assignedTo = req.body.assignedTo;
     }
 
+    // Apply the updates for status, note, followUpDate from req.body:
+    ["status", "note", "followUpDate"].forEach((field) => {
+      if (req.body[field] !== undefined) {
+        college.outreachDetails[field] = req.body[field];
+      }
+    });
 
     await college.save();
 
-    // Save logs in bulk
     if (logs.length > 0) {
       await ActivityLog.insertMany(logs);
     }
 
-    // Re-populate the outreachDetails.assignedTo field
     await college.populate("outreachDetails.assignedTo", "name email");
 
     res.json(college);
   } catch (error) {
-    res.status(500).json({ message: "Server Error", error: error.message });
+    console.log(error);
+    next(error);
+
+    // res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
+
 
 // @desc Get activity logs for a college
 exports.getCollegeLogs = async (req, res) => {
   try {
-    const logs = await ActivityLog.find({ college: req.params.id })
-      .populate("changedBy", "name email")
+    const logs = await ActivityLog.find({
+      modelId: req.params.id,
+      modelType: "College",
+    }).populate("changedBy", "name email")
       .sort({ createdAt: -1 });
 
     res.json(logs);

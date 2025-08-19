@@ -1,31 +1,23 @@
-// routes/candidateRoutes.js
 const express = require('express');
 const router = express.Router();
-const {
-  createCandidate,
-  getAllCandidates,
-  getCandidateById,
-  updateCandidate,
-  deleteCandidate,
-  updateCandidateStatusOrNote
-} = require('../controllers/candidate.controller');
+const authMiddleware = require('../middlewares/authMiddleware');
+const candidateController = require('../controllers/candidate.controller');
 
-// Route for creating a new candidate
-router.post('/createCandidate', createCandidate);
 
-// Route for fetching all candidates
-router.get('/getAllCandidates', getAllCandidates);
 
-// Route for fetching a candidate by ID
-router.get('/candidates/:id', getCandidateById);
+router.post("/create", candidateController.addCandidate);  // Add a new candidate
 
-// Route for updating a candidate
-router.patch('/candidates/:id', updateCandidate);
+// Protect all routes with authentication middleware
+router.use(authMiddleware);
 
-// Route for deleting a candidate
-router.delete('/candidates/:id', deleteCandidate);
+// Routes for Candidates
+router.get("/", candidateController.getCandidates);        // Get all candidates with filtering and pagination
 
-// Partial update of status or note
-router.patch("/:id/updateStatusOrNote", updateCandidateStatusOrNote);
+// Routes to get, update, or delete a candidate by ID
+// router.get("/:id", candidateController.getCandidateById);  // Get candidate by ID
+router.patch("/:id/general", candidateController.updateCandidateDetails);  // Update general candidate details
+router.patch("/:id/outreach", candidateController.updateOutreachDetails);  // Update outreach details
+router.delete("/:id", candidateController.deleteCandidate);  // Delete candidate by ID
+
 
 module.exports = router;

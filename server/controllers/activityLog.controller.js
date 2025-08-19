@@ -1,13 +1,21 @@
-const ActivityLog = require("../models/activityLogModel");
+const activityLogModel = require("../models/activityLogModel");
 
-exports.getActivityLogs = async (req, res) => {
+// controllers/activityLog.controller.js
+exports.getActivityLogs = async (req, res, next) => {
+  const { modelType, modelId } = req.params;
   try {
-    const logs = await ActivityLog.find({ college: req.params.id })
+    const logs = await activityLogModel.find({
+      modelId,
+      modelType,
+    })
       .populate("changedBy", "name email")
       .sort({ createdAt: -1 });
 
     res.json(logs);
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch logs", error: error.message });
+    console.log(error);
+    next(error)
+
+    // res.status(500).json({ message: "Failed to fetch logs", error: error.message });
   }
 };

@@ -55,3 +55,6 @@ client/src/pages/CollegeOutreachDashboard/old
 
 server/models/oldcollegeModel.js
 server/controllers/oldcollegeController.js
+
+
+client/src/pages/JobLeads/old

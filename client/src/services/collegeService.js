@@ -42,13 +42,13 @@ export const deleteCollege = async (token, id) => {
   return res.data;
 };
 
-// Fetch activity logs for a specific college
-export const fetchLogs = async (token, collegeId) => {
-  const res = await axiosInstance.get(`/api/colleges/${collegeId}/logs`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
-};
+// // Fetch activity logs for a specific college
+// export const fetchLogs = async (token, collegeId) => {
+//   const res = await axiosInstance.get(`/api/colleges/${collegeId}/logs`, {
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+//   return res.data;
+// };
 
 // Get users (unchanged, but included for completeness)
 export const getUsers = async (token) => {

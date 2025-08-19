@@ -1,16 +1,15 @@
-// components/CollegeOutreach/EditOutreachModal.jsx
+
 import React from "react";
-import "./EditOutreachModal.css";
 import { ClipLoader } from "react-spinners";
 
-const EditOutreachModal = ({
+const UpdateOutreachModal = ({
   outreachFormData,
   handleChange,
   handleSubmit,
   loading,
 }) => {
   const statusConfig = {
-    "Not Contacted": {
+    "New": {
       note: false,
       followUpDate: false,
       followUpRequired: false,
@@ -98,4 +97,4 @@ const EditOutreachModal = ({
   );
 };
 
-export default EditOutreachModal;
+export default UpdateOutreachModal;

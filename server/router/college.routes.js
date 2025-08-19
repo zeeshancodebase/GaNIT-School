@@ -19,7 +19,5 @@ router.patch("/:id/outreach", collegeController.updateOutreachDetails);  // Upda
 // Delete a college
 router.delete("/:id", collegeController.deleteCollege);
 
-// Get activity logs for a specific college
-router.get("/:id/logs", collegeController.getCollegeLogs);
 
 module.exports = router;

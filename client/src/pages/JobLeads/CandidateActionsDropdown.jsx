@@ -17,11 +17,11 @@ const CandidateActionsDropdown = ({
   handleDeleteCandidate,
   userRole,
   user,
+  onViewDetails,
 }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
-
   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -157,6 +157,26 @@ const CandidateActionsDropdown = ({
           >
             <FaExchangeAlt className="dropdown-icon" />
             Transfer To
+          </li>
+
+          {/* View Full Details */}
+          <li
+            className="dropdown-item"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => {
+              onViewDetails(candidate);
+              setOpen(false);
+            }}
+            onKeyDown={(e) =>
+              onKeyDownMenuItem(e, () => {
+                onViewDetails(candidate);
+                setOpen(false);
+              })
+            }
+          >
+            <FaListAlt className="dropdown-icon" />
+            View Details
           </li>
 
           {/* Edit Candidate */}

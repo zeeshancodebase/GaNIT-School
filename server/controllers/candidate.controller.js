@@ -20,20 +20,29 @@ exports.getCandidates = async (req, res, next) => {
     const query = {};
 
     if (search) {
-      query.name = { $regex: search, $options: 'i' };
+      query["$or"] = [
+        { name: { $regex: search, $options: "i" } },
+        { email: { $regex: search, $options: "i" } },
+        { mobile: { $regex: search, $options: "i" } },
+      ];
     }
+
+
 
     if (status) {
-      query.status = status;
+      query['outreachDetails.status'] = status;
     }
 
+
+    // Assigned To filter
     if (assignedTo) {
       if (mongoose.Types.ObjectId.isValid(assignedTo)) {
-        query.outreachDetails.assignedTo = new mongoose.Types.ObjectId(assignedTo);
+        query["outreachDetails.assignedTo"] = new mongoose.Types.ObjectId(assignedTo);
       } else {
         return res.json({ candidates: [], total: 0, page: Number(page), pages: 0 });
       }
     }
+
 
 
     if (source) {
@@ -60,7 +69,7 @@ exports.getCandidates = async (req, res, next) => {
       .populate('outreachDetails.assignedTo', 'name email')
     const total = await Candidate.countDocuments(query);
     const pages = Math.ceil(total / limitNum);
- 
+
 
     return res.json({
       candidates,
@@ -103,10 +112,10 @@ exports.addCandidate = async (req, res, next) => {
     return res.status(400).json({ message: 'Missing required fields. Please fill all required inputs.' });
   }
 
-    const existingCandidate = await Candidate.findOne({ email });
-    if (existingCandidate) {
-      return res.status(409).json({ message: 'Candidate with this email already exists.' });
-    }
+  const existingCandidate = await Candidate.findOne({ email });
+  if (existingCandidate) {
+    return res.status(409).json({ message: 'Candidate with this email already exists.' });
+  }
 
   // Move assignedTo into outreachDetails
   if (outreachDetails.assignedTo) {
@@ -177,7 +186,7 @@ exports.updateCandidateDetails = async (req, res, next) => {
 
     ];
 
-   // Generate logs for general fields
+    // Generate logs for general fields
     const logs = generateLogs({
       modelId: candidate._id,
       modelType: 'Candidate',
@@ -203,7 +212,7 @@ exports.updateCandidateDetails = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     next(error);
-    
+
   }
 };
 
@@ -213,7 +222,7 @@ exports.updateOutreachDetails = async (req, res, next) => {
     const candidate = await Candidate.findById(req.params.id);
     if (!candidate) return res.status(404).json({ message: 'Candidate not found' });
 
-      // Generate logs for outreach details (status, note, followUpDate)
+    // Generate logs for outreach details (status, note, followUpDate)
     const logs = generateNestedLogs({
       modelId: candidate._id,
       modelType: 'Candidate',
@@ -259,9 +268,9 @@ exports.updateOutreachDetails = async (req, res, next) => {
 
     res.json(candidate);
   } catch (error) {
-   console.log(error);
-   next(error);
-   
+    console.log(error);
+    next(error);
+
   }
 };
 

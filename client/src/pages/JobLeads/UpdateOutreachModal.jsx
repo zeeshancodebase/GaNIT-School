@@ -8,27 +8,50 @@ const UpdateOutreachModal = ({
   handleSubmit,
   loading,
 }) => {
-  const statusConfig = {
-    "New": {
-      note: false,
-      followUpDate: false,
-      followUpRequired: false,
-    },
-    Contacted: { note: true, followUpDate: true, followUpRequired: false },
-    "Follow-Up": { note: true, followUpDate: true, followUpRequired: true },
-    "Meeting Scheduled": {
-      note: true,
-      followUpDate: true,
-      followUpRequired: true,
-      followUpLabel: "Meeting Date",
-    },
-    "Not Interested": {
-      note: true,
-      followUpDate: false,
-      followUpRequired: false,
-    },
-    "Signed Up": { note: true, followUpDate: false, followUpRequired: false },
-  };
+const statusConfig = {
+  New: {
+    note: false,
+    followUpDate: false,
+    followUpRequired: false,
+  },
+  Contacted: {
+    note: true,
+    followUpDate: true,
+    followUpRequired: false,
+  },
+  Interested: {
+    note: true,
+    followUpDate: true,
+    followUpRequired: true,
+  },
+  "Follow-Up": {
+    note: true,
+    followUpDate: true,
+    followUpRequired: true,
+  },
+  "Meeting Scheduled": {
+    note: true,
+    followUpDate: true,
+    followUpRequired: true,
+    followUpLabel: "Meeting Date",
+  },
+  Enrolled: {
+    note: true,
+    followUpDate: false,
+    followUpRequired: false,
+  },
+  "Not Interested": {
+    note: true,
+    followUpDate: false,
+    followUpRequired: false,
+  },
+  Rejected: {
+    note: true,
+    followUpDate: false,
+    followUpRequired: false,
+  },
+};
+
   const currentConfig = statusConfig[outreachFormData.status] || {
     note: false,
     followUpDate: false,

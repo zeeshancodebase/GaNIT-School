@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  FaDownload,
-  FaPlus,
-  FaEraser,
-  FaTimes,
-  FaCheckCircle,
-} from "react-icons/fa";
+import { FaDownload, FaPlus, FaEraser, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import Swal from "sweetalert2";
@@ -18,9 +12,8 @@ import {
   updateCandidateOutreachThunk,
 } from "../../app/slices/candidateSlice.js"; // Update to your actual imports
 import Layout from "../../Layout/Layout.jsx";
-import CandidateActionsDropdown from "./CandidateActionsDropdown.jsx";
 import FollowUpDateFilter from "../../components/FollowUpDateFilter";
-import { formatDisplayDate, normalizeDate } from "../../utils/dateUtils"; // Assuming utils helpers for formatting dates
+import { normalizeDate } from "../../utils/dateUtils"; // Assuming utils helpers for formatting dates
 import { toast } from "react-toastify";
 import {
   clearLogs,
@@ -34,6 +27,7 @@ import useModals from "../../hooks/useModals.js";
 import UpdateOutreachModal from "./UpdateOutreachModal.jsx";
 import ActivityLogsModal from "../CollegeOutreachDashboard/ActivityLogsModal.jsx";
 import EditCandidateForm from "./EditCandidateForm.jsx";
+import CandidateTable from "./CandidateTable.jsx";
 
 const statuses = [
   "New",
@@ -253,6 +247,16 @@ const CandidateOutreachDashboard = () => {
     setShowNoteModal(true);
   };
 
+  const hasSetDefaultAssignedTo = useRef(false);
+
+  useEffect(() => {
+    if (user && filters.assignedTo === "" && !hasSetDefaultAssignedTo.current) {
+      dispatch(setFilters({ ...filters, assignedTo: user._id }));
+      setShowAssignedFilter(true);
+      hasSetDefaultAssignedTo.current = true;
+    }
+  }, [user, dispatch, filters]);
+
   return (
     <Layout>
       <div className="clg-container">
@@ -379,6 +383,8 @@ const CandidateOutreachDashboard = () => {
             onChange={(e) => handleFilterChange("city", e.target.value)}
             className="clg-select"
             aria-label="Filter by Location"
+            disabled
+            style={{ cursor: "not-allowed" }}
           >
             <option value="">All Locations</option>
             <option value="North">North</option>
@@ -387,20 +393,7 @@ const CandidateOutreachDashboard = () => {
             <option value="West">West</option>
             <option value="Central">Central</option>
           </select>
-          {/* Created By */}
-          <select
-            value={filters.createdBy}
-            onChange={(e) => handleFilterChange("createdBy", e.target.value)}
-            className="clg-select"
-            aria-label="Filter by Created By"
-          >
-            <option value="">Created By</option>
-            {users.map((user) => (
-              <option key={user._id} value={user._id}>
-                {user.name}
-              </option>
-            ))}
-          </select>
+
           {/* Optional Clear Filters Button */}
           <div>
             <button
@@ -442,131 +435,24 @@ const CandidateOutreachDashboard = () => {
         ) : error ? (
           <p className="error-text">{error}</p>
         ) : (
-          <>
-            <table className="clg-table" aria-label="College outreach table">
-              <thead>
-                <tr>
-                  <th style={{ borderTopLeftRadius: "10px" }}>Name</th>
-
-                  <th>Mobile</th>
-                  <th>Email</th>
-                  <th>Applied For</th>
-                  <th>Status</th>
-                  <th>Note</th>
-                  <th>Follow up</th>
-                  <th>Assigned To</th>
-                  <th style={{ borderTopRightRadius: "10px" }}></th>
-                </tr>
-              </thead>
-              <tbody>
-                {candidates.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="no-data">
-                      No candidates found.
-                    </td>
-                  </tr>
-                ) : (
-                  candidates.map((candidate) => (
-                    <tr key={candidate._id}>
-                      <td>{candidate.name}</td>
-                      <td>{candidate.mobile}</td>
-                      <td>{candidate.email}</td>
-                      <td>{getJobTitle(candidate.appliedFor)}</td>
-                      <td>
-                        {candidate.outreachDetails?.status === "New" ? (
-                          filters.status === "New" ? (
-                            "New"
-                          ) : (
-                            <button
-                              className="btn-primary btn-with-icon"
-                              onClick={() => openUpdateOutreachModal(candidate)}
-                              aria-label="Mark as Contacted"
-                              title="Mark as Contacted"
-                            >
-                              Mark as Contacted <FaCheckCircle size={20} />
-                            </button>
-                          )
-                        ) : (
-                          candidate.outreachDetails?.status || (
-                            <i className="clg-placeholder-text">N/A</i>
-                          )
-                        )}
-                      </td>
-
-                      <td>
-                        {candidate.outreachDetails?.note ? (
-                          <div className="clg-notes-preview-wrapper">
-                            <div className="clg-notes-preview-text">
-                              {candidate.outreachDetails.note}
-                            </div>
-                            <button
-                              className="btn-view-note"
-                              onClick={() =>
-                                openNoteModal(
-                                  candidate.outreachDetails.note,
-                                  candidate.name
-                                )
-                              }
-                            >
-                              View
-                            </button>
-                          </div>
-                        ) : (
-                          <i className="clg-placeholder-text">No Note</i>
-                        )}
-                      </td>
-                      <td>
-                        {candidate.outreachDetails.followUpDate ? (
-                          formatDisplayDate(
-                            candidate.outreachDetails.followUpDate
-                          )
-                        ) : (
-                          <i className="clg-placeholder-text">No date</i>
-                        )}
-                      </td>
-                      <td>
-                        {candidate.outreachDetails?.assignedTo?.name ||
-                          "Unassigned"}
-                      </td>
-                      <td>
-                        <CandidateActionsDropdown
-                          candidate={candidate}
-                          openUpdateOutreachModal={openUpdateOutreachModal}
-                          fetchLogsHandler={fetchLogsHandler}
-                          openTransferModal={openTransferModal}
-                          openEditCandidateModal={openEditCandidateModal}
-                          handleDeleteCandidate={handleDeleteCandidate}
-                          userRole={user.role}
-                          user={user}
-                        />
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-
-            {/* Pagination */}
-            <div className="clg-pagination">
-              <button
-                className="btn-secondary"
-                disabled={page === 1}
-                onClick={() => dispatch(setPage(page - 1))}
-              >
-                Prev
-              </button>
-              <span>
-                Page {page} of {totalPages}
-              </span>
-              <button
-                className="btn-secondary"
-                disabled={page === totalPages}
-                onClick={() => dispatch(setPage(page + 1))}
-              >
-                Next
-              </button>
-            </div>
-          </>
+          <CandidateTable
+            candidates={candidates}
+            filters={filters}
+            page={page}
+            totalPages={totalPages}
+            user={user}
+            loading={loading.fetch}
+            error={error}
+            dispatch={dispatch}
+            setPage={setPage}
+            getJobTitle={getJobTitle}
+            openUpdateOutreachModal={openUpdateOutreachModal}
+            fetchLogsHandler={fetchLogsHandler}
+            openTransferModal={openTransferModal}
+            openEditCandidateModal={openEditCandidateModal}
+            handleDeleteCandidate={handleDeleteCandidate}
+            openNoteModal={openNoteModal}
+          />
         )}
 
         <Modal

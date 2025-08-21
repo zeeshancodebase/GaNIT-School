@@ -5,7 +5,6 @@ import {
   deleteCollegeThunk,
   fetchColleges,
   setFilters,
-  setPage,
   updateCollegeOutreachThunk,
 } from "../../app/slices/collegeSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,22 +12,23 @@ import "./CollegeOutreachDashboard.css";
 import Layout from "../../Layout/Layout";
 import { fetchAllUsersThunk } from "../../app/slices/userSlice";
 import { FaDownload } from "react-icons/fa6";
-import CollegeActionsDropdown from "./CollegeActionsDropdown/CollegeActionsDropdown.jsx";
 import CollegeForm from "./CollegeForm";
 import EditOutreachModal from "./EditOutreachModal/EditOutreachModal.jsx";
 import ActivityLogsModal from "./ActivityLogsModal.jsx";
 import TransferModal from "./TransferModal.jsx";
 import Modal from "../../components/Modal/Modal.jsx";
-import { FaCheckCircle, FaEraser, FaPlus, FaTimes } from "react-icons/fa";
+import { FaEraser, FaPlus, FaTimes } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 import Swal from "sweetalert2";
-import { formatDisplayDate, normalizeDate } from "../../utils/dateUtils.js";
+import { normalizeDate } from "../../utils/dateUtils.js";
 import FollowUpDateFilter from "../../components/FollowUpDateFilter.jsx";
 import useModals from "../../hooks/useModals.js";
 import {
   clearLogs,
   fetchActivityLogsThunk,
 } from "../../app/slices/activityLogSlice.js";
+import CollegeTable from "./CollegeTable.jsx";
+// import ActiveFiltersRow from "../../components/ActiveFiltersRow/ActiveFiltersRow.jsx";
 
 const statuses = [
   "Not Contacted",
@@ -238,8 +238,6 @@ const CollegeOutreachDashboard = () => {
     }
   };
 
-  const userRole = user?.role || "viewer"; // fallback to viewer if not found
-
   const handleFilterChange = (key, value) => {
     dispatch(setFilters({ ...filters, [key]: value }));
   };
@@ -270,11 +268,6 @@ const CollegeOutreachDashboard = () => {
 
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [noteModalData, setNoteModalData] = useState({ note: "", name: "" });
-
-  const openNoteModal = (note, name) => {
-    setNoteModalData({ note, name });
-    setShowNoteModal(true);
-  };
 
   return (
     <Layout>
@@ -395,6 +388,8 @@ const CollegeOutreachDashboard = () => {
             onChange={(e) => handleFilterChange("location", e.target.value)}
             className="clg-select"
             aria-label="Filter by Location"
+            disabled
+            style={{ cursor: "not-allowed" }}
           >
             <option value="">All Locations</option>
             <option value="North">North</option>
@@ -441,6 +436,16 @@ const CollegeOutreachDashboard = () => {
             </button>
           </div>
         </div>
+        {/* Active Filters Row 
+        <ActiveFiltersRow
+          filters={filters}
+          dispatch={dispatch}
+          setFilters={setFilters}
+          users={users}
+          showAssignedFilter={showAssignedFilter}
+          setShowAssignedFilter={setShowAssignedFilter}
+          setShowDateFilter={setShowDateFilter}
+        />*/}
 
         {loading.fetch ? (
           <div
@@ -458,173 +463,20 @@ const CollegeOutreachDashboard = () => {
         ) : error ? (
           <p className="error-text">{error}</p>
         ) : (
-          <>
-            <table className="clg-table" aria-label="College outreach table">
-              <thead>
-                <tr>
-                  <th style={{ borderTopLeftRadius: "10px" }}>Name</th>
-                  <th>Location</th>
-                  <th>Contact Person</th>
-                  <th>Contact Email</th>
-                  <th>Contact Phone</th>
-                  <th>Status</th>
-                  <th>Note</th>
-                  <th>Follow-Up</th>
-                  <th>Assigned To</th>
-                  <th style={{ borderTopRightRadius: "10px" }}></th>
-                </tr>
-              </thead>
-              <tbody>
-                {colleges.length === 0 ? (
-                  <tr>
-                    <td colSpan={11} className="no-data">
-                      No colleges found.
-                    </td>
-                  </tr>
-                ) : (
-                  colleges.map((college) => (
-                    <tr key={college._id}>
-                      <td>
-                        {college.name || (
-                          <i className="clg-placeholder-text">N/A</i>
-                        )}
-                      </td>
-                      <td>
-                        {college.location || (
-                          <i className="clg-placeholder-text">N/A</i>
-                        )}
-                      </td>
-                      <td>
-                        {college.contactPerson || (
-                          <i className="clg-placeholder-text">N/A</i>
-                        )}
-                      </td>
-                      <td>
-                        {college.contactEmail || (
-                          <i className="clg-placeholder-text">N/A</i>
-                        )}
-                      </td>
-                      <td>
-                        {college.contactPhone || (
-                          <i className="clg-placeholder-text">N/A</i>
-                        )}
-                      </td>
-                      <td>
-                        {college.outreachDetails?.status === "Not Contacted" ? (
-                          filters.status === "Not Contacted" ? (
-                            "Not Contacted"
-                          ) : (
-                            <button
-                              className="btn-primary btn-with-icon"
-                              onClick={() =>
-                                openEditOutreachModal(college, true)
-                              }
-                              aria-label="Mark as Contacted"
-                              title="Mark as Contacted"
-                            > Mark as Contacted
-                              <FaCheckCircle size={20} />
-
-                              
-                            </button>
-                          )
-                        ) : college.outreachDetails?.status ? (
-                          college.outreachDetails.status
-                        ) : (
-                          <i className="clg-placeholder-text">N/A</i>
-                        )}
-                      </td>
-
-                      <td>
-                        {college.outreachDetails?.note ? (
-                          <div className="clg-notes-preview-wrapper">
-                            <div className="clg-notes-preview-text">
-                              {college.outreachDetails.note}
-                            </div>
-                            <button
-                              className="btn-view-note"
-                              onClick={() =>
-                                openNoteModal(
-                                  college.outreachDetails.note,
-                                  college.name
-                                )
-                              }
-                            >
-                              View
-                            </button>
-                          </div>
-                        ) : (
-                          <i className="clg-placeholder-text">No Note</i>
-                        )}
-                      </td>
-
-                      <td>
-                        {college.outreachDetails?.followUpDate ? (
-                          formatDisplayDate(
-                            college.outreachDetails.followUpDate
-                          )
-                        ) : (
-                          <i className="clg-placeholder-text">No date</i>
-                        )}
-                      </td>
-                      {/* <td>
-                        {college.outreachDetails?.followUpDate ? (
-                          new Date(
-                            college.outreachDetails.followUpDate
-                          ).toLocaleDateString()
-                        ) : (
-                          <i className="clg-placeholder-text">No date</i>
-                        )}
-                      </td> */}
-
-                      <td>
-                        {college.outreachDetails?.assignedTo?.name ? (
-                          college.outreachDetails.assignedTo.name
-                        ) : (
-                          <i className="clg-placeholder-text">Unassigned</i>
-                        )}
-                      </td>
-
-                      <td>
-                        <CollegeActionsDropdown
-                          college={college}
-                          openEditOutreachModal={openEditOutreachModal}
-                          fetchLogsHandler={fetchLogsHandler}
-                          openTransferModal={openTransferModal}
-                          openEditCollegeModal={openEditCollegeModal}
-                          handleDeleteCollege={handleDeleteCollege}
-                          userRole={userRole}
-                          user={user}
-                        />
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-
-            {/* Pagination */}
-            <div className="clg-pagination">
-              <button
-                className="btn-secondary"
-                disabled={page === 1}
-                onClick={() => dispatch(setPage(page - 1))}
-                aria-label="Previous page"
-              >
-                Prev
-              </button>
-              <span>
-                Page {page} of {totalPages}
-              </span>
-              <button
-                className="btn-secondary"
-                disabled={page === totalPages}
-                onClick={() => dispatch(setPage(page + 1))}
-                aria-label="Next page"
-              >
-                Next
-              </button>
-            </div>
-          </>
+          <CollegeTable
+            colleges={colleges}
+            page={page}
+            totalPages={totalPages}
+            user={user}
+            filters={filters}
+            setShowNoteModal={setShowNoteModal}
+            setNoteModalData={setNoteModalData}
+            openEditOutreachModal={openEditOutreachModal}
+            fetchLogsHandler={fetchLogsHandler}
+            openTransferModal={openTransferModal}
+            openEditCollegeModal={openEditCollegeModal}
+            handleDeleteCollege={handleDeleteCollege}
+          />
         )}
 
         {/* Logs Modal */}

@@ -77,7 +77,7 @@ const candidateSchema = new mongoose.Schema(
     },
   
     
-    // Outreach Information (this is new)
+    // Outreach Information 
     outreachDetails: {
       assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       

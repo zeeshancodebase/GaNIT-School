@@ -7,9 +7,11 @@ import {
   FaSyncAlt,
   FaExchangeAlt,
   FaTrash,
+  FaHistory,
 } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import "./CollegeActionsDropdown.css";
+import { toast } from "react-toastify";
 
 const CollegeActionsDropdown = ({
   college,
@@ -97,15 +99,24 @@ const CollegeActionsDropdown = ({
             onClick={() => {
               if (canUpdateStatus) {
                 openEditOutreachModal(college);
-                setOpen(false);
+              } else {
+                toast.warn(
+                  "You are not allowed to update status. This is not assigned to you."
+                );
               }
+              setOpen(false);
             }}
             onKeyDown={(e) =>
               onKeyDownMenuItem(e, () => {
                 if (canUpdateStatus) {
                   openEditOutreachModal(college);
                   setOpen(false);
+                } else {
+                  toast.warn(
+                    "You are not allowed to update status. This is not assigned to you."
+                  );
                 }
+                setOpen(false);
               })
             }
             style={{
@@ -113,8 +124,9 @@ const CollegeActionsDropdown = ({
               opacity: canUpdateStatus ? 1 : 0.5,
             }}
             aria-disabled={!canUpdateStatus}
-            title={!canUpdateStatus ? "Only the assigned user can update status" : ""}
-
+            title={
+              !canUpdateStatus ? "Only the assigned user can update status" : ""
+            }
           >
             <FaSyncAlt className="dropdown-icon" />
             {/* Update Outreach Details */}
@@ -133,7 +145,7 @@ const CollegeActionsDropdown = ({
               onKeyDownMenuItem(e, () => fetchLogsHandler(college._id))
             }
           >
-            <FaListAlt className="dropdown-icon" />
+            <FaHistory className="dropdown-icon" />
             View Logs
           </li>
           <li
@@ -143,6 +155,11 @@ const CollegeActionsDropdown = ({
             onClick={() => {
               if (canTransfer) {
                 openTransferModal(college);
+              } else {
+                toast.warn(
+                  "You are not allowed to transfer. This is not assigned to you."
+                );
+
                 setOpen(false);
               }
             }}
@@ -151,7 +168,12 @@ const CollegeActionsDropdown = ({
                 if (canTransfer) {
                   openTransferModal(college);
                   setOpen(false);
+                } else {
+                  toast.warn(
+                    "You are not allowed to transfer. This is not assigned to you."
+                  );
                 }
+                setOpen(false);
               })
             }
             style={{
@@ -162,6 +184,12 @@ const CollegeActionsDropdown = ({
           >
             <FaExchangeAlt className="dropdown-icon" />
             Transfer To
+          </li>
+
+          {/* View Full Details */}
+          <li className="dropdown-item" role="menuitem">
+            <FaListAlt className="dropdown-icon" />
+            View Details
           </li>
 
           <li

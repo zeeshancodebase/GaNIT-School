@@ -44,7 +44,7 @@ const CollegeOutreachDashboard = () => {
   const dispatch = useDispatch();
   const { modals, openModal, closeModal } = useModals();
 
-  const { colleges, filters, page, totalPages, loading, error } = useSelector(
+  const { colleges, filters, page, totalPages,totalCount, loading, error } = useSelector(
     (state) => state.colleges
   );
 
@@ -284,7 +284,6 @@ const CollegeOutreachDashboard = () => {
 
         {/* Filters */}
         <div className="clg-filters-row">
-          <div></div>
           <div>
             <button
               className="btn-with-icon btn-primary"
@@ -302,7 +301,11 @@ const CollegeOutreachDashboard = () => {
             }
             className="clg-input clg-search-input"
             aria-label="Search colleges"
-          />{" "}
+          /><p>
+          {Object.values(filters).some((val) => val)
+            ? `Filtered Colleges: ${totalCount}`
+            : `Total Colleges: ${totalCount}`}
+        </p>
           <div></div>
           <select
             value={filters.status}

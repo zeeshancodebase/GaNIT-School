@@ -73,10 +73,11 @@ export const deleteCollegeThunk = createAsyncThunk(
 // Initial State
 const initialState = {
   colleges: [],
+  totalCount: 0,
   users: [],
   filters: {
-    search: "", 
-    status: "", 
+    search: "",
+    status: "",
     assignedTo: "",
     location: "",
     createdBy: "",
@@ -119,6 +120,7 @@ const collegeSlice = createSlice({
         state.loading.fetch = false;
         state.colleges = action.payload.colleges;
         state.totalPages = action.payload.pages;
+        state.totalCount = action.payload.total;
       })
       .addCase(fetchColleges.rejected, (state, action) => {
         state.loading.fetch = false;

@@ -13,12 +13,18 @@ const Modal = ({
   useEffect(() => {
     if (!show) return;
 
+    document.body.style.overflow = "hidden";
+
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
     };
 
     document.addEventListener("keydown", handleEsc);
-    return () => document.removeEventListener("keydown", handleEsc);
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleEsc);
+    };
   }, [show, onClose]);
 
   if (!show) return null;

@@ -1,6 +1,6 @@
-// CandidateDetailsModal.jsx
 import React from "react";
 import { formatDisplayDate } from "../../utils/dateUtils";
+import "./CandidateDetailsModal.css"; // import your styles
 
 const CandidateDetailsModal = ({ candidate }) => {
   if (!candidate) return null;
@@ -29,102 +29,92 @@ const CandidateDetailsModal = ({ candidate }) => {
     updatedAt,
   } = candidate;
 
+  // Helper to render a row
+  const Row = ({ label, value }) => (
+    <div className="candidate-row">
+      <div className="candidate-label">{label}</div>
+      <div className="candidate-value">{value || "N/A"}</div>
+    </div>
+  );
+
+  const normalizeUrl = (url) => {
+    if (!url) return "";
+    return url.startsWith("http://") || url.startsWith("https://")
+      ? url
+      : `https://${url}`;
+  };
+
   return (
     <div className="candidate-details">
       <div className="candidate-section">
         <strong>Basic Info</strong>
-        <p>
-          <b>Name:</b> {name}
-        </p>
-        <p>
-          <b>Mobile:</b> {mobile}
-        </p>
-        <p>
-          <b>Email:</b> {email}
-        </p>
-        <p>
-          <b>City:</b> {city || "N/A"}
-        </p>
-        <p>
-          <b>DOB:</b> {dob ? formatDisplayDate(dob) : "N/A"}
-        </p>
+        <Row label="Name:" value={name} />
+        <Row label="Mobile:" value={mobile} />
+        <Row label="Email:" value={email} />
+        <Row label="City:" value={city} />
+        <Row label="DOB:" value={dob ? formatDisplayDate(dob) : "N/A"} />
       </div>
 
       <div className="candidate-section">
         <strong>Education</strong>
-        <p>
-          <b>Degree:</b> {degree || "N/A"}
-        </p>
-        <p>
-          <b>Branch:</b> {branch || "N/A"}
-        </p>
-        <p>
-          <b>College:</b> {college || "N/A"}
-        </p>
-        <p>
-          <b>University:</b> {university || "N/A"}
-        </p>
-        <p>
-          <b>Year of Passout:</b> {yearOfPassout || "N/A"}
-        </p>
+        <Row label="Degree:" value={degree} />
+        <Row label="Branch:" value={branch} />
+        <Row label="College:" value={college} />
+        <Row label="University:" value={university} />
+        <Row label="Year of Passout:" value={yearOfPassout} />
       </div>
 
       <div className="candidate-section">
         <strong>Other Details</strong>
-        <p>
-          <b>Occupation:</b> {occupation || "N/A"}
-        </p>
-        <p>
-          <b>Current Salary:</b> {currentSalary || "N/A"}
-        </p>
-        <p>
-          <b>Preferred Course:</b> {preferredCourse || "N/A"}
-        </p>
-        <p>
-          <b>Skills:</b>{" "}
-          {skills && skills.length > 0 ? skills.join(", ") : "N/A"}
-        </p>
-        <p>
-          <b>LinkedIn:</b> {linkedIn || "N/A"}
-        </p>
-        <p>
-          <b>Source:</b> {source || "N/A"}
-        </p>
-        <p>
-          <b>Referral Code:</b> {referralCode || "N/A"}
-        </p>
-        <p>
-          <b>Applied For:</b> {appliedFor || "N/A"}
-        </p>
+        <Row label="Occupation:" value={occupation} />
+        <Row label="Current Salary:" value={currentSalary} />
+        <Row label="Preferred Course:" value={preferredCourse} />
+        <Row
+          label="Skills:"
+          value={skills && skills.length > 0 ? skills.join(", ") : "N/A"}
+        />
+        <Row
+          label="LinkedIn:"
+          value={
+            linkedIn ? (
+              <a
+                href={normalizeUrl(linkedIn)}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#007bff", textDecoration: "underline" }}
+              >
+                Visit Profile
+              </a>
+            ) : (
+              "N/A"
+            )
+          }
+        />
+
+        <Row label="Source:" value={source} />
+        <Row label="Referral Code:" value={referralCode} />
+        <Row label="Applied For:" value={appliedFor} />
       </div>
 
       <div className="candidate-section">
         <strong>Outreach Info</strong>
-        <p>
-          <b>Status:</b> {outreachDetails?.status || "N/A"}
-        </p>
-        <p>
-          <b>Follow-Up Date:</b>{" "}
-          {outreachDetails?.followUpDate
-            ? formatDisplayDate(outreachDetails.followUpDate)
-            : "N/A"}
-        </p>
-        <p>
-          <b>Note:</b> {outreachDetails?.note || "N/A"}
-        </p>
-        <p>
-          <b>Assigned To:</b> {outreachDetails?.assignedTo?.name || "N/A"}
-        </p>
+        <Row label="Status:" value={outreachDetails?.status} />
+        <Row
+          label="Follow-Up Date:"
+          value={
+            outreachDetails?.followUpDate
+              ? formatDisplayDate(outreachDetails.followUpDate)
+              : "N/A"
+          }
+        />
+        <Row label="Note:" value={outreachDetails?.note} />
+        <Row label="Assigned To:" value={outreachDetails?.assignedTo?.name} />
       </div>
 
       <div className="candidate-section">
         <strong>Timestamps</strong>
-        <p>
-          <b>Created At:</b> {formatDisplayDate(createdAt)}
-        </p>
-        <p>
-          <b>Updated At:</b> {formatDisplayDate(updatedAt)}
-        </p>
+        <Row label="Created At:" value={formatDisplayDate(createdAt)} />
+        <Row label="Updated At:" value={formatDisplayDate(updatedAt)} />
       </div>
     </div>
   );

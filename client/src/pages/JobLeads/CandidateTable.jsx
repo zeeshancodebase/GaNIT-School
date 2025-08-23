@@ -50,7 +50,7 @@ const CandidateTable = ({
                 <th>Mobile</th>
                 <th>Email</th>
                 <th>Applied For</th>
-                <th>Status</th>
+                <th>{filters.status === "New" ? "Status: New" : "Status"}</th>
                 <th>Note</th>
                 <th>Follow up</th>
                 <th>Assigned To</th>
@@ -66,54 +66,95 @@ const CandidateTable = ({
                 </tr>
               ) : (
                 candidates.map((candidate) => (
-                  <tr
-                    key={candidate._id}
-                    onClick={() => setDetailsCandidate(candidate)}
-                    style={{ cursor: "pointer" }}
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        setDetailsCandidate(candidate);
-                      }
-                    }}
-                    aria-label={`View details of ${candidate.name}`}
-                  >
-                    <td>{candidate.name}</td>
-                    <td>{candidate.mobile}</td>
-                    <td>{candidate.email}</td>
+                  <tr key={candidate._id}>
+                    <td
+                      onClick={() => setDetailsCandidate(candidate)}
+                      style={{ cursor: "pointer", fontWeight: "500" }}
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          setDetailsCandidate(candidate);
+                        }
+                      }}
+                      aria-label={`View details of ${candidate.name}`}
+                    >
+                      {candidate.name}
+                    </td>
+                    <td
+                      onClick={() => setDetailsCandidate(candidate)}
+                      style={{ cursor: "pointer", fontWeight: "500" }}
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          setDetailsCandidate(candidate);
+                        }
+                      }}
+                      aria-label={`View details of ${candidate.name}`}
+                    >
+                      {candidate.mobile}
+                    </td>
+                    <td
+                      onClick={() => setDetailsCandidate(candidate)}
+                      style={{ cursor: "pointer", fontWeight: "500" }}
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          setDetailsCandidate(candidate);
+                        }
+                      }}
+                      aria-label={`View details of ${candidate.name}`}
+                    >
+                      {candidate.email}
+                    </td>
                     <td>{getJobTitle(candidate.appliedFor)}</td>
                     <td>
                       {candidate.outreachDetails?.status === "New" ? (
-                        filters.status === "New" ? (
-                          "New"
-                        ) : (
-                          <button
-                            className={`btn-primary btn-with-icon ${
-                              !candidate.outreachDetails?.assignedTo
-                                ? "disabled-button"
-                                : ""
-                            }`}
-                            onClick={() => {
-                              if (!candidate.outreachDetails?.assignedTo) {
-                                toast.warn("Assign to someone to make changes");
-                              } else {
-                                openUpdateOutreachModal(candidate);
-                              }
-                            }}
-                            aria-label="Mark as Contacted"
-                            title="Mark as Contacted"
-                            style={{
-                              cursor: !candidate.outreachDetails?.assignedTo
+                        <button
+                          className={`btn-primary btn-with-icon ${
+                            !candidate.outreachDetails?.assignedTo ||
+                            candidate.outreachDetails?.assignedTo._id !==
+                              user._id
+                              ? "disabled-button"
+                              : ""
+                          }`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const assignedTo =
+                              candidate.outreachDetails?.assignedTo;
+
+                            if (!assignedTo) {
+                              toast.warn("Assign to someone to make changes");
+                              return;
+                            }
+
+                            if (assignedTo._id !== user._id) {
+                              toast.warn(
+                                "You are not allowed to make changes. This is not assigned to you."
+                              );
+                              return;
+                            }
+
+                            openUpdateOutreachModal(candidate);
+                          }}
+                          aria-label="Mark as Contacted"
+                          title="Mark as Contacted"
+                          style={{
+                            cursor:
+                              !candidate.outreachDetails?.assignedTo ||
+                              candidate.outreachDetails?.assignedTo._id !==
+                                user._id
                                 ? "not-allowed"
                                 : "pointer",
-                              opacity: !candidate.outreachDetails?.assignedTo
+                            opacity:
+                              !candidate.outreachDetails?.assignedTo ||
+                              candidate.outreachDetails?.assignedTo._id !==
+                                user._id
                                 ? 0.6
                                 : 1,
-                            }}
-                          >
-                            Mark as Contacted <FaCheckCircle size={20} />
-                          </button>
-                        )
+                          }}
+                        >
+                          Mark as Contacted <FaCheckCircle size={20} />
+                        </button>
                       ) : (
                         candidate.outreachDetails?.status || (
                           <i className="clg-placeholder-text">N/A</i>
@@ -202,8 +243,8 @@ const CandidateTable = ({
             onClose={() => setDetailsCandidate(null)}
             title={`Details of ${detailsCandidate?.name || "Candidate"}`}
             width="600px"
-          >
-            <CandidateDetailsModal candidate={detailsCandidate} />
+          > <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+            <CandidateDetailsModal candidate={detailsCandidate} /></div>
           </Modal>
         </>
       )}

@@ -4,9 +4,11 @@ import {
   FaListAlt,
   FaSyncAlt,
   FaExchangeAlt,
-  FaTrash,
+  // FaTrash,
+  FaHistory,
 } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 const CandidateActionsDropdown = ({
   candidate,
@@ -57,7 +59,7 @@ const CandidateActionsDropdown = ({
 
   // Role-based access
   const canEdit = true; // Update to check for actual userRole
-  const canDelete = true; // Update to check for actual userRole
+  // const canDelete = true; // Update to check for actual userRole
   const canTransfer = candidate.outreachDetails?.assignedTo?._id
     ? candidate.outreachDetails.assignedTo._id === user?._id
     : true; // If no assigned user, allow anyone to transfer
@@ -89,15 +91,23 @@ const CandidateActionsDropdown = ({
             onClick={() => {
               if (canUpdateStatus) {
                 openUpdateOutreachModal(candidate);
-                setOpen(false);
+              } else {
+                toast.warn(
+                  "You are not allowed to update status. This is not assigned to you."
+                );
               }
+              setOpen(false);
             }}
             onKeyDown={(e) =>
               onKeyDownMenuItem(e, () => {
                 if (canUpdateStatus) {
                   openUpdateOutreachModal(candidate);
-                  setOpen(false);
+                } else {
+                  toast.warn(
+                    "You are not allowed to update status. This is not assigned to you."
+                  );
                 }
+                setOpen(false);
               })
             }
             style={{
@@ -126,7 +136,7 @@ const CandidateActionsDropdown = ({
               onKeyDownMenuItem(e, () => fetchLogsHandler(candidate._id))
             }
           >
-            <FaListAlt className="dropdown-icon" />
+            <FaHistory className="dropdown-icon" />
             View Logs
           </li>
 
@@ -138,6 +148,11 @@ const CandidateActionsDropdown = ({
             onClick={() => {
               if (canTransfer) {
                 openTransferModal(candidate);
+              } else {
+                toast.warn(
+                  "You are not allowed to transfer. This is not assigned to you."
+                );
+
                 setOpen(false);
               }
             }}
@@ -145,8 +160,12 @@ const CandidateActionsDropdown = ({
               onKeyDownMenuItem(e, () => {
                 if (canTransfer) {
                   openTransferModal(candidate);
-                  setOpen(false);
+                } else {
+                  toast.warn(
+                    "You are not allowed to transfer. This is not assigned to you."
+                  );
                 }
+                setOpen(false);
               })
             }
             style={{
@@ -203,7 +222,7 @@ const CandidateActionsDropdown = ({
             Edit Candidate Details
           </li>
 
-          {/* Delete Candidate */}
+          {/* Delete Candidate 
           <li
             className="dropdown-item delete-item"
             role="menuitem"
@@ -229,7 +248,7 @@ const CandidateActionsDropdown = ({
           >
             <FaTrash className="dropdown-icon" style={{ color: "red" }} />
             Delete Candidate
-          </li>
+          </li>*/}
         </ul>
       )}
     </div>

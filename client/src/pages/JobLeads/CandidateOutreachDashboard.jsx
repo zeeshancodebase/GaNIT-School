@@ -44,7 +44,7 @@ const CandidateOutreachDashboard = () => {
   const { token, user } = useAuth();
   const { modals, openModal, closeModal } = useModals();
   const dispatch = useDispatch();
-  const { candidates, filters, page, totalPages, loading, error } = useSelector(
+  const { candidates, filters, page, totalPages,totalCount, loading, error } = useSelector(
     (state) => state.candidates
   );
   const jobs = useSelector((state) => state.jobs.jobs);
@@ -269,11 +269,11 @@ const CandidateOutreachDashboard = () => {
             Export as Excel <FaDownload />
           </button>
         </div>
-        <p>Total Candidates: {candidates.length}</p>
+        
 
         {/* Filters */}
         <div className="clg-filters-row">
-          <div></div>
+         
           <div>
             <button
               className="btn-with-icon btn-primary"
@@ -295,7 +295,11 @@ const CandidateOutreachDashboard = () => {
             }
             className="clg-input clg-search-input"
             aria-label="Search candidates"
-          />
+          /><p>
+          {Object.values(filters).some((val) => val)
+            ? `Filtered Candidates: ${totalCount}`
+            : `Total Candidates: ${totalCount}`}
+        </p>
           <div></div>
           <select
             value={filters.status}

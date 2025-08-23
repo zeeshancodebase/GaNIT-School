@@ -1,0 +1,47 @@
+.candidate-details {
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.4;
+}
+
+.candidate-section {
+  background: #f9f9f9;
+  border-radius: 6px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+}
+
+.candidate-section strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 4px;
+}
+
+.candidate-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.candidate-row:last-child {
+  border-bottom: none;
+}
+
+.candidate-label {
+  font-weight: 600;
+  color: #555;
+  flex: 1 1 40%;
+}
+
+.candidate-value {
+  flex: 1 1 60%;
+  text-align: left;
+  white-space: pre-wrap; /* allows line breaks if needed */
+  word-wrap: break-word;
+  color: #000;
+}

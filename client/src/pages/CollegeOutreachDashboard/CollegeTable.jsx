@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { setPage } from "../../app/slices/collegeSlice";
 import { formatDisplayDate } from "../../utils/dateUtils";
 import CollegeActionsDropdown from "./CollegeActionsDropdown/CollegeActionsDropdown";
+import { toast } from "react-toastify";
 
 const CollegeTable = ({
   colleges,
@@ -83,10 +84,43 @@ const CollegeTable = ({
                 <td>
                   {college.outreachDetails?.status === "Not Contacted" ? (
                     <button
-                      className="btn-primary btn-with-icon"
-                      onClick={() => openEditOutreachModal(college, true)}
+                      className={`btn-primary btn-with-icon ${
+                        !college.outreachDetails?.assignedTo ||
+                        college.outreachDetails?.assignedTo._id !== user._id
+                          ? "disabled-button"
+                          : ""
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const assignedTo = college.outreachDetails?.assignedTo;
+
+                        if (!assignedTo) {
+                          toast.warn("Assign to someone to make changes");
+                          return;
+                        }
+
+                        if (assignedTo._id !== user._id) {
+                          toast.warn(
+                            "You are not allowed to make changes. This is not assigned to you."
+                          );
+                          return;
+                        }
+                        openEditOutreachModal(college, true);
+                      }}
                       aria-label="Mark as Contacted"
                       title="Mark as Contacted"
+                      style={{
+                        cursor:
+                          !college.outreachDetails?.assignedTo ||
+                          college.outreachDetails?.assignedTo._id !== user._id
+                            ? "not-allowed"
+                            : "pointer",
+                        opacity:
+                          !college.outreachDetails?.assignedTo ||
+                          college.outreachDetails?.assignedTo._id !== user._id
+                            ? 0.6
+                            : 1,
+                      }}
                     >
                       Mark as Contacted <FaCheckCircle size={20} />
                     </button>

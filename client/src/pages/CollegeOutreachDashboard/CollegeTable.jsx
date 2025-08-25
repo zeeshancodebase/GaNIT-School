@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaAngleLeft, FaAngleRight, FaCheckCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setPage } from "../../app/slices/collegeSlice";
 import { formatDisplayDate } from "../../utils/dateUtils";
 import CollegeActionsDropdown from "./CollegeActionsDropdown/CollegeActionsDropdown";
 import { toast } from "react-toastify";
+import Modal from "../../components/Modal/Modal";
+import CollegeDetailsModal from "./CollegeDetailsModal";
+import CopyToClipboard from "../../components/CopyToClipboard/CopyToClipboard";
 
 const CollegeTable = ({
   colleges,
@@ -27,6 +30,8 @@ const CollegeTable = ({
     setNoteModalData({ note, name });
     setShowNoteModal(true);
   };
+
+  const [detailsCollege, setDetailsCollege] = useState(null); // ✅ This fixes your error
 
   return (
     <>
@@ -58,7 +63,17 @@ const CollegeTable = ({
           ) : (
             colleges.map((college) => (
               <tr key={college._id}>
-                <td>
+                <td
+                  onClick={() => setDetailsCollege(college)}
+                  style={{ cursor: "pointer", fontWeight: "500" }}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      setDetailsCollege(college);
+                    }
+                  }}
+                  aria-label={`View details of ${college.name}`}
+                >
                   {college.name || <i className="clg-placeholder-text">N/A</i>}
                 </td>
                 <td>
@@ -72,15 +87,45 @@ const CollegeTable = ({
                   )}
                 </td>
                 <td>
-                  {college.contactEmail || (
-                    <i className="clg-placeholder-text">N/A</i>
-                  )}
+                  <a
+                    href={`mailto:${college.contactEmail}`}
+                    className="contact-link"
+                  >
+                    {college.contactEmail || (
+                      <i className="clg-placeholder-text">N/A</i>
+                    )}
+                  </a>
+                  <CopyToClipboard
+                    text={college.contactEmail}
+                    ariaLabel={`Copy email ${college.contactEmail}`}
+                    successMessage="Email copied to clipboard!"
+                    disabled={!college.contactEmail}
+                    className="copy-btn" // optional for styling
+                  />
                 </td>
                 <td>
-                  {college.contactPhone || (
+                  {college.contactPhone ? (
+                    <>
+                      <a
+                        href={`tel:${college.contactPhone}`}
+                        className="contact-link"
+                      >
+                        {college.contactPhone}
+                      </a>
+                      <CopyToClipboard
+                        text={college.contactPhone}
+                        ariaLabel={`Copy phone number ${college.contactPhone}`}
+                        successMessage="Phone number copied to clipboard!"
+                        disabled={!college.contactPhone}
+                        className="copy-btn" // optional styling
+                        size={16} // maybe smaller icon for phone
+                      />
+                    </>
+                  ) : (
                     <i className="clg-placeholder-text">N/A</i>
                   )}
                 </td>
+
                 <td>
                   {college.outreachDetails?.status === "Not Contacted" ? (
                     <button
@@ -130,7 +175,6 @@ const CollegeTable = ({
                     <i className="clg-placeholder-text">N/A</i>
                   )}
                 </td>
-
                 <td>
                   {college.outreachDetails?.note ? (
                     <div className="clg-notes-preview-wrapper">
@@ -177,6 +221,7 @@ const CollegeTable = ({
                     handleDeleteCollege={handleDeleteCollege}
                     userRole={userRole}
                     user={user}
+                    onViewDetails={(college) => setDetailsCollege(college)}
                   />
                 </td>
               </tr>
@@ -207,6 +252,18 @@ const CollegeTable = ({
           Next <FaAngleRight />
         </button>
       </div>
+
+      {/* Modal to show full college info */}
+      <Modal
+        show={!!detailsCollege}
+        onClose={() => setDetailsCollege(null)}
+        title={`Details of ${detailsCollege?.name || "College"}`}
+        width="600px"
+      >
+        <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+          <CollegeDetailsModal college={detailsCollege} />
+        </div>
+      </Modal>
     </>
   );
 };

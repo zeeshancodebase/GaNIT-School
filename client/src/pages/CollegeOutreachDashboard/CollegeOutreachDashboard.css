@@ -436,3 +436,18 @@ position: relative;
   transform: rotate(-10deg);
 }
 
+
+.contact-link {
+  color: #0077cc;
+  text-decoration: underline;
+  margin-right: 6px;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+

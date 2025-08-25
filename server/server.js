@@ -32,7 +32,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/candidates', candidateRoutes);
 app.use("/api/colleges", collegeRoutes);
-app.use("/api", logRoutes);
+app.use("/api/activityLogs", logRoutes);
 
 
 // // Routes

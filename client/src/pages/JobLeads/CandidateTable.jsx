@@ -7,6 +7,7 @@ import CandidateActionsDropdown from "./CandidateActionsDropdown";
 import { toast } from "react-toastify";
 import Modal from "../../components/Modal/Modal";
 import CandidateDetailsModal from "./CandidateDetailsModal";
+import CopyToClipboard from "../../components/CopyToClipboard/CopyToClipboard";
 
 const CandidateTable = ({
   candidates,
@@ -80,32 +81,52 @@ const CandidateTable = ({
                     >
                       {candidate.name}
                     </td>
-                    <td
-                      onClick={() => setDetailsCandidate(candidate)}
-                      style={{ cursor: "pointer", fontWeight: "500" }}
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          setDetailsCandidate(candidate);
-                        }
-                      }}
-                      aria-label={`View details of ${candidate.name}`}
-                    >
-                      {candidate.mobile}
+                    <td>
+                      {candidate.mobile ? (
+                        <>
+                          <a
+                            href={`tel:${candidate.mobile}`}
+                            className="contact-link"
+                          >
+                            {candidate.mobile}
+                          </a>
+                          <CopyToClipboard
+                            text={candidate.mobile}
+                            ariaLabel={`Copy phone number ${candidate.mobile}`}
+                            successMessage="Phone number copied to clipboard!"
+                            disabled={!candidate.mobile}
+                            className="copy-btn"
+                            size={16}
+                          />
+                        </>
+                      ) : (
+                        <i className="clg-placeholder-text">N/A</i>
+                      )}
                     </td>
-                    <td
-                      onClick={() => setDetailsCandidate(candidate)}
-                      style={{ cursor: "pointer", fontWeight: "500" }}
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          setDetailsCandidate(candidate);
-                        }
-                      }}
-                      aria-label={`View details of ${candidate.name}`}
-                    >
-                      {candidate.email}
+
+                    <td>
+                      {candidate.email ? (
+                        <>
+                          <a
+                            href={`mailto:${candidate.email}`}
+                            className="contact-link"
+                          >
+                            {candidate.email}
+                          </a>
+                          <CopyToClipboard
+                            text={candidate.email}
+                            ariaLabel={`Copy email ${candidate.email}`}
+                            successMessage="Email copied to clipboard!"
+                            disabled={!candidate.email}
+                            className="copy-btn"
+                            size={16}
+                          />
+                        </>
+                      ) : (
+                        <i className="clg-placeholder-text">N/A</i>
+                      )}
                     </td>
+
                     <td>{getJobTitle(candidate.appliedFor)}</td>
                     <td>
                       {candidate.outreachDetails?.status === "New" ? (
@@ -243,8 +264,11 @@ const CandidateTable = ({
             onClose={() => setDetailsCandidate(null)}
             title={`Details of ${detailsCandidate?.name || "Candidate"}`}
             width="600px"
-          > <div style={{ maxHeight: "500px", overflowY: "auto" }}>
-            <CandidateDetailsModal candidate={detailsCandidate} /></div>
+          >
+            {" "}
+            <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+              <CandidateDetailsModal candidate={detailsCandidate} />
+            </div>
           </Modal>
         </>
       )}

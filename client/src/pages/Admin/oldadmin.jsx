@@ -1,3 +1,5 @@
+// this is the admin page without the candidate and college outreach just job and hr list
+
 
 import JobList from "./Jobs/JobList";
 

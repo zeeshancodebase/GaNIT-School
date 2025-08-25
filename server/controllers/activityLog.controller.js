@@ -4,10 +4,11 @@ const activityLogModel = require("../models/activityLogModel");
 exports.getActivityLogs = async (req, res, next) => {
   const { modelType, modelId } = req.params;
   try {
-    const logs = await activityLogModel.find({
-      modelId,
-      modelType,
-    })
+      const query = {};
+    if (modelType) query.modelType = modelType;
+    if (modelId) query.modelId = modelId;
+
+    const logs = await activityLogModel.find(query)
       .populate("changedBy", "name email")
       .sort({ createdAt: -1 });
 

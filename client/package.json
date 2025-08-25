@@ -9,6 +9,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.10.0",
+    "file-saver": "^2.0.5",
     "framer-motion": "^12.23.6",
     "jwt-decode": "^4.0.0",
     "react-datepicker": "^8.5.0",
@@ -20,7 +21,8 @@
     "react-toastify": "^11.0.5",
     "sweetalert2": "^11.22.2",
     "swiper": "^11.2.10",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

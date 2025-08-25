@@ -9,6 +9,10 @@ const { getActivityLogs } = require("../controllers/activityLog.controller");
 // Protect all routes
 router.use(authMiddleware);
 
-router.get('/activityLogs/:modelType/:modelId', getActivityLogs);
+// Specific logs by model
+router.get("/:modelType/:modelId", getActivityLogs);
+
+// ✅ All logs (for Admin Dashboard)
+router.get("/", getActivityLogs);
 
 module.exports = router;

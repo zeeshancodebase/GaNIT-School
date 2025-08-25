@@ -13,7 +13,7 @@ import ContactUs from './pages/ContactUs/ContactUs';
 import LiveClasses from './pages/LiveClasses/LiveClasses';
 import CourseDetails from './pages/CourseDetails/CourseDetails';
 import LoginPage from './pages/LoginPage/LoginPage';
-import Admin from './pages/Admin/Admin';
+import AdminDashboard from './pages/Admin/AdminDashboard';
 import HRhome from './pages/HRpages/HRhome';
 import JobPage from './pages/Admin/Jobs/JobPage';
 import HRManagement from './pages/Admin/HRManagement/HRManagement';
@@ -52,7 +52,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
           {/* <Route path="/faculty/profile" element={<FacultyProfile />} /> */}
-          <Route path="/super-admin-panel" element={<Admin />} />
+          <Route path="/super-admin-panel" element={<AdminDashboard />} />
           <Route path="/super-admin/jobs" element={<JobPage />} />
           <Route path="/jobs" element={<JobPage />} />
           <Route path="/jobs/apply-now/:jobId" element={<CandidateForm />} />

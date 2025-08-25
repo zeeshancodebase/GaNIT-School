@@ -22,6 +22,7 @@ const CollegeActionsDropdown = ({
   handleDeleteCollege,
   userRole,
   user,
+  onViewDetails,
 }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -187,7 +188,21 @@ const CollegeActionsDropdown = ({
           </li>
 
           {/* View Full Details */}
-          <li className="dropdown-item" role="menuitem">
+          <li
+            className="dropdown-item"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => {
+              onViewDetails(college);
+              setOpen(false);
+            }}
+            onKeyDown={(e) =>
+              onKeyDownMenuItem(e, () => {
+                onViewDetails(college);
+                setOpen(false);
+              })
+            }
+          >
             <FaListAlt className="dropdown-icon" />
             View Details
           </li>

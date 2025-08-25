@@ -28,6 +28,7 @@ import UpdateOutreachModal from "./UpdateOutreachModal.jsx";
 import ActivityLogsModal from "../CollegeOutreachDashboard/ActivityLogsModal.jsx";
 import EditCandidateForm from "./EditCandidateForm.jsx";
 import CandidateTable from "./CandidateTable.jsx";
+import { exportJsonToExcel } from "../../utils/exportHelpers.js";
 
 const statuses = [
   "New",
@@ -257,6 +258,44 @@ const CandidateOutreachDashboard = () => {
     }
   }, [user, dispatch, filters]);
 
+
+
+const handleExport = () => {
+  if (!candidates || candidates.length === 0) {
+    toast.info("No candidates to export!");
+    return;
+  }
+
+  // Optional: Map columns if you want friendly headers
+  const columnsMap = {
+    name: "Name",
+    email: "Email",
+    mobile: "Mobile",
+    preferredCourse: "Preferred Course",
+    status: "Status",
+    note: "Note",
+    followUpDate: "Follow-Up Date",
+  };
+
+  // Format data to match columnsMap keys if needed
+  const exportData = candidates.map((candidate) => {
+    const outreach = candidate.outreachDetails || {};
+    return {
+      name: candidate.name || "",
+      email: candidate.email || "",
+      mobile: candidate.mobile || "",
+      preferredCourse: candidate.preferredCourse || "",
+      status: outreach.status || "",
+      note: outreach.note || "",
+      followUpDate: outreach.followUpDate || "",
+    };
+  });
+
+  exportJsonToExcel(exportData, "Candidates_Outreach", columnsMap);
+};
+
+
+
   return (
     <Layout>
       <div className="clg-container">
@@ -264,7 +303,7 @@ const CandidateOutreachDashboard = () => {
           <h2 className="clg-page-title">Students Outreach Tracker</h2>
           <button
             className="btn-secondary btn-with-icon"
-            onClick={() => toast.info("Export functionality coming soon!")}
+            onClick={handleExport}
           >
             Export as Excel <FaDownload />
           </button>

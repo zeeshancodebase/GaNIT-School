@@ -6,7 +6,7 @@ const Testimonials = () => {
   return (
     <div>
          <Navbar/>
-      <TestimonialsSection/>
+      <TestimonialsSection  showViewAll = {false }/>
     </div>
   )
 }

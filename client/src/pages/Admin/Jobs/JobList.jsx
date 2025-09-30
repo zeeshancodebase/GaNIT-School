@@ -214,9 +214,9 @@ const JobList = ({
                       <button
                         className="btn-delete"
                         onClick={() => handleDelete(job._id)}
-                        // disabled={deletingId === job._id}
-                        disabled
-                        style={{ cursor: "not-allowed", opacity: 0.5 }}
+                        disabled={deletingId === job._id}
+                        // disabled
+                        // style={{ cursor: "not-allowed", opacity: 0.5 }}
                       >
                         {deletingId === job._id ? (
                           <ClipLoader size={14} color="#fff" />

@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import JobBoard from "../../components/JobBoard/JobBoard";
 import CareerTracksSection from "../../components/CareerTracks/CareerTracksSection";
 import CoursesSection from "../../components/Courses/CoursesSection";
-import FacultiesSection from "../../components/FacultiesSection/FacultiesSection";
+// import FacultiesSection from "../../components/FacultiesSection/FacultiesSection";
 import TestimonialsSection from "../../components/TestimonialsSection/TestimonialsSection";
 import Hero from "../../components/Hero/Hero";
 
@@ -27,11 +27,11 @@ const Home = () => {
       {/* Courses */}
       <CoursesSection showViewAll={true} />
 
-      {/* Faculties Section */}
-      <FacultiesSection />
+      {/* Faculties Section 
+      <FacultiesSection />*/}
 
       {/* Testimonials */}
-        <TestimonialsSection showViewAll={true}/>
+        <TestimonialsSection showViewAll={true} limit={3}/>
         
       {/* Footer */}
       <Footer />

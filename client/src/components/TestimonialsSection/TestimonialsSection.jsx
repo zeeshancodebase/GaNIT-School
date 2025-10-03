@@ -60,6 +60,46 @@ const testimonials = [
     name: "Umme Rumana",
     text: "I always thought coding is enough for placements and ignored aptitude. I even struggled in my first round. Later, I joined Fahim sir’s 60 hours master class, and it really helped me understand concepts I used to fear a lot.",
     rating: 5,
+  },
+  {
+    name: "Rakshitha",
+    text: "I am Rakshitha from Hubli. I attended aptitude classes of Fahim sir. His examples, practice sheets, and interactive style made the sessions very engaging. Now I feel much more comfortable with aptitude. Thank you sir.",
+    rating: 5,
+  },
+  {
+    name: "Rashmi Kulkarni",
+    text: "Hi I am Rashmi Kulkarni from Belgavi. Fahim sir’s aptitude classes made me realize how important aptitude is for placements and government exams. His shortcuts and problem-solving methods improved my calculation speed a lot.",
+    rating: 5,
+  },
+  {
+    name: "Sandeep Jain",
+    text: "My name is Sandeep Jain. I attended FM sir’s aptitude sessions and they really helped me in my placement preparation. The way he explains from basics made me understand concepts easily.",
+    rating: 5,
+  },
+  {
+    name: "Siddalingesh",
+    text: "I'm Siddalingesh. The classes were more interactive and interesting. The 12 days training session was absolutely productive. THANK YOU sir for your wonderful teaching.",
+    rating: 5,
+  },
+  {
+    name: "Venkatesh M B",
+    text: "Fahim sir’s aptitude classes were very effective and well-structured. His clear explanations and problem-solving techniques make even tough questions easy to understand. The step-by-step approach builds strong confidence in solving aptitude problems. Overall, the sessions are engaging, practical, and highly beneficial for preparation. Thank you, Fahim sir.",
+    rating: 5,
+  },
+  {
+    name: "S. M Varun",
+    text: "Training was very good.",
+    rating: 4,
+  },
+  {
+    name: "Dhanushri G H",
+    text: "It was a great session. We learned a lot of tricks which will help us a lot.",
+    rating: 5,
+  },
+  {
+    name: "Amogha D",
+    text: "I'm Amogha D. The way Fahim Sir teaches is awesome. He doesn’t rush when it comes to making us understand the methods or tricks to solve problems. He explains the questions in the easiest way possible and also makes us solve them ourselves.",
+    rating: 5,
   }
 ];
 

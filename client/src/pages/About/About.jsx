@@ -36,22 +36,22 @@ const facultyData = [
       "LLMs",
     ],
   },
-  {
-    name: "Zeeshan Patel",
-    role: "Head of Technology & Java Program Lead",
-    // description:
-    //   "Over 2 years of experience in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
-    description:
-      "Experienced in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
-    photo: "/assets/images/zeeshan.jpg",
-    expertise: [
-      "Java",
-      "MERN Stack",
-      "RESTful APIs",
-      "Full Stack Development",
-      "Agile Methodologies",
-    ],
-  },
+  // {
+  //   name: "Zeeshan Patel",
+  //   role: "Head of Technology & Java Program Lead",
+  //   // description:
+  //   //   "Over 2 years of experience in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
+  //   description:
+  //     "Experienced in Full Stack development and software engineering. Passionate about teaching, mentoring & Creating Seamless Digital Experience.",
+  //   photo: "/assets/images/zeeshan.jpg",
+  //   expertise: [
+  //     "Java",
+  //     "MERN Stack",
+  //     "RESTful APIs",
+  //     "Full Stack Development",
+  //     "Agile Methodologies",
+  //   ],
+  // },
 ];
 
 const About = () => {

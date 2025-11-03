@@ -57,7 +57,8 @@ const Footer = () => {
             <p>
               <FaEnvelope/> <a href="mailto:gravitasacademy.india@gmail.com">gravitasacademy.india@gmail.com</a>
             </p>
-            <p> <FaPhone/> +91-6361366236</p>
+            {/* <p> <FaPhone/> +91-6361366236</p> */}
+            <p> <FaPhone/> +91-7760742144</p>
           </div>
         </div>
       </footer>

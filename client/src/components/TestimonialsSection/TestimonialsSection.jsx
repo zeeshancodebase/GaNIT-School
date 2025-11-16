@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FaArrowRight, FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const SHEET_ID = "1kQ-tBHlg5ei7T5PfkxsGzsy6uEityZGi959uuOHZt00";
+const SHEET_ID = "1QZH7SVQaqmFwOtfU-kHVh6ftMwfMeweoE8q8JknkBNY";
 const SHEET_NAME = "Testimonials"; // tab name in your sheet
 
 const GOOGLE_SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(
   SHEET_NAME
 )}`;
-
+// https://docs.google.com/spreadsheets/d/1QZH7SVQaqmFwOtfU-kHVh6ftMwfMeweoE8q8JknkBNY/edit?usp=sharing
 const TestimonialsSection = ({ showViewAll = true, limit }) => {
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);

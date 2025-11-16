@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa6";
 import './TestimonialsRatingsSummary.css'
 
-const SHEET_ID = "1kQ-tBHlg5ei7T5PfkxsGzsy6uEityZGi959uuOHZt00";
+const SHEET_ID = "1QZH7SVQaqmFwOtfU-kHVh6ftMwfMeweoE8q8JknkBNY";
 const SHEET_NAME = "Testimonials";
 
 const GOOGLE_SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(
   SHEET_NAME
 )}`;
+
+// https://docs.google.com/spreadsheets/d/1QZH7SVQaqmFwOtfU-kHVh6ftMwfMeweoE8q8JknkBNY/edit?usp=sharing
+
 
 const TestimonialsRatingsSummary = () => {
   const [stats, setStats] = useState({

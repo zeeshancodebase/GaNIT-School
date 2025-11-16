@@ -1,14 +1,20 @@
-import React from 'react'
-import TestimonialsSection from '../../components/TestimonialsSection/TestimonialsSection'
-import Navbar from '../../components/Navbar/Navbar'
+import React from "react";
+import TestimonialsSection from "../../components/TestimonialsSection/TestimonialsSection";
+import Navbar from "../../components/Navbar/Navbar";
+import VideoTestimonials from "../../components/TestimonialsSection/VideoTestimonials";
+import Footer from "../../components/Footer/Footer";
+import TestimonialsRatingsSummary from "../../components/TestimonialsSection/TestimonialsRatingsSummary";
 
 const Testimonials = () => {
   return (
     <div>
-         <Navbar/>
-      <TestimonialsSection  showViewAll = {false }/>
+      <Navbar />
+      <VideoTestimonials/>
+      <TestimonialsRatingsSummary/>
+      <TestimonialsSection showViewAll={false} />
+      <Footer/>
     </div>
-  )
-}
+  );
+};
 
-export default Testimonials
+export default Testimonials;

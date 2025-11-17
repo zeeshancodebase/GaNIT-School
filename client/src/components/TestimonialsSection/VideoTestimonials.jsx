@@ -4,28 +4,30 @@ const TESTIMONIAL_LINKS =
 
 function convertToEmbedUrl(url) {
   try {
-    // Handles links like:
-    // https://www.youtube.com/watch?v=VIDEO_ID
-    // https://youtu.be/VIDEO_ID
-    const youtubeWatch = "watch?v=";
-    const shortYouTube = "youtu.be/";
-
-    if (url.includes(youtubeWatch)) {
-      const id = url.split(youtubeWatch)[1].split("&")[0];
+    // Standard YouTube watch URLs
+    if (url.includes("watch?v=")) {
+      const id = url.split("watch?v=")[1].split("&")[0];
       return `https://www.youtube.com/embed/${id}`;
     }
 
-    if (url.includes(shortYouTube)) {
-      const id = url.split(shortYouTube)[1].split("?")[0];
+    // youtu.be short links
+    if (url.includes("youtu.be/")) {
+      const id = url.split("youtu.be/")[1].split("?")[0];
       return `https://www.youtube.com/embed/${id}`;
     }
 
-    // If it's already an embed or something else, just return as is
+    // YouTube Shorts
+    if (url.includes("/shorts/")) {
+      const id = url.split("/shorts/")[1].split("?")[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+
     return url;
   } catch {
     return url;
   }
 }
+
 
 const VideoTestimonials = () => {
   const [videos, setVideos] = useState([]);

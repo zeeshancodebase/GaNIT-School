@@ -41,7 +41,7 @@ const coursesData = [
     icon: <FaPython />,
   },
   {
-    title: "QuantXpert ( Mastering Quantitative Aptitude )",
+    title: "Applied Generative AI certificate program",
     info: "16 Weeks • From Basics to Advanced",
     faculty: "Fahim Makandar",
     reviews: "4.9 (530 reviews)",
@@ -49,6 +49,15 @@ const coursesData = [
     students: "1,560",
     icon: <FaBrain />,
   },
+  // {
+  //   title: "QuantXpert ( Mastering Quantitative Aptitude )",
+  //   info: "16 Weeks • From Basics to Advanced",
+  //   faculty: "Fahim Makandar",
+  //   reviews: "4.9 (530 reviews)",
+  //   duration: "16 weeks",
+  //   students: "1,560",
+  //   icon: <FaBrain />,
+  // },
   
   // {
   //   title: "Full Stack Web Development",
@@ -132,10 +141,10 @@ const CoursesSection = ({ showViewAll = true }) => {
         <div className="container">
           <div className="tracks-title-container">
             <h2 className="courses-tracks-title">
-              Top <span className="highlight">Courses</span>
+              Top <span className="highlight">Programs</span>
             </h2>
             <p>
-              Our top courses, expertly crafted to support your learning journey
+              Our top programs, expertly crafted to support your learning journey
             </p>
           </div>
           <div className="carousel-wrapper">

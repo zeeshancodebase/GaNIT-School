@@ -3,7 +3,7 @@ import "./Hero.css";
 import { FaPlay, 
   // FaUserCircle 
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (<>
@@ -33,12 +33,12 @@ const Hero = () => {
               Learn Java, Python, Aptitude, Full Stack & Crack Your Dream Job
             </p>
             <div className="hero-buttons">
-              <Link to="/courses" className="btn primary">
-                Explore Courses
-              </Link>
-              <Link to="https://youtu.be/FXJgTw-tjOU?si=_lFxRB7ELj9i0aL6" className="btn secondary">
-                <FaPlay className="play-icon" /> Watch Demo Class
-              </Link>
+              <a href="/pages/courses.html"  className="btn primary">
+                Explore Certificate programs
+              </a>
+              <a href="/pages/courses.html" className="btn secondary">
+                <FaPlay className="play-icon" /> Internships
+              </a>
             </div>
             {/* <div className="students-note">
               <div className="avatar-group">

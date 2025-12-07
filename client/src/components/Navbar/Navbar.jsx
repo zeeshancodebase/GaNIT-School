@@ -84,15 +84,15 @@ const Navbar = () => {
                   <FaBriefcase /> Job Portal
                 </NavLink>
                 <NavLink to="/super-admin/HRManagement">
-                  <FaUserTie size={20} style={{paddingRight:"5px"}} />
+                  <FaUserTie size={20} style={{ paddingRight: "5px" }} />
                   HRs
                 </NavLink>
                 <NavLink to="/super-admin/Leads">
-                  <FaUsers size={20} style={{paddingRight:"5px"}} />
+                  <FaUsers size={20} style={{ paddingRight: "5px" }} />
                   Leads
                 </NavLink>
                 <NavLink to="/college-outreach">
-                  <FaBuilding size={20} style={{paddingRight:"5px"}} />
+                  <FaBuilding size={20} style={{ paddingRight: "5px" }} />
                   Colleges
                 </NavLink>
                 {/* <NavLink to="/live">Live Classes</NavLink>
@@ -128,9 +128,11 @@ const Navbar = () => {
               {" "}
               <nav className={`nav-links ${isOpen ? "show" : ""}`}>
                 <NavLink to={homePath}>Home</NavLink>
-                <NavLink to="/career-tracks">Career Tracks</NavLink>
+                {/* <NavLink to="/career-tracks">Career Tracks</NavLink> */}
                 <NavLink to="/courses">Courses</NavLink>
-                <NavLink to="/live">Live Classes</NavLink>
+                <a href="/pages/courses.html">Certificate Programs</a>
+                <a href="/pages/courses.html">Internships</a>
+                {/* <NavLink to="/live">Live Classes</NavLink> */}
                 {/* <NavLink to="/job-board">Job Board</NavLink> */}
                 <NavLink to="/jobs">Job Board</NavLink>
                 <NavLink to="/about">About</NavLink>

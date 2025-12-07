@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Up Your Team - GANIT School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0056D2 0%, #003d96 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            animation-duration: 12s;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            left: 70%;
+            animation-duration: 15s;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            left: 40%;
+            animation-duration: 18s;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            left: 85%;
+            animation-duration: 14s;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            left: 25%;
+            animation-duration: 16s;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 50px 45px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 1;
+            animation: slideUpFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+        }
+
+        @keyframes slideUpFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Glowing border effect */
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00a8ff, #0056D2, #00d4ff, #0056D2);
+            border-radius: 25px;
+            z-index: -1;
+            background-size: 300% 300%;
+            animation: gradientShift 4s ease infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-header .icon {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .form-header h1 {
+            color: #0056D2;
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0056D2, #00a8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-header p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.3s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        .form-group:nth-child(3) { animation-delay: 0.5s; }
+        .form-group:nth-child(4) { animation-delay: 0.6s; }
+        .form-group:nth-child(5) { animation-delay: 0.7s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .form-group label .required {
+            color: #ff0000;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0056D2;
+            box-shadow: 0 0 0 4px rgba(0, 86, 210, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #0056D2, #00a8ff);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 0 8px 25px rgba(0, 86, 210, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.8s backwards;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 86, 210, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+            animation: fadeIn 1s ease-out 1s backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .back-link a:hover {
+            transform: translateX(-5px);
+            text-decoration: underline;
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: successPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        @keyframes successPop {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-message strong {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            display: none;
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 25px;
+            animation: shake 0.5s ease;
+            box-shadow: 0 10px 30px rgba(244, 67, 54, 0.4);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 40px 30px;
+            }
+
+            .form-header h1 {
+                font-size: 2rem;
+            }
+
+            .form-header .icon {
+                font-size: 3.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="form-container">
+        <div class="form-header">
+            <div class="icon">🚀</div>
+            <h1>Level Up Your Team</h1>
+            <p>Empower your organization with cutting-edge Generative AI training. We'll call you back within 24 hours.</p>
+        </div>
+
+        <div id="successMessage" class="success-message">
+            <strong>✓ Request Submitted!</strong>
+            Thank you! Our team will contact you within 24 hours to discuss your AI training needs.
+        </div>
+
+        <div id="errorMessage" class="error-message">
+            ⚠ Oops! Something went wrong. Please try again.
+        </div>
+
+        <form id="organizationForm" onsubmit="handleSubmit(event)">
+            
+            <div class="form-group">
+                <label>Organization Name <span class="required">*</span></label>
+                <input type="text" name="orgName" required placeholder="Enter your organization name">
+            </div>
+
+            <div class="form-group">
+                <label>Organization Type <span class="required">*</span></label>
+                <select name="orgType" required>
+                    <option value="">Select type</option>
+                    <option value="College/University">College/University</option>
+                    <option value="School">School</option>
+                    <option value="Corporate Company">Corporate Company</option>
+                    <option value="Training Institute">Training Institute</option>
+                    <option value="Government Organization">Government Organization</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Contact Person <span class="required">*</span></label>
+                    <input type="text" name="contactName" required placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label>Designation <span class="required">*</span></label>
+                    <input type="text" name="designation" required placeholder="Your role">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" name="email" required placeholder="email@company.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone <span class="required">*</span></label>
+                    <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX" pattern="[0-9+\s-]+">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Expected Participants</label>
+                    <input type="number" name="participants" min="1" placeholder="e.g., 50">
+                </div>
+
+                <div class="form-group">
+                    <label>Location <span class="required">*</span></label>
+                    <input type="text" name="location" required placeholder="City, State">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Comments</label>
+                <textarea name="comments" placeholder="Tell us about your training requirements..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span>📞 Request a Call Back</span>
+            </button>
+        </form>
+
+        <div class="back-link">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // ========== GOOGLE FORM INTEGRATION ==========
+        // Replace with your Google Form action URL
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSd4-G2DaTgQft19Z9PrxMTj9EdCzvfLjezxYqSGP5iUH-zEdQ/formResponse';
+        
+        // Map form fields to Google Form entry IDs
+        const FORM_FIELD_MAPPING = {
+            'orgName': 'entry.778705205',
+            'orgType': 'entry.383616779',
+            'contactName': 'entry.466317363',
+            'designation': 'entry.2147430493',
+            'email': 'entry.781769536',
+            'phone': 'entry.247233773',
+            'participants': 'entry.314450415',
+            'location': 'entry.10727330',
+            'comments': 'entry.189364151'
+        };
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Disable submit button with loading animation
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> <span>Submitting...</span>';
+            
+            // Create FormData for Google Forms
+            const formData = new FormData();
+            const form_elements = form.elements;
+            
+            // Map form fields to Google Form entry IDs
+            for (let key in FORM_FIELD_MAPPING) {
+                const value = form_elements[key]?.value || '';
+                if (value) {
+                    formData.append(FORM_FIELD_MAPPING[key], value);
+                }
+            }
+            
+            // Submit to Google Forms
+            fetch(GOOGLE_FORM_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            })
+            .then(() => {
+                // Show success message
+                successMessage.style.display = 'block';
+                form.style.display = 'none';
+                
+                // Scroll to top smoothly
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Redirect after 5 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 5000);
+            })
+            .catch(error => {
+                // Show error message
+                errorMessage.style.display = 'block';
+                console.error('Error:', error);
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>📞 Request a Call Back</span>';
+                
+                // Hide error after 5 seconds
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            });
+        }
+
+        // Add smooth scroll reveal effect
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effect to input fields
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

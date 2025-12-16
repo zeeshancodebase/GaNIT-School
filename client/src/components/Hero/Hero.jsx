@@ -36,7 +36,7 @@ const Hero = () => {
               <a href="/pages/courses.html"  className="btn primary">
                 Explore Certificate programs
               </a>
-              <a href="/pages/courses.html" className="btn secondary">
+              <a href="https://ganitschool.akamai.net.in" className="btn secondary">
                 <FaPlay className="play-icon" /> Internships
               </a>
             </div>

@@ -24,7 +24,7 @@ import { Navigation, Pagination } from "swiper/modules";
 
 const coursesData = [
   {
-    title: "JavaNova – Full Stack Java Developer with AI Edge",
+    title: "Full Stack java Internship program",
     info: "16 Weeks • Wanna be the best developer?",
     faculty: "Zeeshan Patel",
     reviews: "4.7 (310 reviews)",
@@ -32,7 +32,7 @@ const coursesData = [
     students: "980",
     icon: <FaJava />,
   },{
-    title: "PyVerse – The AI Stack Mastery Program",
+    title: "AIML Internship Program",
     info: "16 Weeks •Wanna be a data scientist?",
     faculty: "Uday Hiremath",
     reviews: "4.8 (420 reviews)",
@@ -49,6 +49,32 @@ const coursesData = [
     students: "1,560",
     icon: <FaBrain />,
   },
+  // {
+  //   title: "JavaNova – Full Stack Java Developer with AI Edge",
+  //   info: "16 Weeks • Wanna be the best developer?",
+  //   faculty: "Zeeshan Patel",
+  //   reviews: "4.7 (310 reviews)",
+  //   duration: "16 weeks",
+  //   students: "980",
+  //   icon: <FaJava />,
+  // },{
+  //   title: "PyVerse – The AI Stack Mastery Program",
+  //   info: "16 Weeks •Wanna be a data scientist?",
+  //   faculty: "Uday Hiremath",
+  //   reviews: "4.8 (420 reviews)",
+  //   duration: "16 weeks",
+  //   students: "1,245",
+  //   icon: <FaPython />,
+  // },
+  // {
+  //   title: "Applied Generative AI certificate program",
+  //   info: "16 Weeks • From Basics to Advanced",
+  //   faculty: "Fahim Makandar",
+  //   reviews: "4.9 (530 reviews)",
+  //   duration: "16 weeks",
+  //   students: "1,560",
+  //   icon: <FaBrain />,
+  // },
   // {
   //   title: "QuantXpert ( Mastering Quantitative Aptitude )",
   //   info: "16 Weeks • From Basics to Advanced",

@@ -7,11 +7,11 @@ import { FaHome, FaEnvelope } from "react-icons/fa";
 
 const Logo = () => (
   <div className="logo">
-    <img src="/assets/images/logo10.png" alt="Logo" className="logo-image" />
+    {/* <img src="/assets/images/logo10.png" alt="Logo" className="logo-image" />
     <div className="logo-text">
       <span className="logo-ganit">GANIT</span>
       <span className="logo-school">School</span>
-    </div>
+    </div> */}
   </div>
 );
 
@@ -79,7 +79,7 @@ export default function SiteClosed() {
 
           <div className="closed-footnote">
             <span className="dot" />
-            <span>© 2025 GaNIT School</span>
+            {/* <span>© 2025 GaNIT School</span> */}
           </div>
         </div>
       </main>

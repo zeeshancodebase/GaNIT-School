@@ -2,7 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 // import { Provider } from 'react-redux';
 // import { store } from './app/store';
-import Home from './pages/Home/Home';
+// import Home from './pages/Home/Home';
 import CareerTracks from './pages/CareerTracksPage/CareerTracks';
 import CoursesPage from './pages/CoursesPage/CoursesPage';
 import JobBoardPage from './pages/Jobs/JobBoardPage';
@@ -27,6 +27,7 @@ import { Error } from './pages/Error/Error';
 import ThankYouPage from './pages/ThankYouPage';
 import CollegeOutreachDashboard from './pages/CollegeOutreachDashboard/CollegeOutreachDashboard';
 import CandidateOutreachDashboard from './pages/JobLeads/CandidateOutreachDashboard';
+import SiteClosed from './pages/Home/SiteClosed';
 // import Clglist from './pages/CollegeOutreachDashboard/Clglist';
 // import FacultyProfile from './pages/FacultyPage/FacultyProfile';
 // import UnderMaintenance from './pages/UnderMaintenance/UnderMaintenance'
@@ -38,7 +39,7 @@ function App() {
 
         <Routes>
           {/* Admin Routes */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<SiteClosed />} />
           <Route path="/career-tracks" element={<CareerTracks />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/course-details" element={<CourseDetails />} />
